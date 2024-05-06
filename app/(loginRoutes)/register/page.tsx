@@ -4,10 +4,18 @@ import { Label } from '@/components/ui/label';
 
 export default function Register () {
   return (
-    <div className="flex min-h-screen flex-col justify-between">
+    <div className='flex min-h-screen flex-col justify-center'>
       <h1>Register</h1>
-      <Label htmlFor="picture">Picture</Label>
-      <Input type="email" placeholder="Email" />
+      <div className='flex flex-row'>
+        <div className='flex flex-col'>
+          <Label>First Name</Label>
+          <Input type='email' placeholder='John' />
+        </div>
+        <div className='flex flex-col'>
+          <Label>First Name</Label>
+          <Input type='email' placeholder='John' />
+        </div>
+      </div>
     </div>
   );
 }
