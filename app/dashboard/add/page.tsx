@@ -1,3 +1,7 @@
 export default function Page() {
-  return (<p>Add Page</p>);
+  return (
+    <div className="">
+      <p>Add Page</p>
+    </div>
+  );
 }

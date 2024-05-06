@@ -1,4 +1,9 @@
+import React from 'react';
+
 export default function Page() {
-  return (<h1>Map Page</h1>
+  return (
+    <div>
+      <h1>Map Page</h1>
+    </div>
   )
 }
