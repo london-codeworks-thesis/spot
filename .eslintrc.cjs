@@ -29,6 +29,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-undef': 'off',
     'no-console': 'off',
+    'jsx-quotes': ["error", "prefer-single"],    
     eqeqeq: 'warn',
     'func-style': ['error', 'declaration'],
     'object-shorthand': 'off',
