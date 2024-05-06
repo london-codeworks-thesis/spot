@@ -25,6 +25,7 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/space-before-function-paren": "off",
+    "global-require":"off",
     'no-unused-vars': 'off',
     'no-undef': 'off',
     'no-console': 'off',
