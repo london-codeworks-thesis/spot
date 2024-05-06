@@ -9,6 +9,7 @@ export default function LandingPage () {
       <Image
         src={Logo}
         width={150}
+        height={150}
         alt="Spot logo white"
         className="pt-[20vh]"
       />
