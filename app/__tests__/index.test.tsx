@@ -6,6 +6,6 @@ import LandingPage from '@/(loginRoutes)/(landingPage)/page';
 describe('Home', () => {
   it('renders a heading', () => {
     render(<LandingPage />);
-    expect(screen.getByText('Welcome')).toBeDefined();
+    expect(screen.getByText('Log In')).toBeDefined();
   });
 });
