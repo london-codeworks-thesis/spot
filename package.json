@@ -10,10 +10,12 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier-eslint --write \"**/*{.json,.js,.jsx,.ts,.tsx}\" && tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "test:ui": "vitest --ui --coverage",
     "coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
   },
   "dependencies": {
     "@next/env": "^14.2.3",
