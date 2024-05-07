@@ -12,7 +12,7 @@ export default function Page () {
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
   return (
-    <div className=''>
+    <div className='p-6'>
       <div className='flex w-full flex-col gap-4'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
