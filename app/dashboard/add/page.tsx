@@ -38,7 +38,7 @@ export default function Page () {
                     console.log(food);
                   }}
                   allowHalf
-                  style={{ color: '#7950f2' }}
+                  style={{ color: 'black' }}
                 />
                 <Label className='text-md flex w-20 items-center justify-between'>
                   Value
@@ -52,7 +52,7 @@ export default function Page () {
                     console.log(value);
                   }}
                   allowHalf
-                  style={{ color: '#7950f2' }}
+                  style={{ color: 'black' }}
                 />
                 <Label className='text-md flex w-20 items-center justify-between'>
                   Vibe
@@ -66,26 +66,24 @@ export default function Page () {
                     console.log(vibe);
                   }}
                   allowHalf
-                  style={{ color: '#7950f2' }}
+                  style={{ color: 'black' }}
                 />
               </div>
               <div className='flex w-3/6 flex-col items-center gap-2 pt-6'>
-                <Card className='flex h-16 w-24 items-center justify-center bg-violet-700'>
-                  <h1 className='text-lg font-bold text-white'>{food}</h1>
+                <Card className='flex h-16 w-24 items-center justify-center'>
+                  <h1 className='text-lg font-bold text-black'>{food}</h1>
                 </Card>
-                <Card className='flex h-16 w-24 items-center justify-center bg-violet-700'>
-                  <h1 className='text-lg font-bold text-white'>{value}</h1>
+                <Card className='flex h-16 w-24 items-center justify-center'>
+                  <h1 className='text-lg font-bold text-black'>{value}</h1>
                 </Card>
-                <Card className='flex h-16 w-24 items-center justify-center bg-violet-700'>
-                  <h1 className='text-lg font-bold text-white'>{vibe}</h1>
+                <Card className='flex h-16 w-24 items-center justify-center'>
+                  <h1 className='text-lg font-bold text-black'>{vibe}</h1>
                 </Card>
               </div>
             </CardContent>
           </Card>
           <div className='flex w-11/12 flex-col gap-2'>
-            <Button className='h-12 bg-violet-600 hover:bg-violet-900'>
-              Submit
-            </Button>
+            <Button className='h-12'>Submit</Button>
             <Button variant='outline' className='h-12'>
               Cancel
             </Button>
