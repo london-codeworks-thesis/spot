@@ -83,7 +83,9 @@ export default function Page () {
             </CardContent>
           </Card>
           <div className='flex w-11/12 flex-col gap-2'>
-            <Button className='h-12 bg-violet-600'>Submit</Button>
+            <Button className='h-12 bg-violet-600 hover:bg-violet-900'>
+              Submit
+            </Button>
             <Button variant='outline' className='h-12'>
               Cancel
             </Button>
