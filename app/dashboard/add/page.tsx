@@ -11,9 +11,17 @@ export default function Page () {
   const [food, setFood] = useState(2.5);
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
+  function numberFixer (n: number): string | number {
+    if (n === 1) return '1.0';
+    if (n === 2) return '2.0';
+    if (n === 3) return '3.0';
+    if (n === 4) return '4.0';
+    if (n === 5) return '5.0';
+    return n;
+  }
   return (
     <div className=''>
-      <div className='flex w-full flex-col gap-4'>
+      <div className='flex w-full flex-col gap-6'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
           <Card className='h-56 w-11/12 bg-gray-50' />
@@ -71,22 +79,28 @@ export default function Page () {
               </div>
               <div className='flex w-3/6 flex-col items-center gap-2 pt-6'>
                 <Card className='flex h-16 w-24 items-center justify-center'>
-                  <h1 className='text-lg font-bold text-black'>{food}</h1>
+                  <h1 className='text-lg font-bold text-black'>
+                    {numberFixer(food)}
+                  </h1>
                 </Card>
                 <Card className='flex h-16 w-24 items-center justify-center'>
-                  <h1 className='text-lg font-bold text-black'>{value}</h1>
+                  <h1 className='text-lg font-bold text-black'>
+                    {numberFixer(value)}
+                  </h1>
                 </Card>
                 <Card className='flex h-16 w-24 items-center justify-center'>
-                  <h1 className='text-lg font-bold text-black'>{vibe}</h1>
+                  <h1 className='text-lg font-bold text-black'>
+                    {numberFixer(vibe)}
+                  </h1>
                 </Card>
               </div>
             </CardContent>
           </Card>
-          <div className='flex w-11/12 flex-col gap-2'>
-            <Button className='h-12'>Submit</Button>
-            <Button variant='outline' className='h-12'>
+          <div className='flex h-16 w-11/12 items-end gap-2'>
+            <Button variant='outline' className='h-12 w-3/6'>
               Cancel
             </Button>
+            <Button className='h-12 w-3/6'>Submit</Button>
           </div>
         </div>
       </div>
