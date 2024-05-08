@@ -13,8 +13,8 @@ export default function Page () {
   const [vibe, setVibe] = useState(2.5);
 
   return (
-    <div className='flex w-full justify-center'>
-      <div className='flex h-[80vh] w-[90%] flex-col gap-4'>
+    <div className='flex h-full w-full justify-center'>
+      <div className='flex h-full w-[90%] flex-col justify-around'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
           <Card className='h-56 w-full bg-gray-50' />
@@ -26,7 +26,7 @@ export default function Page () {
         <div className='flex w-full flex-col items-center justify-center gap-7'>
           <Card className='w-full bg-gray-50'>
             <CardContent className='flex gap-3 pb-7'>
-              <div className='flex w-4/6 flex-col gap-3 pt-6'>
+              <div className='flex w-2/3 flex-col gap-3 pt-6'>
                 <StarRatingSystem
                   Icon={Cookie}
                   Title='Food'
