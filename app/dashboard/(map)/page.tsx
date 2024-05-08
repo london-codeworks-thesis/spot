@@ -3,11 +3,11 @@
 import React from 'react';
 import Map, { Marker } from 'react-map-gl';
 import { Input } from '@/components/ui/input';
-import markerData from '../../lib/data';
+import data from '../../lib/data';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-const coordinates = markerData;
+const coordinates = data.markerData;
 
 export default function Page () {
   return (
