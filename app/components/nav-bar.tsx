@@ -17,7 +17,7 @@ import {
 
 export default function NavBar () {
   return (
-    <div className='flex w-full justify-evenly pb-3 pt-3 shadow-[0_-1px_24px_0px_rgba(0,0,0,0.1)]'>
+    <div className='flex w-full justify-evenly bg-white pb-3 pt-3 shadow-[0_-1px_24px_0px_rgba(0,0,0,0.1)]'>
       <Link href='/dashboard/home'>
         <Button variant='ghost'>
           <Home />
