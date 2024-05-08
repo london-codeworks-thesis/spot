@@ -1,17 +1,13 @@
 import React from 'react';
-import Link from 'next/link';
 import {
   Drawer,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerClose,
   DrawerTrigger,
+  DrawerHeader,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from './ui/label';
+import { Input } from './ui/input';
 import RestaurantSearchResultCard from './searchResultCard';
 
 type AddReviewButtonProps = {
@@ -25,37 +21,45 @@ export default function AddReviewButton ({ Icon }: AddReviewButtonProps) {
           <Icon />
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
-        <div className='mx-auto h-[90vh] w-full max-w-sm'>
-          <DrawerHeader>
-            <DrawerTitle>Visited a New Spot ?</DrawerTitle>
+      <DrawerContent className='flex h-[90vh] items-center'>
+        <div className='flex h-full w-[90%] flex-col gap-3'>
+          <DrawerHeader className='text-2xl font-extrabold'>
+            Visited a new spot?
           </DrawerHeader>
-          <div className='flex h-full w-full justify-center'>
-            <div className='flex h-[80%] w-[90%] flex-col gap-4 overflow-scroll'>
-              <Input
-                className='h-12 w-full shrink-0'
-                placeholder='Search for it and leave a review'
-              />
-              <Label className='text-md pb-3 pt-3'>Results</Label>
-              <div className='flex h-full flex-col gap-4 overflow-scroll scrollbar-none'>
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-                <RestaurantSearchResultCard />
-              </div>
-            </div>
+          <Input
+            className='h-12 shrink-0'
+            placeholder='Search for it and leave a review '
+          />
+          <div className='flex w-full flex-col gap-4 overflow-scroll pt-4 scrollbar-none'>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
+            <DrawerClose asChild>
+              <RestaurantSearchResultCard />
+            </DrawerClose>
           </div>
         </div>
-        <DrawerFooter className='absolute bottom-1 w-full'>
-          <DrawerClose asChild>
-            <Link href='/dashboard/add' className='w-full'>
-              <Button className='h-12 w-full'>Review</Button>
-            </Link>
-          </DrawerClose>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
