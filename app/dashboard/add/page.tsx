@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
 
+
 export default function Page () {
   const [food, setFood] = useState(2.5);
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
-
+  
   return (
     <div className='flex w-full justify-center'>
       <div className='flex h-[80vh] w-[90%] flex-col gap-4'>
