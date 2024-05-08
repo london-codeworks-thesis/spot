@@ -7,11 +7,32 @@ import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
 
+type Review = {
+  user_id: string;
+  restaurant_id: string;
+  rating: {
+    food: number;
+    value: number;
+    vibe: number;
+  };
+};
 export default function Page () {
   const [food, setFood] = useState(2.5);
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
 
+  function handleSubmit (): void {
+    const newReview: Review = {
+      user_id: '12345',
+      restaurant_id: '345788',
+      rating: {
+        food,
+        value,
+        vibe,
+      },
+    };
+    console.log(newReview);
+  }
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
@@ -57,7 +78,9 @@ export default function Page () {
             <Button variant='outline' className='h-12 w-[50%]'>
               Cancel
             </Button>
-            <Button className='h-12 w-[50%]'>Submit</Button>
+            <Button className='h-12 w-[50%]' onClick={() => handleSubmit()}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>
