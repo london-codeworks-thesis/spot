@@ -13,50 +13,52 @@ export default function Page () {
   const [vibe, setVibe] = useState(2.5);
 
   return (
-    <div className='flex h-[80vh] w-full flex-col gap-4'>
-      <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
-      <div className='flex w-full justify-center'>
-        <Card className='h-56 w-11/12 bg-gray-50' />
-      </div>
-      <div className='flex flex-col gap-2 pl-6'>
-        <h1 className='text-3xl font-extrabold'>Itsu</h1>
-        <h4 className='pb-1 text-sm'>60 Horseferry Rd, London, SW1P 2AF</h4>
-      </div>
-      <div className='flex w-full flex-col items-center justify-center gap-7'>
-        <Card className='w-11/12 bg-gray-50'>
-          <CardContent className='flex gap-3 pb-7'>
-            <div className='flex w-4/6 flex-col gap-3 pt-6'>
-              <StarRatingSystem
-                Icon={Cookie}
-                Title='Food'
-                valueType={food}
-                setValueType={setFood}
-              />
-              <StarRatingSystem
-                Icon={PiggyBank}
-                Title='Value'
-                valueType={value}
-                setValueType={setValue}
-              />
-              <StarRatingSystem
-                Icon={Flame}
-                Title='Vibe'
-                valueType={vibe}
-                setValueType={setVibe}
-              />
-            </div>
-            <div className='flex w-3/6 flex-col items-center gap-2 pt-6'>
-              <RatingCard ratingFor={food} />
-              <RatingCard ratingFor={value} />
-              <RatingCard ratingFor={vibe} />
-            </div>
-          </CardContent>
-        </Card>
-        <div className='mx-2 my-4 flex w-11/12 gap-2'>
-          <Button variant='outline' className='h-12 w-3/6'>
-            Cancel
-          </Button>
-          <Button className='h-12 w-3/6'>Submit</Button>
+    <div className='flex w-full justify-center'>
+      <div className='flex h-[80vh] w-[90%] flex-col gap-4'>
+        <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
+        <div className='flex w-full justify-center'>
+          <Card className='h-56 w-full bg-gray-50' />
+        </div>
+        <div className='flex flex-col gap-2 pb-1 pl-6 '>
+          <h1 className='text-3xl font-extrabold'>Itsu</h1>
+          <h4 className='text-sm'>60 Horseferry Rd, London, SW1P 2AF</h4>
+        </div>
+        <div className='flex w-full flex-col items-center justify-center gap-7'>
+          <Card className='w-full bg-gray-50'>
+            <CardContent className='flex gap-3 pb-7'>
+              <div className='flex w-4/6 flex-col gap-3 pt-6'>
+                <StarRatingSystem
+                  Icon={Cookie}
+                  Title='Food'
+                  valueType={food}
+                  setValueType={setFood}
+                />
+                <StarRatingSystem
+                  Icon={PiggyBank}
+                  Title='Value'
+                  valueType={value}
+                  setValueType={setValue}
+                />
+                <StarRatingSystem
+                  Icon={Flame}
+                  Title='Vibe'
+                  valueType={vibe}
+                  setValueType={setVibe}
+                />
+              </div>
+              <div className='flex w-[50%] flex-col items-center gap-2 pt-6'>
+                <RatingCard ratingFor={food} />
+                <RatingCard ratingFor={value} />
+                <RatingCard ratingFor={vibe} />
+              </div>
+            </CardContent>
+          </Card>
+          <div className='mx-2 my-4 flex w-full gap-2'>
+            <Button variant='outline' className='h-12 w-[50%]'>
+              Cancel
+            </Button>
+            <Button className='h-12 w-[50%]'>Submit</Button>
+          </div>
         </div>
       </div>
     </div>
