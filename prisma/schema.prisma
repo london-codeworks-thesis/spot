@@ -13,28 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Restaurant {
+  id String @id @default(uuid())
+  google_id String @unique
+  name String
+  address String 
+  phone String
+  google_maps_uri String 
+  price_level Price
+  type String 
+  opening_hours String[]
+  summary String 
+  image_url String?
+  latitude Float
+  longitude Float
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-}
-
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+enum Price {
+  EXPENSIVE
+  FREE
+  INEXPENSIVE
+  MODERATE
+  UNKNOWN
 }
