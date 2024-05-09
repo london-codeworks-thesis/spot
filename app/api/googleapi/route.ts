@@ -7,26 +7,25 @@ export async function GET () {
   });
 }
 
-export async function POST (request: Request) {
+export async function POST (request: any) {
   try {
-    const requestedData = await request.json();
     const res = await fetch(
-      'https://places.googleapis.com/v1/places:searchText',
+      'https://places.googleapis.com/v1/places:searchText?includedType=restaurant',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Goog-Api-Key': `${process.env.GOOGLE_API_KEY}`,
+          'X-Goog-Api-Key': `${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
           'X-Goog-FieldMask':
-            'places.displayName,places.formattedAddress,places.priceLevel,places.id',
+            'places.displayName,places.formattedAddress,places.id,places.primaryTypeDisplayName',
         },
-        body: JSON.stringify(requestedData),
+        body: JSON.stringify(request),
       },
     );
 
     const data = await res.json();
-    return NextResponse.json(data);
+    return data.places;
   } catch (error) {
-    console.log(error);
+    console.log('you are here');
   }
 }
