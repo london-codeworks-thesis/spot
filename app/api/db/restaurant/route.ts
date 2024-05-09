@@ -10,3 +10,4 @@ export async function POST () {
   const result = 'restaurant post';
   return NextResponse.json(result);
 }
+

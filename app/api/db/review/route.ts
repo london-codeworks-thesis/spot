@@ -6,6 +6,7 @@ export async function GET () {
   return NextResponse.json(result);
 }
 
+// add new review
 export async function POST (request) {
   const data = await request.json();
   const review = await prisma.review.create({
