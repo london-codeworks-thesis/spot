@@ -13,20 +13,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  password String
+  email String @unique
+  first_name String?
+  last_name String?
+  image_url String?
+  followers Follow[] @relation("Followers")
+  following Follow[] @relation("Following")
+  reviews Review[] @relation("UserReviews")
+}
+
+model Follow {
+  id String @id @default(uuid())
+  follower_user User @relation("Followers", fields: [follower_user_id], references: [id])
+  follower_user_id String 
+  following_user User @relation("Following", fields: [following_user_id], references: [id])
+  following_user_id String 
+  is_accepted Boolean
+  created_at DateTime
+  updated_at DateTime
+} 
+
 model Restaurant {
   id String @id @default(uuid())
   google_id String @unique
   name String
   address String 
-  phone String
-  google_maps_uri String 
-  price_level Price
-  type String 
+  phone String?
+  google_maps_uri String? 
+  price_level Price?
+  type String? 
   opening_hours String[]
-  summary String 
+  summary String? 
   image_url String?
   latitude Float
   longitude Float
+  reviews Review[] @relation("RestaurantReviews")
+}
+
+model Review {
+  id String @id @default(uuid())
+  user User @relation("UserReviews", fields: [user_id], references: [id])
+  user_id String
+  restaurant Restaurant @relation("RestaurantReviews", fields: [restaurant_id], references: [id])
+  restaurant_id String
+  rating_food Float
+  rating_value Float
+  rating_atmosphere Float
+  created_at DateTime
 }
 
 enum Price {
