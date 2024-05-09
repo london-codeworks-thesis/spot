@@ -6,17 +6,21 @@ const prisma = new PrismaClient();
 
 async function main () {
   console.log('seed start');
+
+  // empty database
   await prisma.review.deleteMany();
   await prisma.follow.deleteMany();
   await prisma.user.deleteMany();
   await prisma.restaurant.deleteMany();
 
+  // seed users
   for (const user of users) {
     await prisma.user.create({
       data: user,
     });
   }
 
+  // seed restaurants
   for (const restaurant of restaurants) {
     await prisma.restaurant.create({
       data: restaurant,
@@ -30,13 +34,13 @@ async function main () {
       },
     });
 
+    // seed ratings
     for (const restaurant of restaurants) {
       const selectedRestaurant = await prisma.restaurant.findUnique({
         where: {
           google_id: restaurant.google_id,
         },
       });
-
       await prisma.review.create({
         data: {
           user_id: selectedUser?.id,
@@ -49,6 +53,46 @@ async function main () {
       });
     }
   }
+
+  // seed followers // TBU
+  const firstUser = await prisma.user.findFirst();
+  const secondUser = await prisma.user.findFirst({ skip: 1 });
+  const thirdUser = await prisma.user.findFirst({ skip: 2 });
+
+  console.log(firstUser, secondUser, thirdUser);
+
+  await prisma.follow.createMany({
+    data: [
+      {
+        follower_user_id: secondUser?.id,
+        following_user_id: firstUser?.id,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: firstUser?.id,
+        following_user_id: secondUser?.id,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: secondUser?.id,
+        following_user_id: thirdUser?.id,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: thirdUser?.id,
+        following_user_id: firstUser?.id,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+    ],
+  });
 
   console.log('seed end');
 }
