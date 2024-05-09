@@ -19,8 +19,20 @@ type Restaurant = {
   displayName: DisplayName;
   primaryTypeDisplayName: PrimaryTypeDisplayName;
   formattedAddress: string;
+  photos: Photo[];
+};
+type Photo = {
+  name: string;
+  widthPx: number;
+  heightPx: number;
+  authorAttributions: AuthorAttributions[];
 };
 
+type AuthorAttributions = {
+  displayName: string;
+  uri: string;
+  photoUri: string;
+};
 type DisplayName = {
   text: string;
   languageCode: string;

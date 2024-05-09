@@ -1,10 +1,7 @@
-import { NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 
 export async function GET () {
-  return NextResponse.json({
-    hello: 'world',
-  });
+  return 'hey';
 }
 
 export async function POST (request: any) {
@@ -17,7 +14,7 @@ export async function POST (request: any) {
           'Content-Type': 'application/json',
           'X-Goog-Api-Key': `${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
           'X-Goog-FieldMask':
-            'places.displayName,places.formattedAddress,places.id,places.primaryTypeDisplayName',
+            'places.displayName,places.formattedAddress,places.id,places.primaryTypeDisplayName,places.photos',
         },
         body: JSON.stringify(request),
       },
@@ -26,6 +23,6 @@ export async function POST (request: any) {
     const data = await res.json();
     return data.places;
   } catch (error) {
-    console.log('you are here');
+    console.log('Error searching restaurants', error);
   }
 }

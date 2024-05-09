@@ -8,6 +8,7 @@ type Restaurant = {
   displayName: DisplayName;
   primaryTypeDisplayName: PrimaryTypeDisplayName;
   formattedAddress: string;
+  photos: Photo[];
 };
 
 type DisplayName = {
@@ -18,6 +19,19 @@ type DisplayName = {
 type PrimaryTypeDisplayName = {
   text: string;
   languageCode: string;
+};
+
+type Photo = {
+  name: string;
+  widthPx: number;
+  heightPx: number;
+  authorAttributions: AuthorAttributions[];
+};
+
+type AuthorAttributions = {
+  displayName: string;
+  uri: string;
+  photoUri: string;
 };
 
 type RestaurantSearchResultCardProps = {
@@ -40,7 +54,7 @@ export default function RestaurantSearchResultCard ({
               {restaurant.primaryTypeDisplayName !== undefined ? (
                 restaurant.primaryTypeDisplayName.text
               ) : (
-                <p>Restaurant</p>
+                <span>Restaurant</span>
               )}
             </p>
             <p className='flex items-center text-[.60rem] font-light text-slate-500'>
