@@ -8,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import AuthButtons from '@/components/authButtons';
 
 export default function Login () {
-  console.log(process.env.GOOGLE_CLIENT_ID);
   return (
     <main className='flex min-h-screen flex-col items-center'>
       <div className='flex h-[70v] w-4/5 flex-col items-start justify-center gap-8 pt-20'>
