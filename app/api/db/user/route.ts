@@ -7,23 +7,6 @@ export async function GET () {
 }
 
 export async function POST () {
-  const result = await prisma.user.createMany({
-    data: [{
-      username: 'sunnyanter',
-      password: 'sunnylovessam',
-      email: 'sunnyn@test.com',
-      first_name: 'sunny',
-      last_name: 'anter',
-      image_url: 'placeholder',
-    },
-    {
-      username: 'sampolge',
-      password: 'samlovessunny',
-      email: 'sam@test.com',
-      first_name: 'sam',
-      last_name: 'polge',
-      image_url: 'placeholder',
-    }],
-  });
+  const result = 'user post';
   return NextResponse.json(result);
 }

@@ -59,8 +59,6 @@ async function main () {
   const secondUser = await prisma.user.findFirst({ skip: 1 });
   const thirdUser = await prisma.user.findFirst({ skip: 2 });
 
-  console.log(firstUser, secondUser, thirdUser);
-
   await prisma.follow.createMany({
     data: [
       {
