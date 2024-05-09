@@ -26,6 +26,12 @@ async function getFollows () {
   console.log('DATA', data);
 }
 
+async function getPinned () {
+  const res = await fetch('http://localhost:3000/api/db/follow');
+  const data = await res.json();
+  console.log('DATA', data);
+}
+
 function Page () {
   return (
     <>
@@ -33,6 +39,7 @@ function Page () {
       <p onClick={getUsers}>Get all users</p>
       <p onClick={getReviews}>Get all reviews</p>
       <p onClick={getFollows}>Get all follows</p>
+      <p onClick={getPinned}>Get restaurants pinned for Sunny </p>
     </>
   );
 }
