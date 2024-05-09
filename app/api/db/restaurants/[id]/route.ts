@@ -17,7 +17,23 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
 
   const restaurants = await prisma.review.findMany({
     where: { user_id: { in: followedUserIds } },
-    select: { restaurant: true },
+    select: {
+      restaurant: {
+        include: {
+          reviews: {
+            select: {
+              user: {
+                select: {
+                  id: true,
+                  username: true,
+                  image_url: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     distinct: ['restaurant_id'],
   });
 
