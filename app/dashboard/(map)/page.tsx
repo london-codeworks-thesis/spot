@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import Map, { Marker } from 'react-map-gl';
+import Map from 'react-map-gl';
 import { Input } from '@/components/ui/input';
+import MarkerPopup from '@/components/markerPopup';
 import data from '../../lib/data';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -27,12 +28,7 @@ export default function Page () {
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         {coordinates.map((item) => (
-          <Marker
-            key={item[2]}
-            latitude={item[0]}
-            longitude={item[1]}
-            color='red'
-          />
+          <MarkerPopup markerData={item} key={item[2]} />
         ))}
       </Map>
     </div>
