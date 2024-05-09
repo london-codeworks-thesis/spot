@@ -3,6 +3,9 @@ import GoogleProvider from 'next-auth/providers/google';
 
 // eslint-disable-next-line import/prefer-default-export
 export const authConfig: NextAuthOptions = {
+  pages: {
+    signIn: '/login',
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID as string,

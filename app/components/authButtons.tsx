@@ -6,7 +6,7 @@ import AuthButton from '@/components/ui/authButton';
 
 export default function AuthButtons () {
   function handleClick (provider: string) {
-    signIn(provider);
+    signIn(provider, { callbackUrl: '/dashboard' });
   }
 
   return (
