@@ -1,6 +1,4 @@
 import React from 'react';
-import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 import { Input } from '@/components/ui/input';
 import MarkerMap from '@/components/markerMap';
 import data from '../../lib/data';
@@ -8,10 +6,6 @@ import data from '../../lib/data';
 const coordinates = data.markerData;
 
 export default async function Page () {
-  const session = await getServerSession();
-  if (!session) {
-    redirect('/login');
-  }
   return (
     <div className='relative h-full w-full'>
       <Input
