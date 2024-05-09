@@ -1,4 +1,5 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { Input } from '@/components/ui/input';
 import MarkerMap from '@/components/markerMap';
@@ -8,16 +9,16 @@ const coordinates = data.markerData;
 
 export default async function Page () {
   const session = await getServerSession();
-  if (session) {
-    return (
-      <div className='relative h-full w-full'>
-        <Input
-          placeholder='Search...'
-          className='absolute left-16 top-4 z-10 w-4/6 bg-white p-6'
-        />
-        <MarkerMap coordinates={coordinates} />
-      </div>
-    );
+  if (!session) {
+    redirect('/login');
   }
-  return <div>Not Authenticated</div>;
+  return (
+    <div className='relative h-full w-full'>
+      <Input
+        placeholder='Search...'
+        className='absolute left-16 top-4 z-10 w-4/6 bg-white p-6'
+      />
+      <MarkerMap coordinates={coordinates} />
+    </div>
+  );
 }
