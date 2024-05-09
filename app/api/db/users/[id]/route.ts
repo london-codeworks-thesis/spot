@@ -4,8 +4,6 @@ import prisma from '@/lib/prisma';
 // get all users excl. current user
 export async function GET (req: NextRequest, { params }: { params: { id: string } }) {
   const userId = params.id;
-  console.log(userId);
-
   const result = await prisma.user.findMany({
     where: {
       id: { not: userId },
@@ -21,6 +19,6 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
 }
 
 export async function POST () {
-  const result = 'user post';
-  return NextResponse.json(result);
+  return NextResponse.json('post');
 }
+
