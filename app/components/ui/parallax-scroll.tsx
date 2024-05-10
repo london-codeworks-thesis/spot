@@ -4,12 +4,16 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import cn from "@/lib/utils";
+import Gerry from '~/gerry.png';
+import { Rate } from "antd";
 
 export const ParallaxScroll = ({
   images,
+  data,
   className,
 }: {
-  images: string[];
+    images: string[];
+  data: any[]
   className?: string;
 }) => {
   const gridRef = useRef<any>(null);
@@ -25,7 +29,8 @@ export const ParallaxScroll = ({
 
   const firstPart = images.slice(0, half);
   const secondPart = images.slice(half);
-  
+  const firstData = data.slice(0, half);
+  const secondData = data.slice(half);
 
   return (
     <div
@@ -49,12 +54,29 @@ export const ParallaxScroll = ({
                 width="400"
                 alt="thumbnail"
               />
+              <div className="flex flex-row m-1 items-center">
+                <div>
+                <Image
+                  src={Gerry}
+                  className="rounded-full aspect-square"
+                  height={20}
+                    width={20}
+                    alt="profilePic"
+                  />
+                  </div>
+                <div className="flex flex-col flex-1">
+                  <h1>{firstData[idx].name}</h1>
+                  <Rate count={5} defaultValue={firstData[idx].rating} disabled style={{ color: 'black'}}/>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
         <div className="grid gap-3">
           {secondPart.map((el, idx) => (
             <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
+              
+              
               <Image
                 src={el}
                 className="h-80 w-full object-cover object-left-top rounded-lg gap-3 !m-0 !p-0"
@@ -62,6 +84,21 @@ export const ParallaxScroll = ({
                 width="400"
                 alt="thumbnail"
               />
+              <div className="flex flex-row m-1 items-center">
+                <div>
+                <Image
+                  src={Gerry}
+                  className="rounded-full aspect-square"
+                  height={20}
+                    width={20}
+                    alt="profilePic"
+                  />
+                  </div>
+                <div className="flex flex-col flex-1">
+                  <h1>{secondData[idx].name}</h1>
+                  <Rate count={5} defaultValue={secondData[idx].rating} disabled style={{color: 'black'}}/>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
