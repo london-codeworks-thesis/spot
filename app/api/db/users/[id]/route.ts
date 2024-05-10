@@ -18,7 +18,4 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   return NextResponse.json(result);
 }
 
-export async function POST () {
-  return NextResponse.json('post');
-}
-
+export default GET;

@@ -40,7 +40,4 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   return NextResponse.json(restaurants);
 }
 
-export async function POST () {
-  const result = 'restaurant post';
-  return NextResponse.json(result);
-}
+export default GET;

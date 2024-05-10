@@ -1,5 +1,5 @@
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
 
 export async function GET () {
   const result = await prisma.review.findMany();
@@ -7,8 +7,8 @@ export async function GET () {
 }
 
 // add new review
-export async function POST (request) {
-  const data = await request.json();
+export async function POST (req: NextRequest) {
+  const data = await req.json();
 
   const existingRestaurant = await prisma.restaurant.findUnique({
     where: {
