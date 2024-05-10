@@ -6,7 +6,6 @@ export async function GET () {
   return NextResponse.json(result);
 }
 
-<<<<<<< HEAD
 // add new review
 export async function POST (req: NextRequest) {
   const data = await req.json();
@@ -50,9 +49,4 @@ export async function POST (req: NextRequest) {
   });
 
   return NextResponse.json(review);
-=======
-export async function POST () {
-  const result = 'review post';
-  return NextResponse.json(result);
->>>>>>> 257ee70 (feat: prisma - minor code clean up)
 }
