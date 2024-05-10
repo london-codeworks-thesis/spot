@@ -10,6 +10,20 @@ type Restaurant = {
   primaryTypeDisplayName: PrimaryTypeDisplayName;
   formattedAddress: string;
   photos: Photo[];
+  googleMapsUri: string;
+  editorialSummary: string;
+  location: Location;
+  regularOpeningHours: RegularOpeningHours;
+  internationalPhoneNumber: string;
+};
+
+type RegularOpeningHours = {
+  weekdayDescriptions: string[];
+};
+
+type Location = {
+  latitude: number;
+  longitude: number;
 };
 
 type DisplayName = {
@@ -45,7 +59,12 @@ export default function RestaurantSearchResultCard ({
 }: RestaurantSearchResultCardProps) {
   return (
     <DrawerClose asChild>
-      <Link href='/dashboard/add'>
+      <Link
+        href={{
+          pathname: '/dashboard/add',
+          query: { restaurant: JSON.stringify(restaurant) },
+        }}
+      >
         <Card
           className='flex h-24 w-full shrink-0 items-center justify-center hover:bg-slate-50'
           onClick={() => setResults([])}
