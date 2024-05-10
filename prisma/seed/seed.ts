@@ -8,24 +8,25 @@ async function main () {
   console.log('seed start');
 
   // empty database
-  await prisma.review.deleteMany();
-  await prisma.follow.deleteMany();
-  await prisma.user.deleteMany();
-  await prisma.restaurant.deleteMany();
+  await Promise.all([
+    prisma.review.deleteMany(),
+    prisma.follow.deleteMany(),
+    prisma.user.deleteMany(),
+    prisma.restaurant.deleteMany(),
+  ]);
+
+  const promises: any[] = [];
 
   // seed users
-  for (const user of users) {
-    await prisma.user.create({
-      data: user,
-    });
-  }
+  users.forEach((user) => {
+    promises.push(prisma.user.create({ data: user }));
+  });
 
   // seed restaurants
-  for (const restaurant of restaurants) {
-    await prisma.restaurant.create({
-      data: restaurant,
-    });
-  }
+  restaurants.forEach((restaurant) => {
+    promises.push(prisma.restaurant.create({ data: restaurant }));
+  });
+  await Promise.all(promises);
 
   for (const user of users) {
     const selectedUser = await prisma.user.findUnique({
@@ -101,3 +102,44 @@ main().catch((e) => {
 }).finally(() => {
   prisma.$disconnect();
 });
+
+// // seed users
+//   for (const user of users) {
+//     await prisma.user.create({
+//       data: user,
+//     });
+//   }
+
+//   // seed restaurants
+//   for (const restaurant of restaurants) {
+//     await prisma.restaurant.create({
+//       data: restaurant,
+//     });
+//   }
+
+//   for (const user of users) {
+//     const selectedUser = await prisma.user.findUnique({
+//       where: {
+//         username: user.username,
+//       },
+//     });
+
+//     // seed ratings
+//     for (const restaurant of restaurants) {
+//       const selectedRestaurant = await prisma.restaurant.findUnique({
+//         where: {
+//           google_id: restaurant.google_id,
+//         },
+//       });
+//       await prisma.review.create({
+//         data: {
+//           user_id: selectedUser?.id,
+//           restaurant_id: selectedRestaurant?.id,
+//           rating_food: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+//           rating_value: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+//           rating_atmosphere: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+//           created_at: new Date(Date.now()),
+//         },
+//       });
+//     }
+//   }
