@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import { Plus, Search } from 'lucide-react';
+import Image from 'next/image';
 import { POST } from '@/api/googleapi/route';
+import Logo from '~/Logo.svg';
 import {
   Drawer,
   DrawerContent,
@@ -11,6 +13,8 @@ import {
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Separator } from './ui/separator';
 import RestaurantSearchResultCard from './searchResultCard';
 
 type Restaurant = {
@@ -92,16 +96,31 @@ export default function AddReviewButton () {
               <Search size={20} className='shrink-0' />
             </Button>
           </div>
-          <div className='flex w-full flex-col gap-4 overflow-scroll pt-4 scrollbar-none'>
+          {results.length > 0 ?? (
+            <div>
+              <Label className='p-3 text-xl font-bold'>Results</Label>
+              <Separator className='mt-3' />
+            </div>
+          )}
+          <div className='flex h-full w-full flex-col gap-4 overflow-scroll pt-4 scrollbar-none'>
             {results.length ? (
               results.map((restaurant) => (
                 <RestaurantSearchResultCard
                   restaurant={restaurant}
+                  setResults={setResults}
                   key={restaurant.id}
                 />
               ))
             ) : (
-              <h1>hey</h1>
+              <div className='mt-[-10%] flex h-full w-full items-center justify-center'>
+                <Image
+                  src={Logo}
+                  width={600}
+                  height={600}
+                  alt='Spot Logo'
+                  className='opacity-[2%]'
+                />
+              </div>
             )}
           </div>
         </div>

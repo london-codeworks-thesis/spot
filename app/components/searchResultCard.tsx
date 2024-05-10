@@ -37,14 +37,19 @@ type AuthorAttributions = {
 
 type RestaurantSearchResultCardProps = {
   restaurant: Restaurant;
+  setResults: (value: Restaurant[]) => void;
 };
 export default function RestaurantSearchResultCard ({
   restaurant,
+  setResults,
 }: RestaurantSearchResultCardProps) {
   return (
     <DrawerClose asChild>
       <Link href='/dashboard/add'>
-        <Card className='flex h-24 w-full shrink-0 items-center justify-center hover:bg-slate-50'>
+        <Card
+          className='flex h-24 w-full shrink-0 items-center justify-center hover:bg-slate-50'
+          onClick={() => setResults([])}
+        >
           <CardContent className='flex h-full w-full items-center gap-3 p-2'>
             <Card className='h-20 w-20 shrink-0' />
             <div className='flex h-20 w-full flex-col'>
