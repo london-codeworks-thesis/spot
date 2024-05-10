@@ -32,7 +32,18 @@ const images = [
 ];
 
 function Page () {
-  return <ParallaxScroll images={images} />;
+  return (
+    <div className='flex w-full justify-center pt-[10%]'>
+      <div className='w-[90%] flex-col'>
+        <div className='mb-4 text-2xl font-extrabold'>
+          <h1>For You</h1>
+        </div>
+        <div className=''>
+          <ParallaxScroll images={images} />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Page;
