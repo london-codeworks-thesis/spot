@@ -1,5 +1,5 @@
-import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
 
 // get followers and following for specific user
 export async function GET (req: NextRequest, { params }: { params: { id: string } }) {
@@ -48,7 +48,4 @@ export async function GET (req: NextRequest, { params }: { params: { id: string 
   return NextResponse.json(response);
 }
 
-export async function POST () {
-  const result = 'follow post';
-  return NextResponse.json(result);
-}
+export default GET;
