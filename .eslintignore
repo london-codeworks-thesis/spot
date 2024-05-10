@@ -3,3 +3,4 @@ out
 *.css
 .*.cjs
 **/ui/*
+!**/ui/authButton.tsx
