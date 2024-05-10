@@ -13,14 +13,14 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'app/'),
-      '~': path.resolve(__dirname, 'public/'),
       '@components': path.resolve(__dirname, 'app/components/'),
       '@ui': path.resolve(__dirname, 'app/components/ui/'),
       '@api': path.resolve(__dirname, 'app/api/'),
       '@lib': path.resolve(__dirname, 'app/lib/'),
       '@types': path.resolve(__dirname, 'app/types/'),
       '@tests': path.resolve(__dirname, 'app/__tests__/'),
+      '@': path.resolve(__dirname, 'app/'),
+      '~': path.resolve(__dirname, 'public/'),
     },
   },
 });
