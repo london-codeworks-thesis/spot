@@ -1,10 +1,11 @@
 import React from 'react';
+import Link from 'next/link';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
-import Link from 'next/link';
+import AuthButtons from '@/components/authButtons';
 
 export default function Login () {
   return (
@@ -34,17 +35,7 @@ export default function Login () {
           <p className='text-xs text-gray-400'>Or Login with</p>
           <Separator className='w-4/12' />
         </div>
-        <div className='flex w-full flex-row justify-center gap-4'>
-          <Button variant='outline' className='flex-1 py-6'>
-            <FaGoogle />
-          </Button>
-          <Button variant='outline' className='flex-1 py-6'>
-            <FaFacebook />
-          </Button>
-          <Button variant='outline' className='flex-1 py-6'>
-            <FaApple />
-          </Button>
-        </div>
+        <AuthButtons />
       </div>
       <div className='flex h-[30vh] items-end justify-end pb-8'>
         <p className='text-center text-xs'>
