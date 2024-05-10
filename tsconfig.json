@@ -21,6 +21,12 @@
     "paths": {
       "@/*": ["./app/*"],
       "~/*": ["./public/*"],
+      "@components/*": ["./app/components/*"],
+      "@ui/*": ["./app/components/ui/*"],
+      "@api/*": ["./app/api/*"],
+      "@lib/*": ["./app/lib/*"],
+      "@types/*": ["./app/types/*"],
+      "@tests/*": ["./app/__tests__/*"],
       // Types error: https://stackoverflow.com/a/73019448
       "react": ["./node_modules/@types/react"]
     }
