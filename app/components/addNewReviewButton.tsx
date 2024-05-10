@@ -96,11 +96,13 @@ export default function AddReviewButton () {
               <Search size={20} className='shrink-0' />
             </Button>
           </div>
-          {results.length > 0 ?? (
+          {results.length > 0 ? (
             <div>
               <Label className='p-3 text-xl font-bold'>Results</Label>
               <Separator className='mt-3' />
             </div>
+          ) : (
+            <div />
           )}
           <div className='flex h-full w-full flex-col gap-4 overflow-scroll pt-4 scrollbar-none'>
             {results.length ? (
