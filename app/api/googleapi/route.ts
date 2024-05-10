@@ -1,7 +1,10 @@
 import fetch from 'node-fetch';
+import { NextResponse } from 'next/server';
 
 export async function GET () {
-  return 'hey';
+  return NextResponse.json({
+    hello: 'world',
+  });
 }
 
 export async function POST (request: any) {

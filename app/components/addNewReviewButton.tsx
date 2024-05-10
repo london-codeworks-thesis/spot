@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Plus, Search } from 'lucide-react';
 import { POST } from '@/api/googleapi/route';
 import {
   Drawer,
   DrawerContent,
-  DrawerClose,
   DrawerTrigger,
   DrawerHeader,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { Plus, Search } from 'lucide-react';
 import { Input } from './ui/input';
 import RestaurantSearchResultCard from './searchResultCard';
 
@@ -52,6 +51,7 @@ export default function AddReviewButton () {
     try {
       const res: Restaurant[] = await POST({ textQuery: input });
       if (res[0].displayName.text !== undefined) {
+        console.log(res);
         setResults(res);
         setInput('');
       }
@@ -95,9 +95,10 @@ export default function AddReviewButton () {
           <div className='flex w-full flex-col gap-4 overflow-scroll pt-4 scrollbar-none'>
             {results.length ? (
               results.map((restaurant) => (
-                <DrawerClose asChild key={restaurant.id}>
-                  <RestaurantSearchResultCard restaurant={restaurant} />
-                </DrawerClose>
+                <RestaurantSearchResultCard
+                  restaurant={restaurant}
+                  key={restaurant.id}
+                />
               ))
             ) : (
               <h1>hey</h1>
