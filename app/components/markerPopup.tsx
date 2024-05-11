@@ -2,15 +2,7 @@ import React from 'react';
 import { Marker } from 'react-map-gl';
 import Link from 'next/link';
 import {
-  Plus,
-  Milestone,
-  Clock,
-  Phone,
-  Globe,
-  Cookie,
-  PiggyBank,
-  Flame,
-  MapPin,
+  Plus, Milestone, Clock, Phone, Globe, MapPin,
 } from 'lucide-react';
 import { Rate } from 'antd';
 import {
@@ -23,6 +15,7 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { Label } from './ui/label';
 import RestaurantDrawerButton from './restaurantDrawerButtons';
+import MarkerPopupIcons from './markerPopupRatingIcons';
 
 type MarkerData = number[];
 type MarkerPopupProps = {
@@ -80,42 +73,11 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               />
             </div>
             <div className='flex w-full items-center justify-around'>
-              <div className='flex h-12 gap-2'>
-                <Cookie size={45} strokeWidth={1.5} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
-              </div>
-              <div className='flex h-12 gap-2'>
-                <PiggyBank strokeWidth={1.5} size={45} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
-              </div>
-              <div className='flex h-12 gap-1'>
-                <Flame size={45} strokeWidth={1.5} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
-              </div>
+              <MarkerPopupIcons value='4.0' IconType='Food' />
+              <Separator orientation='vertical' />
+              <MarkerPopupIcons value='3.5' IconType='Value' />
+              <Separator orientation='vertical' />
+              <MarkerPopupIcons value='5.0' IconType='Vibe' />
             </div>
             <Separator />
             <p className='text-sm text-gray-500'>
