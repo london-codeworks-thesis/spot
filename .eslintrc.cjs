@@ -25,6 +25,9 @@ module.exports = {
     },
   },
   rules: {
+    "@typescript-eslint/naming-convention": "off",
+    "no-underscore-dangle": "off",
+    "max-len": ["error", { "code": 120 }],
     "@typescript-eslint/space-before-function-paren": "off",
     "global-require":"off",
     'no-unused-vars': 'off',

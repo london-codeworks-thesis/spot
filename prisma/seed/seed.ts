@@ -1,6 +1,16 @@
 import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import users from './users';
 import restaurants from './restaurants';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({
+  path: path.resolve(__dirname, '.env.local'),
+});
 
 const prisma = new PrismaClient();
 
@@ -15,45 +25,44 @@ async function main () {
     prisma.restaurant.deleteMany(),
   ]);
 
-  const promises: any[] = [];
-
   // seed users
-  users.forEach((user) => {
-    promises.push(prisma.user.create({ data: user }));
-  });
+  const userPromises = users.map((user) => prisma.user.create({ data: user }));
 
   // seed restaurants
-  restaurants.forEach((restaurant) => {
-    promises.push(prisma.restaurant.create({ data: restaurant }));
-  });
-  await Promise.all(promises);
+  const restaurantPromises = restaurants.map((restaurant) => prisma.restaurant.create({ data: restaurant }));
 
-  for (const user of users) {
-    const selectedUser = await prisma.user.findUnique({
-      where: {
-        username: user.username,
-      },
-    });
+  await Promise.all([...userPromises, ...restaurantPromises]);
 
-    // seed ratings
-    for (const restaurant of restaurants) {
-      const selectedRestaurant = await prisma.restaurant.findUnique({
+  await Promise.all(
+    users.map(async (user) => {
+      const selectedUser = await prisma.user.findUnique({
         where: {
-          google_id: restaurant.google_id,
+          username: user.username,
         },
       });
-      await prisma.review.create({
-        data: {
-          user_id: selectedUser?.id,
-          restaurant_id: selectedRestaurant?.id,
-          rating_food: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-          rating_value: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-          rating_atmosphere: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-          created_at: new Date(Date.now()),
-        },
-      });
-    }
-  }
+
+      // seed ratings
+      await Promise.all(
+        restaurants.map(async (restaurant) => {
+          const selectedRestaurant = await prisma.restaurant.findUnique({
+            where: {
+              google_id: restaurant.google_id,
+            },
+          });
+          await prisma.review.create({
+            data: {
+              user_id: selectedUser?.id!,
+              restaurant_id: selectedRestaurant?.id!,
+              rating_food: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+              rating_value: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+              rating_atmosphere: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+              created_at: new Date(Date.now()),
+            },
+          });
+        }),
+      );
+    }),
+  );
 
   // seed followers // TBU
   const firstUser = await prisma.user.findFirst();
@@ -63,29 +72,29 @@ async function main () {
   await prisma.follow.createMany({
     data: [
       {
-        follower_user_id: secondUser?.id,
-        following_user_id: firstUser?.id,
+        follower_user_id: secondUser?.id!,
+        following_user_id: firstUser?.id!,
         is_accepted: true,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },
       {
-        follower_user_id: firstUser?.id,
-        following_user_id: secondUser?.id,
+        follower_user_id: firstUser?.id!,
+        following_user_id: secondUser?.id!,
         is_accepted: true,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },
       {
-        follower_user_id: secondUser?.id,
-        following_user_id: thirdUser?.id,
+        follower_user_id: secondUser?.id!,
+        following_user_id: thirdUser?.id!,
         is_accepted: true,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },
       {
-        follower_user_id: thirdUser?.id,
-        following_user_id: firstUser?.id,
+        follower_user_id: thirdUser?.id!,
+        following_user_id: firstUser?.id!,
         is_accepted: true,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
@@ -96,9 +105,11 @@ async function main () {
   console.log('seed end');
 }
 
-main().catch((e) => {
-  console.log(e);
-  process.exit(1);
-}).finally(() => {
-  prisma.$disconnect();
-});
+main()
+  .catch((e) => {
+    console.log(e);
+    process.exit(1);
+  })
+  .finally(() => {
+    prisma.$disconnect();
+  });

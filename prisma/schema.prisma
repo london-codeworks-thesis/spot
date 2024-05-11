@@ -38,7 +38,7 @@ model Restaurant {
   address String 
   phone String?
   google_maps_uri String? 
-  price_level Price?
+  price_level String?
   type String? 
   opening_hours String[]
   summary String? 
