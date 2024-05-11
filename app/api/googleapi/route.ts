@@ -17,7 +17,7 @@ export async function POST (request: any) {
           'Content-Type': 'application/json',
           'X-Goog-Api-Key': `${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
           'X-Goog-FieldMask':
-            'places.displayName,places.formattedAddress,places.id,places.primaryTypeDisplayName,places.photos',
+            'places.displayName,places.formattedAddress,places.id,places.primaryTypeDisplayName,places.photos,places.googleMapsUri,places.editorialSummary,places.location,places.regularOpeningHours.weekdayDescriptions,places.internationalPhoneNumber',
         },
         body: JSON.stringify(request),
       },

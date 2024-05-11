@@ -7,11 +7,17 @@ import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
 
-export default function Page () {
+interface PageProps {
+  searchParams: {
+    restaurant: string;
+  };
+}
+
+export default function Page ({ searchParams }: PageProps) {
   const [food, setFood] = useState(2.5);
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
-
+  const restaurant = JSON.parse(searchParams.restaurant);
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
@@ -20,8 +26,10 @@ export default function Page () {
           <Card className='h-56 w-full bg-gray-50' />
         </div>
         <div className='flex flex-col gap-2 pb-1 pl-6 '>
-          <h1 className='text-3xl font-extrabold'>Itsu</h1>
-          <h4 className='text-sm'>60 Horseferry Rd, London, SW1P 2AF</h4>
+          <h1 className='text-3xl font-extrabold'>
+            {restaurant.displayName.text}
+          </h1>
+          <h4 className='text-sm'>{restaurant.formattedAddress}</h4>
         </div>
         <div className='flex w-full flex-col items-center justify-center gap-7'>
           <Card className='w-full bg-gray-50'>
