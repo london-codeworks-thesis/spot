@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import LoginSchema from '@/lib/action';
 import {
   Form,
   FormControl,
@@ -18,22 +19,16 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-// TODO: Move to a shared file
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
-
 export default function LoginForm () {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  function onSubmit (data: z.infer<typeof formSchema>) {
+  function onSubmit (data: z.infer<typeof LoginSchema>) {
     console.log(data);
   }
   return (
