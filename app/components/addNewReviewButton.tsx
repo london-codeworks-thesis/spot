@@ -28,6 +28,7 @@ type Restaurant = {
   location: Location;
   regularOpeningHours: RegularOpeningHours;
   internationalPhoneNumber: string;
+  priceLevel: string;
 };
 
 type RegularOpeningHours = {
