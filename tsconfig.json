@@ -19,12 +19,25 @@
       }
     ],
     "paths": {
+      "@components/*": ["./app/components/*"],
+      "@ui/*": ["./app/components/ui/*"],
+      "@api/*": ["./app/api/*"],
+      "@lib/*": ["./app/lib/*"],
+      "@types/*": ["./app/types/*"],
+      "@tests/*": ["./app/__tests__/*"],
       "@/*": ["./app/*"],
       "~/*": ["./public/*"],
       // Types error: https://stackoverflow.com/a/73019448
       "react": ["./node_modules/@types/react"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/types/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mjs",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -113,3 +113,7 @@ dist
 
 # Built Visual Studio Code Extensions
 *.vsix
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

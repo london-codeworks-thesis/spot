@@ -7,11 +7,43 @@ import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
 
-export default function Page () {
+interface PageProps {
+  searchParams: {
+    restaurant: string;
+  };
+}
+
+export default function Page ({ searchParams }: PageProps) {
   const [food, setFood] = useState(2.5);
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
-
+  const restaurant = JSON.parse(searchParams.restaurant);
+  function saveReview () {
+    const body = {
+      google_id: restaurant.id,
+      name: restaurant.displayName.text,
+      address: restaurant.formattedAddress,
+      phone: restaurant.internationalPhoneNumber,
+      google_maps_uri: restaurant.googleMapsUri,
+      price_level: restaurant.priceLevel
+        ? restaurant.priceLevel.split('_')[2]
+        : '',
+      type: restaurant.primaryTypeDisplayName
+        ? restaurant.primaryTypeDisplayName.text
+        : 'Restaurant',
+      opening_hours: restaurant.regularOpeningHours.weekdayDescriptions,
+      summary: restaurant.editorialSummary
+        ? restaurant.editorialSummary.text
+        : '',
+      image_url: restaurant.photos,
+      latitude: restaurant.location.latitude,
+      longitude: restaurant.location.longitude,
+      rating_food: food,
+      rating_atmosphere: vibe,
+      rating_value: value,
+    };
+    console.log(body);
+  }
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
@@ -20,8 +52,10 @@ export default function Page () {
           <Card className='h-56 w-full bg-gray-50' />
         </div>
         <div className='flex flex-col gap-2 pb-1 pl-6 '>
-          <h1 className='text-3xl font-extrabold'>Itsu</h1>
-          <h4 className='text-sm'>60 Horseferry Rd, London, SW1P 2AF</h4>
+          <h1 className='text-3xl font-extrabold'>
+            {restaurant.displayName.text}
+          </h1>
+          <h4 className='text-sm'>{restaurant.formattedAddress}</h4>
         </div>
         <div className='flex w-full flex-col items-center justify-center gap-7'>
           <Card className='w-full bg-gray-50'>
@@ -57,7 +91,9 @@ export default function Page () {
             <Button variant='outline' className='h-12 w-[50%]'>
               Cancel
             </Button>
-            <Button className='h-12 w-[50%]'>Submit</Button>
+            <Button className='h-12 w-[50%]' onClick={() => saveReview()}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>
