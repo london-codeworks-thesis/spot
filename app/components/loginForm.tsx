@@ -1,3 +1,5 @@
+// TODO: Fix eslint error
+
 'use client';
 
 import React from 'react';
@@ -16,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
+// TODO: Move to a shared file
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -34,10 +37,11 @@ export default function LoginForm () {
     console.log(data);
   }
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-grow flex-col justify-center gap-8'
+        className='flex w-full flex-col justify-center gap-5'
       >
         <FormField
           control={form.control}
@@ -47,8 +51,10 @@ export default function LoginForm () {
               <FormLabel>Email address</FormLabel>
               <FormControl>
                 <Input
+                  className='py-6 pl-4'
                   type='email'
                   placeholder='johndoe@gmail.com'
+                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...field}
                 />
               </FormControl>
@@ -64,9 +70,10 @@ export default function LoginForm () {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                  className='py-6 pl-4'
                   type='password'
                   placeholder='•••••••••••'
-                  className=''
+                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...field}
                 />
               </FormControl>
@@ -74,12 +81,12 @@ export default function LoginForm () {
             </FormItem>
           )}
         />
-        <div className='flex'>
+        <div className='flex justify-end'>
           <Link href='/forgottenPassword'>
             <p className='text-xs'>Forgot password?</p>
           </Link>
         </div>
-        <Button type='submit' className='w-full'>
+        <Button type='submit' className='mt-4 w-full p-6'>
           Log In
         </Button>
       </form>
