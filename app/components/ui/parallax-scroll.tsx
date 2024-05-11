@@ -32,6 +32,10 @@ export const ParallaxScroll = ({
   const firstData = data.slice(0, half);
   const secondData = data.slice(half);
 
+  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    console.log('click', e.target);
+  }
+
   return (
     <div
       className={cn("h-[50rem] items-start overflow-y-auto w-full", className)}
@@ -47,11 +51,13 @@ export const ParallaxScroll = ({
               style={{ y: translateFirst }} // Apply the translateY motion value here
               key={"grid-1" + idx}
             >
+              <div onClick={handleClick}>
               <Image
                 src={el}
-                className="h-60 w-full object-cover object-left-top rounded-lg gap-3 !m-0 !p-0"
-                height="400"
+                className="h-60 w-full object-contain object-left-top rounded-lg gap-3 !m-0 !p-0"
                 width="400"
+                height={0}
+                style={{height: 'auto'}}
                 alt="thumbnail"
               />
               <div className="flex flex-row m-1 items-center">
@@ -66,9 +72,10 @@ export const ParallaxScroll = ({
                   </div>
                 <div className="flex flex-col flex-1">
                   <h1>{firstData[idx].name}</h1>
-                  <Rate count={5} defaultValue={firstData[idx].rating} disabled style={{ color: 'black'}}/>
+                  <Rate count={5} defaultValue={firstData[idx].rating} disabled style={{ padding: '5px', color: 'black',}}/>
                 </div>
-              </div>
+                </div>
+                </div>
             </motion.div>
           ))}
         </div>
@@ -80,8 +87,9 @@ export const ParallaxScroll = ({
               <Image
                 src={el}
                 className="h-80 w-full object-cover object-left-top rounded-lg gap-3 !m-0 !p-0"
-                height="400"
                 width="400"
+                height={0}
+                style={{height: 'auto'}}
                 alt="thumbnail"
               />
               <div className="flex flex-row m-1 items-center">
