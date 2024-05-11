@@ -70,9 +70,9 @@ export const ParallaxScroll = ({
                     alt="profilePic"
                   />
                   </div>
-                <div className="flex flex-col flex-1">
-                  <h1>{firstData[idx].name}</h1>
-                  <Rate count={5} defaultValue={firstData[idx].rating} disabled style={{ padding: '5px', color: 'black',}}/>
+                <div className="flex flex-col flex-1 w-20 ml-0.5">
+                  <h1 className='text-nowrap truncate'>{firstData[idx].restaurant.name}</h1>
+                  <Rate count={5} defaultValue={firstData[idx].rating_food} disabled style={{ padding: '2px', color: 'black'}}/>
                 </div>
                 </div>
                 </div>
@@ -102,9 +102,9 @@ export const ParallaxScroll = ({
                     alt="profilePic"
                   />
                   </div>
-                <div className="flex flex-col flex-1">
-                  <h1>{secondData[idx].name}</h1>
-                  <Rate count={5} defaultValue={secondData[idx].rating} disabled style={{color: 'black'}}/>
+                <div className="flex flex-col flex-1 w-20 ml-0.5">
+                  <h1 className='text-nowrap truncate'>{secondData[idx].restaurant.name}</h1>
+                  <Rate count={5} defaultValue={secondData[idx].rating_food} disabled style={{color: 'black'}}/>
                 </div>
               </div>
             </motion.div>
