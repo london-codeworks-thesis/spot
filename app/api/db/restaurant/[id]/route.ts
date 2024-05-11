@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // get reviews for specific restaurant
-export async function GET (req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET (
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const restaurantId = params.id;
   const reviews = await prisma.review.findMany({
     where: {

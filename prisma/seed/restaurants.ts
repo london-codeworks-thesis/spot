@@ -16,7 +16,8 @@ const restaurants = [
       'Saturday: 6:30 AM – 4:00 PM',
       'Sunday: Closed',
     ],
-    summary: 'A chalkboard menu of Italian classic dishes & British fare in a relaxed counter-service setting.',
+    summary:
+      'A chalkboard menu of Italian classic dishes & British fare in a relaxed counter-service setting.',
     image_url: 'null',
     latitude: 51.4949702,
     longitude: -0.1277006,
@@ -60,7 +61,8 @@ const restaurants = [
       'Saturday: 12:00 – 2:30 PM, 5:30 – 10:30 PM',
       'Sunday: Closed',
     ],
-    summary: 'Small, easygoing outlet serving classic Chinese staples in a warm, modern dining room.',
+    summary:
+      'Small, easygoing outlet serving classic Chinese staples in a warm, modern dining room.',
     image_url: 'null',
     latitude: 51.564819,
     longitude: -0.1328599,

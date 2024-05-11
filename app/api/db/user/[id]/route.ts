@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // get user info for profile page
-export async function GET (req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET (
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const userId = params.id;
   const result = await prisma.user.findUnique({
     where: {

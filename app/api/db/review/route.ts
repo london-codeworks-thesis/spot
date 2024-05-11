@@ -40,7 +40,9 @@ export async function POST (req: NextRequest) {
   const review = await prisma.review.create({
     data: {
       user_id: data.userId,
-      restaurant_id: existingRestaurant ? existingRestaurant.id : restaurant.id,
+      restaurant_id: existingRestaurant
+        ? existingRestaurant.id
+        : restaurant!.id,
       rating_food: data.ratingFood,
       rating_value: data.ratingValue,
       rating_atmosphere: data.ratingAtmosphere,
