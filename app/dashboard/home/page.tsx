@@ -2,7 +2,7 @@
 
 import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 import React from 'react';
-import mockData from './mockData';
+import useSWR from 'swr';
 
 const images = [
   'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w300-h300',
@@ -22,7 +22,16 @@ const images = [
   'https://media-cdn.tripadvisor.com/media/photo-s/1b/03/a6/85/ground-floor-at-gymkhana.jpg',
 ];
 
+function fetcher (url: string) {
+  fetch(url).then((res) => res.json());
+}
+
 function Page () {
+  const { data, error } = useSWR('/api/db/reviews', fetcher);
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
   return (
     <div className='flex w-full justify-center pt-[10%]'>
       <div className='w-[90%] flex-col'>
@@ -30,7 +39,7 @@ function Page () {
           <h1>For You</h1>
         </div>
         <div className=''>
-          <ParallaxScroll images={images} data={mockData} />
+          <ParallaxScroll images={images} data={data} />
         </div>
       </div>
     </div>
