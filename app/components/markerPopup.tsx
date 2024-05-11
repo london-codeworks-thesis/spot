@@ -17,14 +17,13 @@ import { Label } from './ui/label';
 import RestaurantDrawerButton from './restaurantDrawerButtons';
 import MarkerPopupIcons from './markerPopupRatingIcons';
 
-type MarkerData = number[];
 type MarkerPopupProps = {
-  markerData: MarkerData;
+  markerData: any;
 };
 
 export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
-
+  const { restaurant } = markerData;
   function scrollToDetails () {
     if (detailsRef.current) {
       const container: HTMLElement | null = detailsRef.current.parentElement;
@@ -39,9 +38,9 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
     <Drawer>
       <DrawerTrigger asChild>
         <Marker
-          key={markerData[2]}
-          latitude={markerData[0]}
-          longitude={markerData[1]}
+          key={restaurant.id}
+          latitude={restaurant.latitude}
+          longitude={restaurant.longitude}
           color='black'
         />
       </DrawerTrigger>
@@ -53,7 +52,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
             </Button>
           </DrawerClose>
           <div className='mt-[-6%] h-[40%] w-full shrink-0 bg-gray-200'>
-            Image Here
+            {restaurant.image_url}
           </div>
           <div className='flex h-full w-[90%] flex-col gap-4'>
             <div className='flex w-full shrink-0 gap-2 overflow-scroll scrollbar-none'>
@@ -88,7 +87,9 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               />
             </div>
             <div className='flex w-full items-center justify-start gap-3'>
-              <Label className='pr-[10%] text-3xl font-extrabold'>Sapori</Label>
+              <Label className='flex w-[40%] flex-row pr-[10%] text-3xl font-extrabold'>
+                {restaurant.name}
+              </Label>
               <Label className='text-lg font-bold'>4.7</Label>
               <Rate
                 defaultValue={4.7}
@@ -114,13 +115,12 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               </div>
               <Separator />
               <p className='text-sm text-gray-500'>
-                A chalkboard menu of Italian classic dishes & British fare in a
-                relaxed counter-service setting.
+                {restaurant.summary}
                 {' '}
               </p>
               <p className='flex items-center gap-3 text-sm text-gray-500'>
                 <MapPin size={14} />
-                60 Horseferry Rd, London, SW1P 2AF
+                {restaurant.address}
               </p>
               <Separator />
               <Label className='pr-[10%] text-lg font-bold'>Reviews (23)</Label>
