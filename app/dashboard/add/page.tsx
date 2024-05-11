@@ -18,6 +18,32 @@ export default function Page ({ searchParams }: PageProps) {
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
   const restaurant = JSON.parse(searchParams.restaurant);
+  function saveReview () {
+    const body = {
+      google_id: restaurant.id,
+      name: restaurant.displayName.text,
+      address: restaurant.formattedAddress,
+      phone: restaurant.internationalPhoneNumber,
+      google_maps_uri: restaurant.googleMapsUri,
+      price_level: restaurant.priceLevel
+        ? restaurant.priceLevel.split('_')[2]
+        : '',
+      type: restaurant.primaryTypeDisplayName
+        ? restaurant.primaryTypeDisplayName.text
+        : 'Restaurant',
+      opening_hours: restaurant.regularOpeningHours.weekdayDescriptions,
+      summary: restaurant.editorialSummary
+        ? restaurant.editorialSummary.text
+        : '',
+      image_url: restaurant.photos,
+      latitude: restaurant.location.latitude,
+      longitude: restaurant.location.longitude,
+      rating_food: food,
+      rating_atmosphere: vibe,
+      rating_value: value,
+    };
+    console.log(body);
+  }
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
@@ -65,7 +91,9 @@ export default function Page ({ searchParams }: PageProps) {
             <Button variant='outline' className='h-12 w-[50%]'>
               Cancel
             </Button>
-            <Button className='h-12 w-[50%]'>Submit</Button>
+            <Button className='h-12 w-[50%]' onClick={() => saveReview()}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>
