@@ -21,7 +21,7 @@ export default async function RootLayout ({
   return (
     <AuthProvider session={session}>
       <html lang='en'>
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} min-h-[100vh]`}>{children}</body>
       </html>
     </AuthProvider>
   );

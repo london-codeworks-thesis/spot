@@ -1,7 +1,10 @@
-'use client';
+// 'use client';
 
 import React, { MouseEventHandler } from 'react';
-import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
+import Image from 'next/image';
+import appleIcon from '~/apple.svg';
+import facebookIcon from '~/facebook.svg';
+import googleIcon from '~/google.svg';
 import { Button } from '@/components/ui/button';
 
 interface Prop {
@@ -9,12 +12,18 @@ interface Prop {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
+const iconMap = {
+  google: googleIcon,
+  facebook: facebookIcon,
+  apple: appleIcon,
+};
+
 function AuthButton ({ icon, onClick }: Prop) {
+  const svg = iconMap[icon];
+
   return (
     <Button variant='outline' className='flex-1 py-6' onClick={onClick}>
-      {icon === 'google' && <FaGoogle />}
-      {icon === 'facebook' && <FaFacebook />}
-      {icon === 'apple' && <FaApple />}
+      <Image src={svg} alt={icon} priority />
     </Button>
   );
 }
