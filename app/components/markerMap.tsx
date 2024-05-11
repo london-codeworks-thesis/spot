@@ -20,7 +20,7 @@ export default function MarkerMap ({ data }: { data: any[] }) {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {data.map((item) => (
-        <MarkerPopup markerData={item} key={item[2]} />
+        <MarkerPopup markerData={item} key={item.restaurant.id} />
       ))}
     </Map>
   );
