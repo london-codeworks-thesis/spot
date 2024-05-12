@@ -15,7 +15,7 @@ export async function GET (
       id: true,
       first_name: true,
       last_name: true,
-      image_url: true,
+      image: true,
     },
   });
   return NextResponse.json(result);

@@ -19,9 +19,11 @@
     "commit": "cz",
     "db:seed": "npx dotenv -e .env.local -- prisma db seed",
     "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
     "prisma:studio": "npx dotenv -e .env.local -- prisma studio"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.1.0",
     "@hookform/resolvers": "^3.3.4",
     "@next/env": "^14.2.3",
     "@prisma/client": "^5.13.0",

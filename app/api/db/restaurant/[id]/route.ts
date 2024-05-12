@@ -17,7 +17,7 @@ export async function GET (
           username: true,
           first_name: true,
           last_name: true,
-          image_url: true,
+          image: true,
         },
       },
       rating_food: true,
