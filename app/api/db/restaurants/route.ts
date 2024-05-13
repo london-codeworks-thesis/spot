@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // get restaurants reviewed by followed users for specific user
-export async function GET (
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const userId = params.id;
+export async function GET () {
+  const account = await prisma.account.findFirst();
+  const userId = account?.userId;
 
   const followedUsers = await prisma.follow.findMany({
     where: { follower_user_id: userId },
@@ -43,4 +41,6 @@ export async function GET (
   return NextResponse.json(restaurants);
 }
 
-export default GET;
+export async function POST () {
+  console.log('post');
+}
