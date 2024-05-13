@@ -3,10 +3,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { User } from '@/types/user';
 
 function ProfileHeader ({
-  name,
+  first_name,
+  last_name,
   image,
 }: {
-  name: User['name'];
+  first_name: User['first_name'];
+  last_name: User['last_name'];
   image: User['image'];
 }) {
   return (
@@ -16,7 +18,8 @@ function ProfileHeader ({
         <AvatarFallback>TDS</AvatarFallback>
       </Avatar>
       <div className='flex flex-col'>
-        <h1 className='text-3xl font-semibold'>{name}</h1>
+        <p className='text-3xl font-semibold'>{first_name}</p>
+        <p className='text-3xl font-semibold'>{last_name}</p>
         <div className='flex flex-row gap-8 font-semibold'>
           <div className='flex flex-col items-center'>
             <p>20</p>
