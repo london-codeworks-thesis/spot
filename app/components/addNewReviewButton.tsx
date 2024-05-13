@@ -71,7 +71,6 @@ export default function AddReviewButton () {
     try {
       const res: Restaurant[] = await POST({ textQuery: input });
       if (res[0].displayName.text !== undefined) {
-        console.log(res);
         setResults(res);
         setInput('');
       }

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { GET } from '@/api/googleapi/route';
 import Link from 'next/link';
 import { MapPin } from 'lucide-react';
+import Image from 'next/image';
 import { Card, CardContent, CardTitle } from './ui/card';
 import { DrawerClose } from './ui/drawer';
 
@@ -54,16 +56,32 @@ type RestaurantSearchResultCardProps = {
   restaurant: Restaurant;
   setResults: (value: Restaurant[]) => void;
 };
+
 export default function RestaurantSearchResultCard ({
   restaurant,
   setResults,
 }: RestaurantSearchResultCardProps) {
+  const [imgUri, setImgUri] = useState('');
+
+  useEffect(() => {
+    async function fetchUserData () {
+      const photoData = await GET(restaurant.photos[0].name);
+      setImgUri(photoData);
+    }
+    if (restaurant && restaurant.photos) {
+      fetchUserData();
+    }
+  }, [restaurant]);
+
   return (
     <DrawerClose asChild>
       <Link
         href={{
           pathname: '/dashboard/add',
-          query: { restaurant: JSON.stringify(restaurant) },
+          query: {
+            restaurant: JSON.stringify(restaurant),
+            imgSource: JSON.stringify(imgUri),
+          },
         }}
       >
         <Card
@@ -71,7 +89,13 @@ export default function RestaurantSearchResultCard ({
           onClick={() => setResults([])}
         >
           <CardContent className='flex h-full w-full items-center gap-3 p-2'>
-            <Card className='h-20 w-20 shrink-0' />
+            {imgUri ? (
+              <Card className='h-20 w-20 shrink-0'>
+                <Image src={imgUri} alt='practice' height='200' width='200' />
+              </Card>
+            ) : (
+              <Card className='h-20 w-20 shrink-0' />
+            )}
             <div className='flex h-20 w-full flex-col'>
               <CardTitle className='m-0 p-0 text-lg'>
                 {restaurant.displayName.text}

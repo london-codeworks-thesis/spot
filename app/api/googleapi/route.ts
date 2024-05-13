@@ -1,10 +1,15 @@
 import fetch from 'node-fetch';
-import { NextResponse } from 'next/server';
 
-export async function GET () {
-  return NextResponse.json({
-    hello: 'world',
-  });
+export async function GET (placeData: any) {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  const place = placeData;
+  const heightAndWidth = 'maxHeightPx=300&maxWidthPx=300';
+
+  const url = `https://places.googleapis.com/v1/${place}/media?key=${apiKey}&${heightAndWidth}&skipHttpRedirect=true`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  return data.photoUri;
 }
 
 export async function POST (request: any) {
