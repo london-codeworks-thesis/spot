@@ -4,7 +4,9 @@ import MarkerMap from '@/components/markerMap';
 
 export default async function Page () {
   async function getRestaurants () {
-    const res = await fetch('http://localhost:3000/api/db/restaurants');
+    const res = await fetch('http://localhost:3000/api/db/restaurants', {
+      cache: 'no-store',
+    });
     const restaurantData = await res.json();
     return restaurantData;
   }

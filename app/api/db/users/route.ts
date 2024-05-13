@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // get all users excl. current user
-export async function GET (
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const userId = params.id;
+export async function GET () {
+  const account = await prisma.account.findFirst();
+  const userId = account?.userId;
   const result = await prisma.user.findMany({
     where: {
       id: { not: userId },
