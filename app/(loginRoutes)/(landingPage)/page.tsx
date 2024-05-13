@@ -11,9 +11,10 @@ export default function LandingPage () {
       <Image
         src={Logo}
         width={150}
-        height={150}
+        style={{ height: 'auto' }}
         alt='Spot logo white'
         className='pt-[20vh]'
+        priority
       />
       <div className='absolute bottom-0 z-20 flex h-[45vh] w-full flex-col items-center justify-evenly rounded-t-3xl bg-white pt-7'>
         <div className='flex w-4/5 flex-col gap-7'>
