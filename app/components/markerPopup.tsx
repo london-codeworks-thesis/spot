@@ -51,13 +51,22 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               X
             </Button>
           </DrawerClose>
-          <div className='mt-[-6%] h-[40%] w-full shrink-0 bg-gray-200'>
-            {restaurant.image_url}
-          </div>
+          <div
+            className='mt-[-6%] h-[40%] w-full shrink-0 bg-cover bg-center bg-no-repeat'
+            style={{ backgroundImage: `url(${restaurant.image_url})` }}
+          />
           <div className='flex h-full w-[90%] flex-col gap-4'>
             <div className='flex w-full shrink-0 gap-2 overflow-scroll scrollbar-none'>
               <DrawerClose asChild>
-                <Link href='/dashboard/add'>
+                <Link
+                  href={{
+                    pathname: '/dashboard/add',
+                    query: {
+                      restaurant: JSON.stringify(restaurant),
+                      imgSource: JSON.stringify(restaurant.image_url),
+                    },
+                  }}
+                >
                   <RestaurantDrawerButton
                     Icon={Plus}
                     Title='Review'

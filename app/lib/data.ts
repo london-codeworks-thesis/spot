@@ -20,7 +20,8 @@ const data = [
       ],
       summary:
         'A chalkboard menu of Italian classic dishes & British fare in a relaxed counter-service setting.',
-      image_url: 'null',
+      image_url:
+        'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w240-h360',
       latitude: 51.4949702,
       longitude: -0.1277006,
       reviews: [
@@ -68,7 +69,8 @@ const data = [
         'Sunday: Closed',
       ],
       summary: '',
-      image_url: 'null',
+      image_url:
+        'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w240-h360',
       latitude: 51.5396972,
       longitude: -0.1170306,
       reviews: [
@@ -117,7 +119,8 @@ const data = [
       ],
       summary:
         'Small, easygoing outlet serving classic Chinese staples in a warm, modern dining room.',
-      image_url: 'null',
+      image_url:
+        'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w240-h360',
       latitude: 51.564819,
       longitude: -0.1328599,
       reviews: [
