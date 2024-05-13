@@ -1,5 +1,3 @@
-// TODO: Fix eslint error
-
 'use client';
 
 import React from 'react';
@@ -36,7 +34,6 @@ export default function LoginForm () {
     console.log(data);
   }
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -53,7 +50,7 @@ export default function LoginForm () {
                   className='py-6 pl-4'
                   type='email'
                   placeholder='johndoe@gmail.com'
-                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  autoComplete='email'
                   {...field}
                 />
               </FormControl>
@@ -72,7 +69,7 @@ export default function LoginForm () {
                   className='py-6 pl-4'
                   type='password'
                   placeholder='•••••••••••'
-                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  autoComplete='current-password'
                   {...field}
                 />
               </FormControl>

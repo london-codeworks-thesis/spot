@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { Marker } from 'react-map-gl';
 import Link from 'next/link';
 import {
@@ -21,8 +21,21 @@ type MarkerPopupProps = {
   markerData: any;
 };
 
+const FocusableMarker = forwardRef<HTMLButtonElement | null, any>(
+  (props, ref) => (
+    <button
+      type='button'
+      ref={ref}
+      style={{ background: 'none', border: 'none', padding: 0 }}
+    >
+      <Marker {...props} />
+    </button>
+  ),
+);
+
 export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
+  const markerRef = useRef(null);
   const { restaurant } = markerData;
   function scrollToDetails () {
     if (detailsRef.current) {
@@ -33,11 +46,35 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       }
     }
   }
+  function average (name: string): string {
+    const ratingTypeArray: number[] = restaurant.reviews.map(
+      (review: any) => review[name],
+    );
+
+    const result = Math.round(
+      (ratingTypeArray.reduce((a, b) => a + b) / ratingTypeArray.length) * 10,
+    ) / 10;
+
+    return Number.isInteger(result) ? `${result}.0` : `${result}`;
+  }
+
+  function mainAverage (): number {
+    return (
+      Math.round(
+        ((Number(average('rating_food'))
+          + Number(average('rating_atmosphere'))
+          + Number(average('rating_value')))
+          / 3)
+          * 10,
+      ) / 10
+    );
+  }
 
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Marker
+        <FocusableMarker
+          ref={markerRef}
           key={restaurant.id}
           latitude={restaurant.latitude}
           longitude={restaurant.longitude}
@@ -70,7 +107,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                   <RestaurantDrawerButton
                     Icon={Plus}
                     Title='Review'
-                    handleClick={() => console.log('hey')}
+                    handleClick={() => console.log('')}
                   />
                 </Link>
               </DrawerClose>
@@ -99,9 +136,9 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               <Label className='flex w-[40%] flex-row pr-[10%] text-3xl font-extrabold'>
                 {restaurant.name}
               </Label>
-              <Label className='text-lg font-bold'>4.7</Label>
+              <Label className='text-lg font-bold'>{mainAverage()}</Label>
               <Rate
-                defaultValue={4.7}
+                defaultValue={mainAverage()}
                 disabled
                 style={{ color: 'black' }}
                 tooltips={[
@@ -116,11 +153,20 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
             </div>
             <div className='relative flex h-[80%] w-full flex-col gap-3 overflow-scroll pb-4 scrollbar-none'>
               <div className='flex w-full items-center justify-around'>
-                <MarkerPopupIcons value='4.0' IconType='Food' />
+                <MarkerPopupIcons
+                  value={average('rating_food')}
+                  IconType='Food'
+                />
                 <Separator orientation='vertical' />
-                <MarkerPopupIcons value='3.5' IconType='Value' />
+                <MarkerPopupIcons
+                  value={average('rating_value')}
+                  IconType='Value'
+                />
                 <Separator orientation='vertical' />
-                <MarkerPopupIcons value='5.0' IconType='Vibe' />
+                <MarkerPopupIcons
+                  value={average('rating_atmosphere')}
+                  IconType='Vibe'
+                />
               </div>
               <Separator />
               <p className='text-sm text-gray-500'>
