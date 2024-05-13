@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
@@ -6,7 +5,6 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import type { Adapter, AdapterUser } from 'next-auth/adapters';
 import prisma from '@/lib/prisma';
 
-// eslint-disable-next-line import/prefer-default-export
 export const authConfig: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   pages: {
