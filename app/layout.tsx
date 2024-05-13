@@ -4,6 +4,7 @@ import './globals.css';
 import React from 'react';
 import { getServerSession } from 'next-auth';
 import AuthProvider from '@/components/authProvider';
+import { authConfig } from '@/lib/auth';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,11 +18,11 @@ export default async function RootLayout ({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const session = await getServerSession(authConfig);
   return (
     <AuthProvider session={session}>
       <html lang='en'>
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} min-h-[100vh]`}>{children}</body>
       </html>
     </AuthProvider>
   );

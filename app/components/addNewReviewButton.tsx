@@ -12,54 +12,11 @@ import {
   DrawerHeader,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
+import { Restaurant } from '@/types/restaurant';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import RestaurantSearchResultCard from './searchResultCard';
-
-type Restaurant = {
-  id: string;
-  displayName: DisplayName;
-  primaryTypeDisplayName: PrimaryTypeDisplayName;
-  formattedAddress: string;
-  photos: Photo[];
-  googleMapsUri: string;
-  editorialSummary: string;
-  location: Location;
-  regularOpeningHours: RegularOpeningHours;
-  internationalPhoneNumber: string;
-};
-
-type RegularOpeningHours = {
-  weekdayDescriptions: string[];
-};
-
-type Location = {
-  latitude: number;
-  longitude: number;
-};
-
-type Photo = {
-  name: string;
-  widthPx: number;
-  heightPx: number;
-  authorAttributions: AuthorAttributions[];
-};
-
-type AuthorAttributions = {
-  displayName: string;
-  uri: string;
-  photoUri: string;
-};
-type DisplayName = {
-  text: string;
-  languageCode: string;
-};
-
-type PrimaryTypeDisplayName = {
-  text: string;
-  languageCode: string;
-};
 
 export default function AddReviewButton () {
   const [input, setInput] = useState('');
@@ -70,7 +27,6 @@ export default function AddReviewButton () {
     try {
       const res: Restaurant[] = await POST({ textQuery: input });
       if (res[0].displayName.text !== undefined) {
-        console.log(res);
         setResults(res);
         setInput('');
       }

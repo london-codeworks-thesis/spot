@@ -1,16 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Marker } from 'react-map-gl';
 import Link from 'next/link';
 import {
-  Plus,
-  Milestone,
-  Clock,
-  Phone,
-  Globe,
-  Cookie,
-  PiggyBank,
-  Flame,
-  MapPin,
+  Plus, Milestone, Clock, Phone, Globe, MapPin,
 } from 'lucide-react';
 import { Rate } from 'antd';
 import {
@@ -23,20 +15,32 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { Label } from './ui/label';
 import RestaurantDrawerButton from './restaurantDrawerButtons';
+import MarkerPopupIcons from './markerPopupRatingIcons';
 
-type MarkerData = number[];
 type MarkerPopupProps = {
-  markerData: MarkerData;
+  markerData: any;
 };
 
 export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const { restaurant } = markerData;
+  function scrollToDetails () {
+    if (detailsRef.current) {
+      const container: HTMLElement | null = detailsRef.current.parentElement;
+      if (container) {
+        container.style.scrollBehavior = 'smooth';
+        container.scrollTop = container?.offsetTop;
+      }
+    }
+  }
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Marker
-          key={markerData[2]}
-          latitude={markerData[0]}
-          longitude={markerData[1]}
+          key={restaurant.id}
+          latitude={restaurant.latitude}
+          longitude={restaurant.longitude}
           color='black'
         />
       </DrawerTrigger>
@@ -47,23 +51,54 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               X
             </Button>
           </DrawerClose>
-          <div className='mt-[-6%] h-[40%] w-full shrink-0 bg-gray-200'>
-            Image Here
-          </div>
+          <div
+            className='mt-[-6%] h-[40%] w-full shrink-0 bg-cover bg-center bg-no-repeat'
+            style={{ backgroundImage: `url(${restaurant.image_url})` }}
+          />
           <div className='flex h-full w-[90%] flex-col gap-4'>
-            <div className='flex w-full gap-2 overflow-scroll scrollbar-none'>
+            <div className='flex w-full shrink-0 gap-2 overflow-scroll scrollbar-none'>
               <DrawerClose asChild>
-                <Link href='/dashboard/add'>
-                  <RestaurantDrawerButton Icon={Plus} Title='Review' />
+                <Link
+                  href={{
+                    pathname: '/dashboard/add',
+                    query: {
+                      restaurant: JSON.stringify(restaurant),
+                      imgSource: JSON.stringify(restaurant.image_url),
+                    },
+                  }}
+                >
+                  <RestaurantDrawerButton
+                    Icon={Plus}
+                    Title='Review'
+                    handleClick={() => console.log('hey')}
+                  />
                 </Link>
               </DrawerClose>
-              <RestaurantDrawerButton Icon={Milestone} Title='Directions' />
-              <RestaurantDrawerButton Icon={Clock} Title='Hours' />
-              <RestaurantDrawerButton Icon={Phone} Title='Call' />
-              <RestaurantDrawerButton Icon={Globe} Title='Website' />
+              <RestaurantDrawerButton
+                Icon={Milestone}
+                Title='Directions'
+                handleClick={() => scrollToDetails()}
+              />
+              <RestaurantDrawerButton
+                Icon={Clock}
+                Title='Hours'
+                handleClick={() => scrollToDetails()}
+              />
+              <RestaurantDrawerButton
+                Icon={Phone}
+                Title='Call'
+                handleClick={() => scrollToDetails()}
+              />
+              <RestaurantDrawerButton
+                Icon={Globe}
+                Title='Website'
+                handleClick={() => scrollToDetails()}
+              />
             </div>
             <div className='flex w-full items-center justify-start gap-3'>
-              <Label className='pr-[10%] text-3xl font-extrabold'>Sapori</Label>
+              <Label className='flex w-[40%] flex-row pr-[10%] text-3xl font-extrabold'>
+                {restaurant.name}
+              </Label>
               <Label className='text-lg font-bold'>4.7</Label>
               <Rate
                 defaultValue={4.7}
@@ -79,56 +114,31 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 allowHalf
               />
             </div>
-            <div className='flex w-full items-center justify-around'>
-              <div className='flex h-12 gap-2'>
-                <Cookie size={45} strokeWidth={1.5} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
+            <div className='relative flex h-[80%] w-full flex-col gap-3 overflow-scroll pb-4 scrollbar-none'>
+              <div className='flex w-full items-center justify-around'>
+                <MarkerPopupIcons value='4.0' IconType='Food' />
+                <Separator orientation='vertical' />
+                <MarkerPopupIcons value='3.5' IconType='Value' />
+                <Separator orientation='vertical' />
+                <MarkerPopupIcons value='5.0' IconType='Vibe' />
               </div>
-              <div className='flex h-12 gap-2'>
-                <PiggyBank strokeWidth={1.5} size={45} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
+              <Separator />
+              <p className='text-sm text-gray-500'>
+                {restaurant.summary}
+                {' '}
+              </p>
+              <p className='flex items-center gap-3 text-sm text-gray-500'>
+                <MapPin size={14} />
+                {restaurant.address}
+              </p>
+              <Separator />
+              <Label className='pr-[10%] text-lg font-bold'>Reviews (23)</Label>
+              <div className='h-[40%] w-full shrink-0 rounded-xl bg-gray-400' />
+              <div ref={detailsRef}>
+                <Label className='pr-[10%] text-lg font-bold'>Details</Label>
               </div>
-              <div className='flex h-12 gap-1'>
-                <Flame size={45} strokeWidth={1.5} className='shrink-0' />
-                <div className='flex h-full w-full flex-col items-center justify-center'>
-                  <Rate
-                    count={1}
-                    defaultValue={1}
-                    style={{ color: 'black' }}
-                    disabled
-                  />
-                  <Label className='text-xs font-bold'>4.5</Label>
-                </div>
-              </div>
+              <div className='h-[80%] w-full shrink-0 rounded-xl bg-gray-400' />
             </div>
-            <Separator />
-            <p className='text-sm text-gray-500'>
-              A chalkboard menu of Italian classic dishes & British fare in a
-              relaxed counter-service setting.
-              {' '}
-            </p>
-            <p className='flex items-center gap-3 text-sm text-gray-500'>
-              <MapPin size={14} />
-              60 Horseferry Rd, London, SW1P 2AF
-            </p>
-            <Separator />
-            <Label className='pr-[10%] text-lg font-bold'>Reviews (23)</Label>
           </div>
         </div>
       </DrawerContent>

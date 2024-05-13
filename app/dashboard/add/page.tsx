@@ -10,6 +10,7 @@ import StarRatingSystem from '@/components/ratingStars';
 interface PageProps {
   searchParams: {
     restaurant: string;
+    imgSource: string;
   };
 }
 
@@ -18,18 +19,30 @@ export default function Page ({ searchParams }: PageProps) {
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
   const restaurant = JSON.parse(searchParams.restaurant);
+  const img = JSON.parse(searchParams.imgSource);
+  function saveReview () {
+    const body = {
+      ...restaurant,
+      rating_food: food,
+      rating_value: value,
+      rating_atmosphere: vibe,
+    };
+    console.log(body);
+  }
+
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
-          <Card className='h-56 w-full bg-gray-50' />
+          <Card
+            className='h-56 w-full bg-cover bg-center bg-no-repeat'
+            style={{ backgroundImage: `url(${img})` }}
+          />
         </div>
         <div className='flex flex-col gap-2 pb-1 pl-6 '>
-          <h1 className='text-3xl font-extrabold'>
-            {restaurant.displayName.text}
-          </h1>
-          <h4 className='text-sm'>{restaurant.formattedAddress}</h4>
+          <h1 className='text-3xl font-extrabold'>{restaurant.name}</h1>
+          <h4 className='text-sm'>{restaurant.address}</h4>
         </div>
         <div className='flex w-full flex-col items-center justify-center gap-7'>
           <Card className='w-full bg-gray-50'>
@@ -65,7 +78,9 @@ export default function Page ({ searchParams }: PageProps) {
             <Button variant='outline' className='h-12 w-[50%]'>
               Cancel
             </Button>
-            <Button className='h-12 w-[50%]'>Submit</Button>
+            <Button className='h-12 w-[50%]' onClick={() => saveReview()}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>
