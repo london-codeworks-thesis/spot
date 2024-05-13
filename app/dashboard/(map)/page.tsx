@@ -1,9 +1,15 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import MarkerMap from '@/components/markerMap';
-import data from '../../lib/data';
 
-export default function Page () {
+export default async function Page () {
+  async function getRestaurants () {
+    const res = await fetch('http://localhost:3000/api/db/restaurants');
+    const restaurantData = await res.json();
+    return restaurantData;
+  }
+  const data = await getRestaurants();
+
   return (
     <div className='relative h-full w-full'>
       <Input
