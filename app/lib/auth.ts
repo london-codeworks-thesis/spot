@@ -24,7 +24,7 @@ export const authConfig: NextAuthOptions = {
           first_name: profile.given_name,
           last_name: profile.family_name,
           email: profile.email,
-          image: profile.picture,
+          image: profile.picture.replace('s96-c', 's240-c'),
         };
       },
     }),
