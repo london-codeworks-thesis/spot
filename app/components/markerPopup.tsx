@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { Marker } from 'react-map-gl';
 import Link from 'next/link';
 import {
@@ -21,8 +21,21 @@ type MarkerPopupProps = {
   markerData: any;
 };
 
+const FocusableMarker = forwardRef<HTMLButtonElement | null, any>(
+  (props, ref) => (
+    <button
+      type='button'
+      ref={ref}
+      style={{ background: 'none', border: 'none', padding: 0 }}
+    >
+      <Marker {...props} />
+    </button>
+  ),
+);
+
 export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
+  const markerRef = useRef(null);
   const { restaurant } = markerData;
   function scrollToDetails () {
     if (detailsRef.current) {
@@ -37,7 +50,8 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Marker
+        <FocusableMarker
+          ref={markerRef}
           key={restaurant.id}
           latitude={restaurant.latitude}
           longitude={restaurant.longitude}
