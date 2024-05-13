@@ -6,10 +6,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
+import Image from 'next/image';
 
 interface PageProps {
   searchParams: {
     restaurant: string;
+    imgSource: string;
   };
 }
 
@@ -18,6 +20,7 @@ export default function Page ({ searchParams }: PageProps) {
   const [value, setValue] = useState(2.5);
   const [vibe, setVibe] = useState(2.5);
   const restaurant = JSON.parse(searchParams.restaurant);
+  const img = JSON.parse(searchParams.imgSource);
   function saveReview () {
     const body = {
       google_id: restaurant.id,
@@ -35,7 +38,7 @@ export default function Page ({ searchParams }: PageProps) {
       summary: restaurant.editorialSummary
         ? restaurant.editorialSummary.text
         : '',
-      image_url: restaurant.photos,
+      image_url: img,
       latitude: restaurant.location.latitude,
       longitude: restaurant.location.longitude,
       rating_food: food,
@@ -49,7 +52,9 @@ export default function Page ({ searchParams }: PageProps) {
       <div className='flex h-full w-[90%] flex-col justify-around'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
-          <Card className='h-56 w-full bg-gray-50' />
+          <Card className='h-56 w-full bg-gray-50'>
+            <Image src={img} alt='practice' height='200' width='200' />
+          </Card>
         </div>
         <div className='flex flex-col gap-2 pb-1 pl-6 '>
           <h1 className='text-3xl font-extrabold'>
