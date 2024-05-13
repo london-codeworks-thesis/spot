@@ -1,5 +1,6 @@
 import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 import React from 'react';
+import mockData from './mockData';
 
 const images = [
   'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w300-h300',
@@ -20,8 +21,15 @@ const images = [
 ];
 
 async function Page () {
-  const res = await fetch('http://localhost:3000/api/db/reviews');
-  const data = await res.json();
+  async function getData () {
+    const res = await fetch('http://localhost:3000/api/db/reviews', {
+      cache: 'no-store',
+    });
+    const test = await res.json();
+    console.log('why', test);
+  }
+
+  getData();
 
   return (
     <div className='flex w-full justify-center pt-[10%]'>
@@ -30,7 +38,7 @@ async function Page () {
           <h1>For You</h1>
         </div>
         <div className=''>
-          <ParallaxScroll images={images} data={data} />
+          <ParallaxScroll images={images} data={mockData} />
         </div>
       </div>
     </div>
