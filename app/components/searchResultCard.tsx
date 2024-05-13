@@ -1,56 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { GET } from '@/api/googleapi/route';
 import Link from 'next/link';
 import { MapPin } from 'lucide-react';
-import Image from 'next/image';
+import { GET } from '@/api/googleapi/route';
+import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent, CardTitle } from './ui/card';
 import { DrawerClose } from './ui/drawer';
-
-type Restaurant = {
-  id: string;
-  displayName: DisplayName;
-  primaryTypeDisplayName: PrimaryTypeDisplayName;
-  formattedAddress: string;
-  photos: Photo[];
-  googleMapsUri: string;
-  editorialSummary: string;
-  location: Location;
-  regularOpeningHours: RegularOpeningHours;
-  internationalPhoneNumber: string;
-  priceLevel: string;
-};
-
-type RegularOpeningHours = {
-  weekdayDescriptions: string[];
-};
-
-type Location = {
-  latitude: number;
-  longitude: number;
-};
-
-type DisplayName = {
-  text: string;
-  languageCode: string;
-};
-
-type PrimaryTypeDisplayName = {
-  text: string;
-  languageCode: string;
-};
-
-type Photo = {
-  name: string;
-  widthPx: number;
-  heightPx: number;
-  authorAttributions: AuthorAttributions[];
-};
-
-type AuthorAttributions = {
-  displayName: string;
-  uri: string;
-  photoUri: string;
-};
 
 type RestaurantSearchResultCardProps = {
   restaurant: Restaurant;
@@ -72,14 +26,35 @@ export default function RestaurantSearchResultCard ({
       fetchUserData();
     }
   }, [restaurant]);
-
+  const body = {
+    google_id: restaurant.id,
+    name: restaurant.displayName.text,
+    address: restaurant.formattedAddress,
+    phone: restaurant.internationalPhoneNumber,
+    google_maps_uri: restaurant.googleMapsUri,
+    price_level: restaurant.priceLevel
+      ? restaurant.priceLevel.split('_')[2]
+      : '',
+    type: restaurant.primaryTypeDisplayName
+      ? restaurant.primaryTypeDisplayName.text
+      : 'Restaurant',
+    opening_hours: restaurant.regularOpeningHours
+      ? restaurant.regularOpeningHours.weekdayDescriptions
+      : '',
+    summary: restaurant.editorialSummary
+      ? restaurant.editorialSummary.text
+      : '',
+    image_url: imgUri,
+    latitude: restaurant.location.latitude,
+    longitude: restaurant.location.longitude,
+  };
   return (
     <DrawerClose asChild>
       <Link
         href={{
           pathname: '/dashboard/add',
           query: {
-            restaurant: JSON.stringify(restaurant),
+            restaurant: JSON.stringify(body),
             imgSource: JSON.stringify(imgUri),
           },
         }}
@@ -90,9 +65,10 @@ export default function RestaurantSearchResultCard ({
         >
           <CardContent className='flex h-full w-full items-center gap-3 p-2'>
             {imgUri ? (
-              <Card className='h-20 w-20 shrink-0'>
-                <Image src={imgUri} alt='practice' height='200' width='200' />
-              </Card>
+              <Card
+                className='h-20 w-20 shrink-0 bg-cover bg-center bg-no-repeat'
+                style={{ backgroundImage: `url(${imgUri})` }}
+              />
             ) : (
               <Card className='h-20 w-20 shrink-0' />
             )}
