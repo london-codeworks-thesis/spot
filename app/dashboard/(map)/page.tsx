@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import MarkerMap from '@/components/markerMap';
 import data from '../../lib/data';
 
-export default async function Page () {
+export default function Page () {
   return (
     <div className='relative h-full w-full'>
       <Input
