@@ -35,6 +35,7 @@ export async function GET () {
     ],
   });
   return NextResponse.json(result);
+  // return result;
 }
 
 // add new review

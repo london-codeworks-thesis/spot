@@ -1,6 +1,5 @@
 import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 import React from 'react';
-import mockData from './mockData';
 
 const images = [
   'https://lh3.googleusercontent.com/places/ANXAkqGycyW3SJAlr7FLgr-6HBhuiUPfyRwemeYzLndEWf6QTGOBRme-Mo0A2d4g_rKC0nKSF99m6LE6DCS5iM9eNfpImusx9UqObqk=s4800-w300-h300',
@@ -20,16 +19,9 @@ const images = [
   'https://london-shoreditch.nobuhotels.com/wp-content/uploads/2022/05/london-shoreditch-restaurant.jpg',
 ];
 
-// BRING IN BELOW CODE WHEN DB CONNECTED
-// function fetcher (url: string) {
-//   fetch(url).then((res) => res.json());
-// }
-
-function Page () {
-  // BRING IN BELOW CODE WHEN DB CONNECTED
-  //   const { data, error } = useSWR('/api/db/reviews', fetcher);
-  //   if (error) return <div>Failed to load</div>;
-  //   if (!data) return <div>Loading...</div>;
+async function Page () {
+  const res = await fetch('http://localhost:3000/api/db/reviews');
+  const data = await res.json();
 
   return (
     <div className='flex w-full justify-center pt-[10%]'>
@@ -38,7 +30,7 @@ function Page () {
           <h1>For You</h1>
         </div>
         <div className=''>
-          <ParallaxScroll images={images} data={mockData} />
+          <ParallaxScroll images={images} data={data} />
         </div>
       </div>
     </div>
