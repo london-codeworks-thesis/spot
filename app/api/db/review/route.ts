@@ -12,7 +12,7 @@ export async function POST (req: NextRequest) {
 
   const existingRestaurant = await prisma.restaurant.findUnique({
     where: {
-      google_id: data.googleId,
+      google_id: data.google_id,
     },
   });
 
@@ -21,16 +21,16 @@ export async function POST (req: NextRequest) {
   if (!existingRestaurant) {
     restaurant = await prisma.restaurant.create({
       data: {
-        google_id: data.googleId,
+        google_id: data.google_id,
         name: data.name,
         address: data.address,
         phone: data.phone,
-        google_maps_uri: data.googleMapsUri,
-        price_level: data.priceLevel,
+        google_maps_uri: data.google_maps_uri,
+        price_level: data.price_level,
         type: data.type,
-        opening_hours: data.openingHours,
+        opening_hours: data.opening_hours,
         summary: data.summary,
-        image_url: data.imageUrl,
+        image_url: data.image_url,
         latitude: data.latitude,
         longitude: data.longitude,
       },
@@ -43,9 +43,9 @@ export async function POST (req: NextRequest) {
       restaurant_id: existingRestaurant
         ? existingRestaurant.id
         : restaurant!.id,
-      rating_food: data.ratingFood,
-      rating_value: data.ratingValue,
-      rating_atmosphere: data.ratingAtmosphere,
+      rating_food: data.rating_food,
+      rating_value: data.rating_value,
+      rating_atmosphere: data.rating_atmosphere,
       created_at: new Date(Date.now()),
     },
   });

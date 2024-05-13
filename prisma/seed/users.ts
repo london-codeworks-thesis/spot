@@ -10,7 +10,7 @@ const users = [
   {
     username: 'sunnyanter',
     password: 'sunnylovessam',
-    email: 'sunnyn@test.com',
+    email: 'sunnyanter4@gmail.com',
     first_name: 'Sunny',
     last_name: 'Anter',
     image: 'https://ca.slack-edge.com/T0WU5R8NT-U06A277GPB7-abf836aeaa2e-192',
@@ -18,7 +18,7 @@ const users = [
   {
     username: 'sampolge',
     password: 'samlovessunny',
-    email: 'sam@test.com',
+    email: 'sampolge1@gmail.com',
     first_name: 'Sam',
     last_name: 'Polge',
     image: 'https://ca.slack-edge.com/T0WU5R8NT-U06AQDGF279-efc187bba1c7-512',

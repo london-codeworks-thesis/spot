@@ -26,6 +26,7 @@ export default function RestaurantSearchResultCard ({
       fetchUserData();
     }
   }, [restaurant]);
+
   const body = {
     google_id: restaurant.id,
     name: restaurant.displayName.text,

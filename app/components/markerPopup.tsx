@@ -70,7 +70,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                   <RestaurantDrawerButton
                     Icon={Plus}
                     Title='Review'
-                    handleClick={() => console.log('hey')}
+                    handleClick={() => console.log('')}
                   />
                 </Link>
               </DrawerClose>
