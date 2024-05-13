@@ -5,7 +5,10 @@ import { PiggyBank, Flame, Cookie } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
+import Link from 'next/link';
 import StarRatingSystem from '@/components/ratingStars';
+import { User } from '@/types/user';
+import { useSession } from 'next-auth/react';
 
 interface PageProps {
   searchParams: {
@@ -20,14 +23,38 @@ export default function Page ({ searchParams }: PageProps) {
   const [vibe, setVibe] = useState(2.5);
   const restaurant = JSON.parse(searchParams.restaurant);
   const img = JSON.parse(searchParams.imgSource);
-  function saveReview () {
-    const body = {
-      ...restaurant,
-      rating_food: food,
-      rating_value: value,
-      rating_atmosphere: vibe,
-    };
-    console.log(body);
+  const { data } = useSession();
+
+  if (!data) {
+    // TODO: handle error
+    return null;
+  }
+  const user = data?.user as User;
+
+  async function postReview () {
+    try {
+      const body = {
+        ...restaurant,
+        rating_food: food,
+        rating_value: value,
+        rating_atmosphere: vibe,
+        userId: user.id,
+      };
+      const res = await fetch('http://localhost:3000/api/db/review', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+      console.log('new mcdo', res.json());
+      if (!res.ok) {
+        throw new Error(`Failed to post review: ${res.status}`);
+      }
+    } catch (error) {
+      console.error('Error sending reviews', error);
+      throw error;
+    }
   }
 
   return (
@@ -78,9 +105,11 @@ export default function Page ({ searchParams }: PageProps) {
             <Button variant='outline' className='h-12 w-[50%]'>
               Cancel
             </Button>
-            <Button className='h-12 w-[50%]' onClick={() => saveReview()}>
-              Submit
-            </Button>
+            <Link href='/dashboard' className='w-[50%]'>
+              <Button className='h-12 w-full' onClick={() => postReview()}>
+                Submit
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
