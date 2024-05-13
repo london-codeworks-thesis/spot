@@ -5,6 +5,11 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import type { Adapter, AdapterUser } from 'next-auth/adapters';
 import prisma from '@/lib/prisma';
 
+type ExtendedAdapterUser = AdapterUser & {
+  first_name?: string;
+  last_name?: string;
+};
+
 export const authConfig: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   pages: {
@@ -65,8 +70,8 @@ export const authConfig: NextAuthOptions = {
     async jwt ({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.first_name = user.first_name;
-        token.last_name = user.last_name;
+        token.first_name = (user as ExtendedAdapterUser).first_name;
+        token.last_name = (user as ExtendedAdapterUser).last_name;
       }
       return token;
     },
