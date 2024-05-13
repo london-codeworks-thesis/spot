@@ -1,11 +1,6 @@
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-
-type User = {
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  image?: string | null | undefined;
-};
+import type { User } from '@/types/user';
 
 function ProfileHeader ({
   name,

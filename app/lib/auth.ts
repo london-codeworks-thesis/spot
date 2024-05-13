@@ -10,12 +10,13 @@ import prisma from '@/lib/prisma';
 export const authConfig: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   pages: {
-    signIn: '/dashboard',
+    signIn: '/login',
   },
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID ?? '',
       clientSecret: process.env.AUTH_GOOGLE_SECRET ?? '',
+      allowDangerousEmailAccountLinking: true,
       profile (profile) {
         return {
           id: profile.sub,
@@ -46,20 +47,14 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    async session ({ session, user }) {
       if (session?.user) {
-        session.user.id = token.sub!;
+        session.user.id = user.id!;
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
-      if (user) {
-        token.uid = user.id;
-      }
+    async jwt ({ token }) {
       return token;
     },
-  },
-  session: {
-    strategy: 'jwt',
   },
 };
