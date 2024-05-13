@@ -10,7 +10,7 @@ const users = [
   {
     username: 'sunnyanter',
     password: 'sunnylovessam',
-    email: 'sunnyanter4@gmail.com',
+    email: 'sunny.anter4@gmail.com',
     first_name: 'Sunny',
     last_name: 'Anter',
     image: 'https://ca.slack-edge.com/T0WU5R8NT-U06A277GPB7-abf836aeaa2e-192',
