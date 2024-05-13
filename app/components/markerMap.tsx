@@ -8,7 +8,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 export default function MarkerMap ({ data }: { data: any[] }) {
-  console.log(data);
   return (
     <Map
       reuseMaps

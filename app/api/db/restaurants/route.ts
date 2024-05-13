@@ -17,7 +17,7 @@ export async function GET () {
   });
 
   const restaurants = await prisma.review.findMany({
-    where: { user_id: { in: followedUserIds } },
+    where: { user_id: userId },
     select: {
       restaurant: {
         include: {
@@ -30,6 +30,10 @@ export async function GET () {
                   image: true,
                 },
               },
+              rating_food: true,
+              rating_atmosphere: true,
+              rating_value: true,
+              created_at: true,
             },
           },
         },
