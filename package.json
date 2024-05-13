@@ -39,6 +39,7 @@
     "antd": "^5.17.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "dotenv-cli": "^7.4.2",
     "framer-motion": "^11.1.9",
     "lucide-react": "^0.378.0",

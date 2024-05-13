@@ -3,19 +3,20 @@ import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-import type { Adapter } from 'next-auth/adapters';
+import type { Adapter, AdapterUser } from 'next-auth/adapters';
 import prisma from '@/lib/prisma';
 
 // eslint-disable-next-line import/prefer-default-export
 export const authConfig: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   pages: {
-    signIn: '/dashboard',
+    signIn: '/login',
   },
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID ?? '',
       clientSecret: process.env.AUTH_GOOGLE_SECRET ?? '',
+      allowDangerousEmailAccountLinking: true,
       profile (profile) {
         return {
           id: profile.sub,
@@ -37,8 +38,8 @@ export const authConfig: NextAuthOptions = {
         return {
           id: profile.id,
           name: profile.name,
-          firstName: profile.first_name,
-          lastName: profile.last_name,
+          first_name: profile.first_name,
+          last_name: profile.last_name,
           email: profile.email,
           image: profile.picture.data.url,
         };
@@ -46,20 +47,22 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    async session ({
+      session,
+      user,
+    }: {
+      session: any;
+      user: AdapterUser & { first_name?: string; last_name?: string };
+    }) {
       if (session?.user) {
-        session.user.id = token.sub!;
+        session.user.id = user.id!;
+        session.user.first_name = user.first_name!;
+        session.user.last_name = user.last_name!;
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
-      if (user) {
-        token.uid = user.id;
-      }
+    async jwt ({ token }) {
       return token;
     },
-  },
-  session: {
-    strategy: 'jwt',
   },
 };
