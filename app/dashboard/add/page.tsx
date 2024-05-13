@@ -6,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
 import StarRatingSystem from '@/components/ratingStars';
-import Image from 'next/image';
 
 interface PageProps {
   searchParams: {
@@ -23,44 +22,27 @@ export default function Page ({ searchParams }: PageProps) {
   const img = JSON.parse(searchParams.imgSource);
   function saveReview () {
     const body = {
-      google_id: restaurant.id,
-      name: restaurant.displayName.text,
-      address: restaurant.formattedAddress,
-      phone: restaurant.internationalPhoneNumber,
-      google_maps_uri: restaurant.googleMapsUri,
-      price_level: restaurant.priceLevel
-        ? restaurant.priceLevel.split('_')[2]
-        : '',
-      type: restaurant.primaryTypeDisplayName
-        ? restaurant.primaryTypeDisplayName.text
-        : 'Restaurant',
-      opening_hours: restaurant.regularOpeningHours.weekdayDescriptions,
-      summary: restaurant.editorialSummary
-        ? restaurant.editorialSummary.text
-        : '',
-      image_url: img,
-      latitude: restaurant.location.latitude,
-      longitude: restaurant.location.longitude,
+      ...restaurant,
       rating_food: food,
-      rating_atmosphere: vibe,
       rating_value: value,
+      rating_atmosphere: vibe,
     };
     console.log(body);
   }
+
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
-          <Card className='h-56 w-full bg-gray-50'>
-            <Image src={img} alt='practice' height='200' width='200' />
-          </Card>
+          <Card
+            className='h-56 w-full bg-cover bg-center bg-no-repeat'
+            style={{ backgroundImage: `url(${img})` }}
+          />
         </div>
         <div className='flex flex-col gap-2 pb-1 pl-6 '>
-          <h1 className='text-3xl font-extrabold'>
-            {restaurant.displayName.text}
-          </h1>
-          <h4 className='text-sm'>{restaurant.formattedAddress}</h4>
+          <h1 className='text-3xl font-extrabold'>{restaurant.name}</h1>
+          <h4 className='text-sm'>{restaurant.address}</h4>
         </div>
         <div className='flex w-full flex-col items-center justify-center gap-7'>
           <Card className='w-full bg-gray-50'>
