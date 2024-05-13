@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import users from './users';
-import restaurants from './restaurants';
+import restaurants from './restaurant';
 
 const prisma = new PrismaClient();
 
