@@ -16,6 +16,7 @@ export const authConfig: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID ?? '',
       clientSecret: process.env.AUTH_GOOGLE_SECRET ?? '',
+      allowDangerousEmailAccountLinking: true,
       profile (profile) {
         return {
           id: profile.sub,

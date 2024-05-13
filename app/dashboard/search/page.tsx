@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import {
   Command,
   CommandEmpty,
@@ -7,8 +9,25 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { useRouter } from 'next/navigation';
 
 export default function Page () {
+  const router = useRouter();
+  const [users, setUsers] = useState([] as any[]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/db/users')
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  }, []);
+
+  function handleClick (id: String) {
+    console.log('user id', id);
+    router.push(`/dashboard/profile/${id}`);
+  }
+
   return (
     <div>
       <div className='flex w-full justify-center pt-[10%]'>
@@ -18,9 +37,19 @@ export default function Page () {
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading='Suggestions'>
-                <CommandItem>Calendar</CommandItem>
-                <CommandItem>Search Emoji</CommandItem>
-                <CommandItem>Calculator</CommandItem>
+                {users.map((user) => (
+                  <div
+                    role='button'
+                    key={user.id}
+                    onClick={() => handleClick(user.id)}
+                    aria-hidden='true'
+                  >
+                    <CommandItem key={user.id}>
+                      {user.first_name}
+                      {user.last_name}
+                    </CommandItem>
+                  </div>
+                ))}
               </CommandGroup>
             </CommandList>
           </Command>
