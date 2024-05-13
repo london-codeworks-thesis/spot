@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { GET } from '@/api/googleapi/route';
 import Link from 'next/link';
 import { MapPin } from 'lucide-react';
-import Image from 'next/image';
 import { Card, CardContent, CardTitle } from './ui/card';
 import { DrawerClose } from './ui/drawer';
 
@@ -90,9 +89,10 @@ export default function RestaurantSearchResultCard ({
         >
           <CardContent className='flex h-full w-full items-center gap-3 p-2'>
             {imgUri ? (
-              <Card className='h-20 w-20 shrink-0'>
-                <Image src={imgUri} alt='practice' height='200' width='200' />
-              </Card>
+              <Card
+                className='h-20 w-20 shrink-0 bg-cover bg-center bg-no-repeat'
+                style={{ backgroundImage: `url(${imgUri})` }}
+              />
             ) : (
               <Card className='h-20 w-20 shrink-0' />
             )}

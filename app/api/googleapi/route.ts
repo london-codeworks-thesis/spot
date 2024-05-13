@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 export async function GET (placeData: any) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const place = placeData;
-  const heightAndWidth = 'maxHeightPx=300&maxWidthPx=300';
+  const heightAndWidth = 'maxHeightPx=360&maxWidthPx=240';
 
   const url = `https://places.googleapis.com/v1/${place}/media?key=${apiKey}&${heightAndWidth}&skipHttpRedirect=true`;
   const res = await fetch(url);
