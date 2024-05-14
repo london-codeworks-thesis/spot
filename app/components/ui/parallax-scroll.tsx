@@ -63,10 +63,10 @@ export const ParallaxScroll = ({
               <div className="flex flex-row m-1 items-center">
                 <div>
                 <Image
-                  src={Gerry}
+                  src={firstData[idx].user.image}
                   className="rounded-full aspect-square"
-                  height={20}
-                    width={20}
+                  height={30}
+                    width={30}
                     alt="profilePic"
                   />
                   </div>
@@ -95,10 +95,10 @@ export const ParallaxScroll = ({
               <div className="flex flex-row m-1 items-center">
                 <div>
                 <Image
-                  src={Gerry}
+                  src={secondData[idx].user.image}
                   className="rounded-full aspect-square"
-                  height={20}
-                    width={20}
+                  height={30}
+                    width={30}
                     alt="profilePic"
                   />
                   </div>
