@@ -38,4 +38,6 @@ export async function GET (
   return NextResponse.json(result);
 }
 
-export default GET;
+export async function POST () {
+  console.log('post');
+}
