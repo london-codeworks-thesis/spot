@@ -17,7 +17,7 @@ import { Label } from './ui/label';
 import RestaurantDrawerButton from './restaurantDrawerButtons';
 import MarkerPopupIcons from './markerPopupRatingIcons';
 import DetailCard from './detailsCard';
-import { Card } from './ui/card';
+import ReviewsCard from './reviewsCard';
 
 type MarkerPopupProps = {
   markerData: any;
@@ -94,7 +94,6 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       ) / 10
     );
   }
-
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -188,16 +187,19 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 <MarkerPopupIcons
                   value={average('rating_food')}
                   IconType='Food'
+                  isReview={false}
                 />
                 <Separator orientation='vertical' />
                 <MarkerPopupIcons
                   value={average('rating_value')}
                   IconType='Value'
+                  isReview={false}
                 />
                 <Separator orientation='vertical' />
                 <MarkerPopupIcons
                   value={average('rating_atmosphere')}
                   IconType='Vibe'
+                  isReview={false}
                 />
               </div>
               <Separator />
@@ -215,7 +217,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 {restaurant.reviews.length}
                 )
               </Label>
-              <Card className='h-[40%] w-full shrink-0' />
+              <ReviewsCard reviews={restaurant.reviews} />
               <div>
                 <Label className='pr-[10%] text-lg font-bold'>Details</Label>
               </div>

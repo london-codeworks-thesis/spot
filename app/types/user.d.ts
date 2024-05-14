@@ -5,4 +5,5 @@ export interface User {
   last_name?: string | null;
   email?: string | null;
   image?: string | null;
+  username?: string | null;
 }
