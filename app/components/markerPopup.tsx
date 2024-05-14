@@ -105,7 +105,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
           color='black'
         />
       </DrawerTrigger>
-      <DrawerContent className='h-[90vh] overflow-hidden'>
+      <DrawerContent className='h-[90vh] overflow-hidden focus:outline-none '>
         <div className='flex h-full w-full flex-col items-center gap-4'>
           <DrawerClose asChild>
             <Button className='absolute right-1 top-1' variant='ghost'>
