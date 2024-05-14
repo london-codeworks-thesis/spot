@@ -52,8 +52,19 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
     if (nameRef.current) {
       const container: HTMLElement | null = nameRef.current;
       if (container) {
-        container.style.scrollBehavior = 'smooth';
-        container.scrollLeft = container?.scrollWidth;
+        if (
+          container.scrollLeft + container.offsetWidth + 5
+          > container.scrollWidth
+        ) {
+          container.style.scrollBehavior = 'smooth';
+          setTimeout(() => {
+            container.scrollLeft = 0;
+          }, 500);
+        } else {
+          container.style.scrollBehavior = 'smooth';
+          container.scrollLeft += 5;
+          setTimeout(() => scrollName(), 0);
+        }
       }
     }
   }
