@@ -26,6 +26,8 @@ export default function MarkerMap ({ data }: { data: any[] }) {
       <GeocoderControl
         mapboxAccessToken={MAPBOX_TOKEN as string}
         position='top-left'
+        marker={false}
+        proximity={{ latitude: 51.4949702, longitude: -0.1277006 }}
       />
       {data.map((item) => (
         <MarkerPopup markerData={item} key={item.restaurant.id} />

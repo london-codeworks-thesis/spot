@@ -1,5 +1,8 @@
+import * as React from 'react';
 import { useState } from 'react';
-import { useControl, MarkerProps, ControlPosition } from 'react-map-gl';
+import {
+  useControl, Marker, MarkerProps, ControlPosition,
+} from 'react-map-gl';
 import MapboxGeocoder, { GeocoderOptions } from '@mapbox/mapbox-gl-geocoder';
 
 type GeocoderControlProps = Omit<
@@ -38,8 +41,16 @@ export default function GeocoderControl (props: GeocoderControlProps) {
           && (result.center
             || (result.geometry?.type === 'Point' && result.geometry.coordinates));
         if (location && props.marker) {
-          // const markerProps = typeof props.marker === 'object' ? props.marker : {};
-          setMarker(null);
+          const markerProps = typeof props.marker === 'object' ? props.marker : {};
+          setMarker(
+            (
+              <Marker
+                {...markerProps}
+                longitude={location[0]}
+                latitude={location[1]}
+              />
+            ) as any,
+          );
         } else {
           setMarker(null);
         }
