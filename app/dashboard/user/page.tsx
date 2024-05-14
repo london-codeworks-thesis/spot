@@ -3,7 +3,7 @@ import ProfileHeader from '@components/profileHeader';
 import Settings from '@components/settings';
 import MarkerMap from '@components/markerMap';
 import { getSession } from '@/hooks/getSession';
-import { getUserById } from '@/lib/userService';
+import { getUserById, getRestaurantsReviewedByUser } from '@/lib/userService';
 import RecentReviews from '@/components/recentReviews';
 
 export default async function Page () {
@@ -14,13 +14,14 @@ export default async function Page () {
   }
 
   const user = await getUserById(session.user.id);
+  const restaurants = await getRestaurantsReviewedByUser(session.user.id);
 
   if (!user) {
     return <div>User not found</div>;
   }
 
   return (
-    <div className='mx-5 my-5 flex flex-col gap-8'>
+    <div className='mx-5 my-5 flex flex-col gap-4'>
       <div className='flex flex-col'>
         <div className='flex justify-end'>
           <Settings />
@@ -34,13 +35,13 @@ export default async function Page () {
           reviews={user._count.reviews ?? 0}
         />
       </div>
-      <div>
+      <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
-        <div className='h-[30vh] w-full'>
-          <MarkerMap data={user.reviews} />
+        <div className='h-[30vh] w-full overflow-clip rounded-2xl'>
+          <MarkerMap data={restaurants} />
         </div>
       </div>
-      <div>
+      <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Recent Reviews</h2>
         <RecentReviews reviews={user.reviews} />
       </div>

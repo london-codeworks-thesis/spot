@@ -47,3 +47,32 @@ export async function getUserById (userId: string) {
   });
   return user;
 }
+
+export async function getRestaurantsReviewedByUser (userId: string) {
+  const restaurants = await prisma.review.findMany({
+    where: { user_id: userId },
+    select: {
+      restaurant: {
+        include: {
+          reviews: {
+            select: {
+              user: {
+                select: {
+                  id: true,
+                  username: true,
+                  image: true,
+                },
+              },
+              rating_food: true,
+              rating_atmosphere: true,
+              rating_value: true,
+              created_at: true,
+            },
+          },
+        },
+      },
+    },
+    distinct: ['restaurant_id'],
+  });
+  return restaurants;
+}
