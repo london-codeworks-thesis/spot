@@ -135,13 +135,3 @@ export default function GeocoderControl (props: GeocoderControlProps) {
   }
   return marker;
 }
-
-const noop = () => {};
-
-GeocoderControl.defaultProps = {
-  marker: true,
-  onLoading: noop,
-  onResults: noop,
-  onResult: noop,
-  onError: noop,
-};
