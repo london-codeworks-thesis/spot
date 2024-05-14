@@ -5,8 +5,8 @@ import RecentReviewCard from './recentReviewCard';
 function RecentReviews ({ reviews }: { reviews: any }) {
   return (
     <div className='flex h-[200px] flex-row'>
-      <ScrollArea className='whitespace-nowrap rounded-md border'>
-        <div className='flex w-max space-x-4 p-4'>
+      <ScrollArea className='whitespace-nowrap'>
+        <div className='relative flex w-max space-x-4'>
           {reviews.map((review: any) => (
             <RecentReviewCard key={review.id} review={review} />
           ))}
