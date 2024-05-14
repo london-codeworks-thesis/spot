@@ -1,15 +1,19 @@
 import React from 'react';
 import { Card } from 'antd';
 import Autoplay from 'embla-carousel-autoplay';
-import { Review } from '@/types/review';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import { ReviewWithUser } from '@/types/ReviewWithUser';
 import SingleReview from './singleReviewCard';
 
-export default function ReviewsCard ({ reviews }: { reviews: Review[] }) {
+export default function ReviewsCard ({
+  reviews,
+}: {
+  reviews: ReviewWithUser[];
+}) {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true }),
   );
@@ -28,7 +32,7 @@ export default function ReviewsCard ({ reviews }: { reviews: Review[] }) {
         <CarouselContent className='-mt-1 h-[100px] w-full '>
           {reviews.map((review) => (
             <CarouselItem
-              key={review.user.id}
+              key={review.id}
               className='flex justify-center pt-1 md:basis-1/2'
             >
               <SingleReview review={review} />

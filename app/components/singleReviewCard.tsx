@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import { Review } from '@/types/review';
 import Link from 'next/link';
+import { ReviewWithUser } from '@/types/ReviewWithUser';
 import { Card, CardContent } from './ui/card';
 import MarkerPopupIcons from './markerPopupRatingIcons';
 
-export default function SingleReview ({ review }: { review: Review }) {
+export default function SingleReview ({ review }: { review: ReviewWithUser }) {
   function valueChecker (num: number): string {
     return Number.isInteger(num) ? `${num}.0` : `${num}`;
   }

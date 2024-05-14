@@ -35,7 +35,7 @@ export default function MarkerMap ({ data }: { data: any[] }) {
         proximity={{ latitude: 51.4949702, longitude: -0.1277006 }}
       />
       {data.map((item) => (
-        <MarkerPopup markerData={item} key={item.restaurant.id} />
+        <MarkerPopup locationMarker={item} key={item.id} />
       ))}
     </Map>
   );

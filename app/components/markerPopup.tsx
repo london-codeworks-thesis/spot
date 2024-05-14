@@ -1,4 +1,8 @@
-import React, { forwardRef, useRef } from 'react';
+'use client';
+
+import React, {
+  forwardRef, useEffect, useRef, useState,
+} from 'react';
 import { Marker } from 'react-map-gl';
 import Link from 'next/link';
 import {
@@ -11,6 +15,7 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { ReviewWithUser } from '@/types/ReviewWithUser';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { Label } from './ui/label';
@@ -20,7 +25,7 @@ import DetailCard from './detailsCard';
 import ReviewsCard from './reviewsCard';
 
 type MarkerPopupProps = {
-  markerData: any;
+  locationMarker: any;
 };
 
 const FocusableMarker = forwardRef<HTMLButtonElement | null, any>(
@@ -35,11 +40,33 @@ const FocusableMarker = forwardRef<HTMLButtonElement | null, any>(
   ),
 );
 
-export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
+export default function MarkerPopup ({ locationMarker }: MarkerPopupProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef(null);
-  const { restaurant } = markerData;
+  const { id: restaurantId } = locationMarker;
+  const [reviews, setReviews] = useState<ReviewWithUser[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchReviews () {
+      try {
+        const res = await fetch(`/api/restaurant/${restaurantId}/reviews`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch reviews');
+        }
+        const data = await res.json();
+        setReviews(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchReviews();
+  }, [restaurantId]);
 
   function scrollToDetails () {
     if (detailsRef.current) {
@@ -49,6 +76,19 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
         container.scrollTop = container?.offsetHeight;
       }
     }
+  }
+
+  if (loading) {
+    return null;
+  }
+
+  if (error) {
+    return (
+      <p>
+        Error:
+        {error}
+      </p>
+    );
   }
 
   function scrollName () {
@@ -71,8 +111,9 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       }
     }
   }
+
   function average (name: string): string {
-    const ratingTypeArray: number[] = restaurant.reviews.map(
+    const ratingTypeArray: number[] = reviews.map(
       (review: any) => review[name],
     );
 
@@ -94,14 +135,15 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       ) / 10
     );
   }
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <FocusableMarker
           ref={markerRef}
-          key={restaurant.id}
-          latitude={restaurant.latitude}
-          longitude={restaurant.longitude}
+          key={locationMarker.id}
+          latitude={locationMarker.latitude}
+          longitude={locationMarker.longitude}
           color='black'
         />
       </DrawerTrigger>
@@ -114,7 +156,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
           </DrawerClose>
           <div
             className='mt-[-6%] h-[40%] w-full shrink-0 bg-cover bg-center bg-no-repeat'
-            style={{ backgroundImage: `url(${restaurant.image_url})` }}
+            style={{ backgroundImage: `url(${locationMarker.image_url})` }}
           />
           <div className='flex h-full w-[90%] flex-col gap-4'>
             <div className='flex w-full shrink-0 gap-2 overflow-scroll scrollbar-none'>
@@ -123,8 +165,8 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                   href={{
                     pathname: '/dashboard/add',
                     query: {
-                      restaurant: JSON.stringify(restaurant),
-                      imgSource: JSON.stringify(restaurant.image_url),
+                      restaurant: JSON.stringify(locationMarker),
+                      imgSource: JSON.stringify(locationMarker.image_url),
                     },
                   }}
                 >
@@ -165,7 +207,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                   className='flex w-full flex-row whitespace-nowrap text-3xl font-extrabold'
                   onClick={() => scrollName()}
                 >
-                  {restaurant.name}
+                  {locationMarker.name}
                 </Label>
               </div>
               <Rate
@@ -204,29 +246,29 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               </div>
               <Separator />
               <p className='text-sm text-gray-500'>
-                {restaurant.summary}
+                {locationMarker.summary}
                 {' '}
               </p>
               <p className='flex items-center gap-3 text-sm text-gray-500'>
                 <MapPin size={14} />
-                {restaurant.address}
+                {locationMarker.address}
               </p>
               <Separator />
               <Label className='pr-[10%] text-lg font-bold'>
                 Reviews (
-                {restaurant.reviews.length}
+                {reviews.length}
                 )
               </Label>
-              <ReviewsCard reviews={restaurant.reviews} />
+              <ReviewsCard reviews={reviews} />
               <div>
                 <Label className='pr-[10%] text-lg font-bold'>Details</Label>
               </div>
               <DetailCard
-                phone={restaurant.phone}
-                hours={restaurant.opening_hours}
+                phone={locationMarker.phone}
+                hours={locationMarker.opening_hours}
                 detailsRef={detailsRef}
-                directions={restaurant.address}
-                mapUri={restaurant.google_maps_uri}
+                directions={locationMarker.address}
+                mapUri={locationMarker.google_maps_uri}
               />
             </div>
           </div>
