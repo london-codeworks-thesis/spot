@@ -1,22 +1,24 @@
 import React from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import type { User } from '@/types/user';
+import Image from 'next/image';
 
 function ProfileHeader ({
   first_name,
   last_name,
   image,
 }: {
-  first_name: User['first_name'];
-  last_name: User['last_name'];
-  image: User['image'];
+  first_name: string;
+  last_name: string;
+  image: string;
 }) {
   return (
-    <div className='mx-5 flex gap-4'>
-      <Avatar>
-        <AvatarImage src={image as string} width={100} height={100} />
-        <AvatarFallback>TDS</AvatarFallback>
-      </Avatar>
+    <div className='mx-5 flex items-center gap-4'>
+      <Image
+        src={image as string}
+        alt='Profile Picture'
+        width={100}
+        height={100}
+        className='aspect-square rounded-full object-cover'
+      />
       <div className='flex flex-col'>
         <p className='text-3xl font-semibold'>{first_name}</p>
         <p className='text-3xl font-semibold'>{last_name}</p>

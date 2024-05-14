@@ -1,13 +1,13 @@
 import React from 'react';
+import { getSession } from '@/hooks/getSession';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 
 export default async function Layout ({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getSession();
   if (session) {
     redirect('/dashboard');
   }
