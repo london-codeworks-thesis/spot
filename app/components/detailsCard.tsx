@@ -76,7 +76,7 @@ export default function DetailCard ({
         >
           <AccordionItem value='open'>
             <AccordionTrigger>
-              <Label className='text-md font-bold'>{findDay()[0]}</Label>
+              <Label className='text-md'>{findDay()[0]}</Label>
             </AccordionTrigger>
             {findDay().map((day, index) => (index === 0 ? (
               <div key={day} />
