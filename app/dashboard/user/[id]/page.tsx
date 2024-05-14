@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileHeader from '@components/profileHeader';
 import MarkerMap from '@components/markerMap';
 import RecentReviews from '@components/recentReviews';
-import FollowButton from '@components/followButton';
+import ProfileActionButton from '@components/profileActionButton';
 import { getSession } from '@/hooks/getSession';
 import { getUserById, getRestaurantsReviewedByUser } from '@/lib/userService';
 
@@ -42,7 +42,7 @@ async function UserPage ({ params }: UserPageProps) {
       </div>
       <div className='flex flex-row'>
         <div className='ml-[116px] w-[207px]'>
-          <FollowButton userIdToFollow={profileId} />
+          <ProfileActionButton profileUserId={profileId} />
         </div>
       </div>
       <div className='flex flex-col gap-2'>
