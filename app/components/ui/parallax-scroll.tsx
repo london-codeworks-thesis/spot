@@ -45,7 +45,7 @@ export const ParallaxScroll = ({
         className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 items-start max-w-5xl mx-auto gap-3 px-0"
         ref={gridRef}
       >
-        <div className="grid gap-3">
+        <div className="grid gap-1">
           {firstPart.map((el, idx) => (
             <motion.div
               style={{ y: translateFirst }} // Apply the translateY motion value here
@@ -60,19 +60,19 @@ export const ParallaxScroll = ({
                 style={{height: 'auto'}}
                 alt="thumbnail"
               />
-              <div className="flex flex-row m-1 items-center">
-                <div>
+              <div className="flex flex-row m-1 items-center p-1">
+                <div className='mr-1'>
                 <Image
                   src={firstData[idx].user.image}
                   className="rounded-full aspect-square"
-                  height={30}
-                    width={30}
+                  height={35}
+                    width={35}
                     alt="profilePic"
                   />
                   </div>
                 <div className="flex flex-col flex-1 w-20 ml-0.5">
-                  <h1 className='text-nowrap truncate'>{firstData[idx].restaurant.name}</h1>
-                  <Rate count={5} defaultValue={firstData[idx].rating_food} disabled style={{ padding: '2px', color: 'black'}}/>
+                  <h1 className='text-nowrap truncate -mb-1'>{firstData[idx].restaurant.name}</h1>
+                  <Rate count={5} defaultValue={firstData[idx].rating_food} disabled style={{ padding: '2px', color: 'black', fontSize: 12}}/>
                 </div>
                 </div>
                 </div>
@@ -92,19 +92,19 @@ export const ParallaxScroll = ({
                 style={{height: 'auto'}}
                 alt="thumbnail"
               />
-              <div className="flex flex-row m-1 items-center">
-                <div>
+              <div className="flex flex-row m-1 items-center p-1">
+                <div className='mr-1'>
                 <Image
                   src={secondData[idx].user.image}
                   className="rounded-full aspect-square"
-                  height={30}
-                    width={30}
+                  height={35}
+                    width={35}
                     alt="profilePic"
                   />
                   </div>
                 <div className="flex flex-col flex-1 w-20 ml-0.5">
-                  <h1 className='text-nowrap truncate'>{secondData[idx].restaurant.name}</h1>
-                  <Rate count={5} defaultValue={secondData[idx].rating_food} disabled style={{color: 'black'}}/>
+                  <h1 className='text-nowrap truncate -mb-1'>{secondData[idx].restaurant.name}</h1>
+                  <Rate count={5} defaultValue={secondData[idx].rating_food} disabled style={{ padding: '2px', color: 'black', fontSize: 12 }} />
                 </div>
               </div>
             </motion.div>
