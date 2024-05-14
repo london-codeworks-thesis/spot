@@ -26,6 +26,7 @@ export async function getUserById (userId: string) {
               longitude: true,
             },
           },
+          id: true,
           rating_food: true,
           rating_value: true,
           rating_atmosphere: true,

@@ -1,9 +1,10 @@
 import React from 'react';
 import ProfileHeader from '@components/profileHeader';
 import Settings from '@components/settings';
-import MarkerMap from '@components/markerMap';
+// import MarkerMap from '@components/markerMap';
 import { getSession } from '@/hooks/getSession';
 import { getUserById } from '@/lib/userService';
+import RecentReviews from '@/components/recentReviews';
 
 export default async function Page () {
   const session = await getSession();
@@ -36,11 +37,12 @@ export default async function Page () {
       <div>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
         <div className='h-[30vh] w-full'>
-          <MarkerMap data={user.reviews} />
+          {/* <MarkerMap data={user.reviews} /> */}
         </div>
       </div>
       <div>
-        <h2 className='text-2xl font-semibold'> Recent Reviews</h2>
+        <h2 className='text-2xl font-semibold'>Recent Reviews</h2>
+        <RecentReviews reviews={user.reviews} />
       </div>
     </div>
   );
