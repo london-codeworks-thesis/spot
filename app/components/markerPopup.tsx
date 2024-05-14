@@ -35,14 +35,25 @@ const FocusableMarker = forwardRef<HTMLButtonElement | null, any>(
 
 export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef(null);
   const { restaurant } = markerData;
+
   function scrollToDetails () {
     if (detailsRef.current) {
       const container: HTMLElement | null = detailsRef.current.parentElement;
       if (container) {
         container.style.scrollBehavior = 'smooth';
         container.scrollTop = container?.offsetTop;
+      }
+    }
+  }
+  function scrollName () {
+    if (nameRef.current) {
+      const container: HTMLElement | null = nameRef.current;
+      if (container) {
+        container.style.scrollBehavior = 'smooth';
+        container.scrollLeft = container?.scrollWidth;
       }
     }
   }
@@ -133,9 +144,17 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
               />
             </div>
             <div className='flex w-full items-center justify-start gap-3'>
-              <Label className='flex w-[40%] flex-row pr-[10%] text-3xl font-extrabold'>
-                {restaurant.name}
-              </Label>
+              <div
+                className='w-[40%] overflow-scroll scrollbar-none'
+                ref={nameRef}
+              >
+                <Label
+                  className='flex w-full flex-row whitespace-nowrap text-3xl font-extrabold'
+                  onClick={() => scrollName()}
+                >
+                  {restaurant.name}
+                </Label>
+              </div>
               <Label className='text-lg font-bold'>{mainAverage()}</Label>
               <Rate
                 defaultValue={mainAverage()}
