@@ -78,10 +78,8 @@
 
 .mapboxgl-ctrl-geocoder--input {
     font-size: 18px!important;
-    /* color: black!important; */
     width: 370px;
     height: 40px;
-    padding: 3px;
     border-radius: 5px;
     padding: 10px 15px;
 }
