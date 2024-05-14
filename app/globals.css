@@ -75,6 +75,10 @@
     }
   }
 
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+  display: none !important;
+}
 
 .mapboxgl-ctrl-geocoder--input {
     font-size: 18px!important;

@@ -28,7 +28,7 @@ const users = [
     password: 'tobylovescoding',
     email: 'tobydixonsmith@gmail.com',
     first_name: 'Toby',
-    last_name: 'Dixon',
+    last_name: 'Dixon Smith',
     image: 'https://ca.slack-edge.com/T0WU5R8NT-U06FBCC4S14-803b97100552-192',
   },
 ];
