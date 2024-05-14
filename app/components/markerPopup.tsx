@@ -19,6 +19,7 @@ import MarkerPopupIcons from './markerPopupRatingIcons';
 import DetailCard from './detailsCard';
 import ReviewsCard from './reviewsCard';
 
+
 type MarkerPopupProps = {
   markerData: any;
 };
