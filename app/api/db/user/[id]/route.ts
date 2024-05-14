@@ -33,9 +33,18 @@ export async function GET (
           created_at: true,
         },
       },
+      _count: {
+        select: {
+          reviews: true,
+          followers: true,
+          following: true,
+        },
+      },
     },
   });
   return NextResponse.json(result);
 }
 
-export default GET;
+export async function POST () {
+  console.log('post');
+}

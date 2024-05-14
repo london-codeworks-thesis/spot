@@ -70,6 +70,26 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       }
     }
   }
+  function scrollName () {
+    if (nameRef.current) {
+      const container: HTMLElement | null = nameRef.current;
+      if (container) {
+        if (
+          container.scrollLeft + container.offsetWidth + 5
+          > container.scrollWidth
+        ) {
+          container.style.scrollBehavior = 'smooth';
+          setTimeout(() => {
+            container.scrollLeft = 0;
+          }, 500);
+        } else {
+          container.style.scrollBehavior = 'smooth';
+          container.scrollLeft += 5;
+          setTimeout(() => scrollName(), 0);
+        }
+      }
+    }
+  }
   function average (name: string): string {
     const ratingTypeArray: number[] = restaurant.reviews.map(
       (review: any) => review[name],

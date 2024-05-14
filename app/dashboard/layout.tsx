@@ -1,15 +1,14 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 import NavBar from '@/components/nav-bar';
-import { authConfig } from '@/lib/auth';
+import { getSession } from '@/hooks/getSession';
 
 export default async function Layout ({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authConfig);
+  const session = await getSession();
   if (!session) {
     redirect('/');
   }
