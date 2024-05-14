@@ -27,6 +27,10 @@ export default function MarkerMap ({ data }: { data: any[] }) {
         mapboxAccessToken={MAPBOX_TOKEN as string}
         position='top-left'
         marker={false}
+        onLoading={() => {}}
+        onResults={() => {}}
+        onResult={() => {}}
+        onError={() => {}}
         clearOnBlur={false}
         proximity={{ latitude: 51.4949702, longitude: -0.1277006 }}
       />
