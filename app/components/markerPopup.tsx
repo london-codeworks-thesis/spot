@@ -16,6 +16,8 @@ import { Separator } from './ui/separator';
 import { Label } from './ui/label';
 import RestaurantDrawerButton from './restaurantDrawerButtons';
 import MarkerPopupIcons from './markerPopupRatingIcons';
+import DetailCard from './detailsCard';
+import { Card } from './ui/card';
 
 type MarkerPopupProps = {
   markerData: any;
@@ -44,7 +46,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
       const container: HTMLElement | null = detailsRef.current.parentElement;
       if (container) {
         container.style.scrollBehavior = 'smooth';
-        container.scrollTop = container?.offsetTop;
+        container.scrollTop = container?.offsetHeight;
       }
     }
   }
@@ -180,7 +182,7 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 allowHalf
               />
             </div>
-            <div className='relative flex h-[80%] w-full flex-col gap-3 overflow-scroll pb-4 scrollbar-none'>
+            <div className='relative flex h-[80%] w-full flex-col gap-3 overflow-scroll pb-[80%] scrollbar-none'>
               <div className='flex w-full items-center justify-around'>
                 <MarkerPopupIcons
                   value={average('rating_food')}
@@ -207,12 +209,22 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 {restaurant.address}
               </p>
               <Separator />
-              <Label className='pr-[10%] text-lg font-bold'>Reviews (23)</Label>
-              <div className='h-[40%] w-full shrink-0 rounded-xl bg-gray-400' />
-              <div ref={detailsRef}>
+              <Label className='pr-[10%] text-lg font-bold'>
+                Reviews (
+                {restaurant.reviews.length}
+                )
+              </Label>
+              <Card className='h-[40%] w-full shrink-0' />
+              <div>
                 <Label className='pr-[10%] text-lg font-bold'>Details</Label>
               </div>
-              <div className='h-[80%] w-full shrink-0 rounded-xl bg-gray-400' />
+              <DetailCard
+                phone={restaurant.phone}
+                hours={restaurant.opening_hours}
+                detailsRef={detailsRef}
+                directions={restaurant.address}
+                mapUri={restaurant.google_maps_uri}
+              />
             </div>
           </div>
         </div>
