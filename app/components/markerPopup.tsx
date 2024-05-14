@@ -154,9 +154,9 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                 handleClick={() => scrollToDetails()}
               />
             </div>
-            <div className='flex w-full items-center justify-start gap-3'>
+            <div className='flex w-full items-center justify-between gap-4'>
               <div
-                className='w-[40%] overflow-scroll scrollbar-none'
+                className='w-full overflow-scroll scrollbar-none'
                 ref={nameRef}
               >
                 <Label
@@ -166,11 +166,10 @@ export default function MarkerPopup ({ markerData }: MarkerPopupProps) {
                   {restaurant.name}
                 </Label>
               </div>
-              <Label className='text-lg font-bold'>{mainAverage()}</Label>
               <Rate
                 defaultValue={mainAverage()}
                 disabled
-                style={{ color: 'black' }}
+                style={{ color: 'black', fontSize: 14, flexShrink: 0 }}
                 tooltips={[
                   'Avoid At All Cost',
                   'Maybe Another Try',
