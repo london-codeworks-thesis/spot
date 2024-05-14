@@ -5,7 +5,6 @@ import { signOut } from 'next-auth/react';
 import { Settings as SettingsIcon } from 'lucide-react';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -27,11 +26,9 @@ function Settings () {
           <SheetTitle className='text-3xl font-extrabold'>Settings</SheetTitle>
         </SheetHeader>
         <SheetFooter>
-          <SheetClose asChild>
-            <Button onClick={() => signOut()} className='p-6'>
-              Logout
-            </Button>
-          </SheetClose>
+          <Button onClick={() => signOut({ callbackUrl: '/' })} className='p-6'>
+            Logout
+          </Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>

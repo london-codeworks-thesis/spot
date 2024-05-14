@@ -25,6 +25,8 @@ module.exports = {
     },
   },
   rules: {
+    "no-param-reassign": "off",
+    "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/naming-convention": "off",
     "no-underscore-dangle": "off",
