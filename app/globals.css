@@ -74,3 +74,16 @@
       @apply bg-background text-foreground w-screen;
     }
   }
+
+
+.mapboxgl-ctrl-geocoder--input {
+    font-size: 18px!important;
+    width: 370px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.mapboxgl-ctrl-geocoder--icon {
+  visibility: hidden;
+}
