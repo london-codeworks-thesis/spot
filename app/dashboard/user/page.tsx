@@ -1,13 +1,12 @@
 // page.tsx
 import React from 'react';
-import { getServerSession } from 'next-auth';
 import ProfileHeader from '@components/profileHeader';
 import Settings from '@components/settings';
-import { authConfig } from '@/lib/auth';
 import type { User } from '@/types/user';
+import { getSession } from '@/hooks/getSession';
 
 export default async function Page () {
-  const session = await getServerSession(authConfig);
+  const session = await getSession();
   const user = session?.user as User;
 
   // Ensure user data is available
