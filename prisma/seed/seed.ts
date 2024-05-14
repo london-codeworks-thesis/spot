@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import users from './users';
-import restaurants from './restaurants';
+import restaurants from './restaurant';
 
 const prisma = new PrismaClient();
 
@@ -58,6 +58,7 @@ async function main () {
   const firstUser = await prisma.user.findFirst();
   const secondUser = await prisma.user.findFirst({ skip: 1 });
   const thirdUser = await prisma.user.findFirst({ skip: 2 });
+  const fourthUser = await prisma.user.findFirst({ skip: 3 });
 
   await prisma.follow.createMany({
     data: [
@@ -85,6 +86,48 @@ async function main () {
       {
         follower_user_id: thirdUser?.id!,
         following_user_id: firstUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: fourthUser?.id!,
+        following_user_id: firstUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: fourthUser?.id!,
+        following_user_id: secondUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: fourthUser?.id!,
+        following_user_id: thirdUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: firstUser?.id!,
+        following_user_id: fourthUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: secondUser?.id!,
+        following_user_id: fourthUser?.id!,
+        is_accepted: true,
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
+      },
+      {
+        follower_user_id: thirdUser?.id!,
+        following_user_id: fourthUser?.id!,
         is_accepted: true,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
