@@ -23,6 +23,14 @@ const users = [
     last_name: 'Polge',
     image: 'https://ca.slack-edge.com/T0WU5R8NT-U06AQDGF279-efc187bba1c7-512',
   },
+  {
+    username: 'tobydixonsmith',
+    password: 'tobylovescoding',
+    email: 'tobydixonsmith@gmail.com',
+    first_name: 'Toby',
+    last_name: 'Dixon',
+    image: 'https://ca.slack-edge.com/T0WU5R8NT-U06FBCC4S14-803b97100552-192',
+  },
 ];
 
 export default users;
