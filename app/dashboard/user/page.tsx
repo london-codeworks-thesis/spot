@@ -28,6 +28,9 @@ export default async function Page () {
           first_name={user.first_name || 'First Name'}
           last_name={user.last_name || 'Last Name'}
           image={user.image || ''}
+          followers={user._count.followers ?? 0}
+          following={user._count.following ?? 0}
+          reviews={user._count.reviews ?? 0}
         />
       </div>
       <div>

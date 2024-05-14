@@ -5,10 +5,16 @@ function ProfileHeader ({
   first_name,
   last_name,
   image,
+  followers,
+  following,
+  reviews,
 }: {
   first_name: string;
   last_name: string;
   image: string;
+  followers: number;
+  following: number;
+  reviews: number;
 }) {
   return (
     <div className='flex items-center gap-4'>
@@ -25,15 +31,15 @@ function ProfileHeader ({
         <p className='text-3xl font-semibold'>{last_name}</p>
         <div className='flex flex-row gap-6 font-semibold text-neutral-700'>
           <div className='flex flex-col items-center'>
-            <p>20</p>
+            <p>{followers}</p>
             <p className='text-xs'>Followers</p>
           </div>
           <div className='flex flex-col items-center'>
-            <p>30</p>
+            <p>{following}</p>
             <p className='text-xs'>Following</p>
           </div>
           <div className='flex flex-col items-center'>
-            <p>10</p>
+            <p>{reviews}</p>
             <p className='text-xs'>Reviews</p>
           </div>
         </div>
