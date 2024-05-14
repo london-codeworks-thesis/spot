@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Map from 'react-map-gl';
 import MarkerPopup from '@/components/markerPopup';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import GeocoderControl from './geocoder-control';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -22,6 +23,10 @@ export default function MarkerMap ({ data }: { data: any[] }) {
       mapStyle='mapbox://styles/sampolge/clvwm3wpt01sx01o0e8hcesym'
       mapboxAccessToken={MAPBOX_TOKEN}
     >
+      <GeocoderControl
+        mapboxAccessToken={MAPBOX_TOKEN as string}
+        position='top-left'
+      />
       {data.map((item) => (
         <MarkerPopup markerData={item} key={item.restaurant.id} />
       ))}
