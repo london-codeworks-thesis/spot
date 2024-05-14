@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // get followers and following for specific user
-export async function GET (
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const userId = params.id;
+export async function GET () {
+  const account = await prisma.account.findFirst();
+  const userId = account?.userId;
   const followers = await prisma.follow.findMany({
     where: { following_user_id: userId },
     select: {
@@ -51,4 +49,6 @@ export async function GET (
   return NextResponse.json(response);
 }
 
-export default GET;
+export async function POST () {
+  console.log('post');
+}
