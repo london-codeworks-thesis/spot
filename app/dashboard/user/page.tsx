@@ -5,6 +5,7 @@ import MarkerMap from '@components/markerMap';
 import { getSession } from '@/hooks/getSession';
 import { getUserById } from '@/lib/userService';
 import RecentReviews from '@/components/recentReviews';
+import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
 
 export default async function Page () {
   const session = await getSession();
@@ -14,6 +15,7 @@ export default async function Page () {
   }
 
   const user = await getUserById(session.user.id);
+  const restaurants = await getRestaurantsReviewedByUser(session.user.id);
 
   if (!user) {
     return <div>User not found</div>;
@@ -37,7 +39,7 @@ export default async function Page () {
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
         <div className='h-[30vh] w-full overflow-clip rounded-2xl'>
-          <MarkerMap data={user.reviews} />
+          <MarkerMap data={restaurants} />
         </div>
       </div>
       <div className='flex flex-col gap-2'>

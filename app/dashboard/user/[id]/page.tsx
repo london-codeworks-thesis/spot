@@ -4,7 +4,8 @@ import MarkerMap from '@components/markerMap';
 import RecentReviews from '@components/recentReviews';
 import ProfileActionButton from '@components/profileActionButton';
 import { getSession } from '@/hooks/getSession';
-import { getUserById, getRestaurantsReviewedByUser } from '@/lib/userService';
+import { getUserById } from '@/lib/userService';
+import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
 
 interface UserPageProps {
   params: {
