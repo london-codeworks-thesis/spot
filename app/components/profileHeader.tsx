@@ -49,7 +49,7 @@ async function fetchProfileData (profileUserId: string) {
   return data;
 }
 
-function ProfileHeader ({
+async function ProfileHeader ({
   first_name,
   last_name,
   image,
