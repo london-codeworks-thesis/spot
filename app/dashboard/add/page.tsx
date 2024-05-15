@@ -23,7 +23,6 @@ export default async function Page ({ searchParams }: PageProps) {
   const restaurant = JSON.parse(searchParams.restaurant);
   const img = JSON.parse(searchParams.imgSource);
 
-  console.log('🚀 ~ Page ~ restaurant:', restaurant);
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>

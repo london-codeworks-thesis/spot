@@ -138,9 +138,6 @@ export async function getActionButtonForTarget (
     getUserFollowing(currentUserId),
   ]);
 
-  console.log('Current user is Following:', userFollowing);
-  console.log('Current user is Followed By:', userFollowers);
-
   if (userFollowing.some((user) => user.id === targetUserId)) {
     return 'Unfollow';
   }

@@ -28,6 +28,7 @@ export const ParallaxScroll = ({
   const secondData = data.slice(half);
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    // TODO Handle click
     console.log('click', e.target);
   }
 

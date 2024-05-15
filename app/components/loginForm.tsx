@@ -31,6 +31,7 @@ export default function LoginForm () {
   });
 
   function onSubmit (data: z.infer<typeof LoginSchema>) {
+    // TODO: Handle login
     console.log(data);
   }
   return (

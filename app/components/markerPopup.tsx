@@ -178,6 +178,7 @@ export default function MarkerPopup ({ locationMarker }: MarkerPopupProps) {
                   <RestaurantDrawerButton
                     Icon={Plus}
                     Title='Review'
+                    // TODO: Add onClick function
                     handleClick={() => console.log('')}
                   />
                 </Link>
