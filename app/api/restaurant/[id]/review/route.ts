@@ -50,5 +50,5 @@ export async function POST (req: NextRequest) {
     },
   });
 
-  return NextResponse.json(review);
+  return NextResponse.json(review, { status: 201 });
 }

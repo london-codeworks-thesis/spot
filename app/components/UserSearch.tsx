@@ -20,7 +20,6 @@ export default function UserSearch ({ users }: UserSuggestionsProps) {
   const router = useRouter();
 
   function handleClick (id: string) {
-    console.log('user id', id);
     router.push(`/dashboard/user/${id}`);
   }
 

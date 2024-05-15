@@ -29,21 +29,25 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         rating_atmosphere: vibe,
         userId: user.id,
       };
-      const res = await fetch(`/api/restaurant/${restaurant.id}/review`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `/api/restaurant/${restaurant.google_id}/review`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       await res.json();
-      // TODO: handle Success
       if (!res.ok) {
         throw new Error(`Failed to post review: ${res.status}`);
       }
     } catch (error) {
       console.error('Error sending reviews', error);
       throw error;
+    } finally {
+      router.push('/dashboard/user');
     }
   }
 

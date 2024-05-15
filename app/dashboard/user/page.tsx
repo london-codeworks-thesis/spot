@@ -22,9 +22,9 @@ export default async function Page () {
   }
 
   return (
-    <div className='mx-5 my-5 flex flex-col gap-4'>
+    <div className='mx-5 flex flex-col gap-4'>
       <div className='flex flex-col'>
-        <div className='flex justify-end'>
+        <div className='flex justify-end '>
           <Settings />
         </div>
         <ProfileHeader
@@ -34,6 +34,7 @@ export default async function Page () {
           followers={user._count.followers ?? 0}
           following={user._count.following ?? 0}
           reviews={user._count.reviews ?? 0}
+          profileUserId={session.user.id}
         />
       </div>
       <div className='flex flex-col gap-2'>

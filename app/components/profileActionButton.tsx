@@ -29,8 +29,6 @@ async function ProfileActionButton ({
     profileUserId,
   );
 
-  console.log(actionButtonValue);
-
   return <Button className='w-full'>{actionButtonValue}</Button>;
 }
 

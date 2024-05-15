@@ -25,6 +25,7 @@ module.exports = {
     },
   },
   rules: {
+    "react/require-default-props": "off",
     "no-param-reassign": "off",
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
