@@ -142,12 +142,12 @@ export async function getActionButtonForTarget (
   console.log('Current user is Followed By:', userFollowers);
 
   if (userFollowing.some((user) => user.id === targetUserId)) {
-    return 'unfollow';
+    return 'Unfollow';
   }
   if (userFollowers.some((user) => user.id === targetUserId)) {
-    return 'followBack';
+    return 'Follow Back';
   }
-  return 'follow';
+  return 'Follow';
 }
 
 export async function getUserSuggestions (): Promise<User[]> {
