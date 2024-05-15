@@ -6,12 +6,12 @@ async function Page () {
   const data: any[] = await getReviewsFromFollowedUsers();
 
   return (
-    <div className='flex w-full justify-center pt-[10%]'>
-      <div className='w-[90%] flex-col'>
+    <div className='flex h-full w-full flex-col justify-center pt-8'>
+      <div className='mx-auto flex h-full w-[90%] flex-col'>
         <div className='mb-4 text-2xl font-extrabold'>
           <h1>For You</h1>
         </div>
-        <div className=''>
+        <div className='relative flex-1 overflow-clip'>
           <ParallaxScroll data={data} />
         </div>
       </div>

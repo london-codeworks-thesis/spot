@@ -13,10 +13,8 @@ export default async function Layout ({
     redirect('/');
   }
   return (
-    <div className='flex h-screen flex-col justify-between'>
-      <div className='grow overflow-scroll scrollbar-none md:p-12'>
-        {children}
-      </div>
+    <div className='flex h-screen flex-col'>
+      <div className='flex-1 overflow-y-auto scrollbar-none'>{children}</div>
       <NavBar />
     </div>
   );

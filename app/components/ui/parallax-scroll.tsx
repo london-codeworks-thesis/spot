@@ -14,10 +14,9 @@ export const ParallaxScroll = ({
   data: any[];
   className?: string;
 }) => {
-  const gridRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    container: gridRef, // remove this if your container is not fixed height
-    offset: ['start start', 'end start'], // remove this if your container is not fixed height
+    container: containerRef, // Use the container for scrolling
   });
 
   const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);
@@ -33,8 +32,8 @@ export const ParallaxScroll = ({
   }
 
   return (
-    <div className={cn('h-[50rem] items-start overflow-y-auto w-full', className)} ref={gridRef}>
-      <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 items-start max-w-5xl mx-auto gap-3 px-0' ref={gridRef}>
+    <div className={cn('h-full overflow-y-auto', className)} ref={containerRef}>
+      <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 items-start max-w-5xl mx-auto gap-3 px-0'>
         <div className='grid gap-1'>
           {firstData.map((el, idx) => (
             <motion.div style={{ y: translateFirst }} key={'grid-1' + idx}>
