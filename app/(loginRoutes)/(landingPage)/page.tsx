@@ -25,8 +25,8 @@ export default function LandingPage () {
             </h1>
           </div>
           <h4 className='text-md w-11/12 font-semibold text-gray-400'>
-            Lorem ipsum dolor sit amet consectetur. Aenean sed nibh gravida vel
-            platea varius.
+            Find and rate the tastiest spots in town. Discover hidden gems, and
+            share with your friends!
           </h4>
         </div>
         <div className='flex w-4/5 items-center justify-center gap-4'>
