@@ -29,7 +29,16 @@ async function ProfileActionButton ({
     profileUserId,
   );
 
-  return <Button className='w-full'>{actionButtonValue}</Button>;
+  let actionButtonVariant: 'default' | 'secondary' = 'default';
+  if (actionButtonValue === 'Unfollow') {
+    actionButtonVariant = 'secondary';
+  }
+
+  return (
+    <Button className='w-full' variant={actionButtonVariant}>
+      {actionButtonValue}
+    </Button>
+  );
 }
 
 export default ProfileActionButton;
