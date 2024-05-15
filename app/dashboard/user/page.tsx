@@ -39,7 +39,7 @@ export default async function Page () {
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
         <div className='h-[30vh] w-full overflow-clip rounded-2xl'>
-          <MarkerMap data={restaurants} />
+          <MarkerMap data={restaurants} hideSearch />
         </div>
       </div>
       <div className='flex flex-col gap-2'>
