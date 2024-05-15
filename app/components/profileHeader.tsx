@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import ProfileActionButton from '@components/profileActionButton';
 
-function ProfileHeader ({
+async function ProfileHeader ({
   first_name,
   last_name,
   image,

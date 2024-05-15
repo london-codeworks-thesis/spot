@@ -16,28 +16,33 @@ async function ProfileActionButton ({
   }
 
   const currentUserId = session.user.id;
-  if (currentUserId === profileUserId) {
-    return (
-      <Button className='w-full' variant='secondary'>
-        Edit Profile
-      </Button>
-    );
-  }
-
   const actionButtonValue = await getActionButtonForTarget(
     currentUserId,
     profileUserId,
   );
 
-  let actionButtonVariant: 'default' | 'secondary' = 'default';
-  if (actionButtonValue === 'Unfollow') {
-    actionButtonVariant = 'secondary';
-  }
+  const handleActionButtonClick = async () => {
+    'use server';
+
+    if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
+      console.log('Follow user');
+    } else if (actionButtonValue === 'Unfollow') {
+      console.log('Unfollow user');
+    } else {
+      console.log('NOT IMPLEMENTED YET');
+    }
+  };
+  const actionButtonVariant: 'default' | 'secondary' = actionButtonValue === 'Unfollow' || actionButtonValue === 'Edit Profile'
+    ? 'secondary'
+    : 'default';
 
   return (
-    <Button className='w-full' variant={actionButtonVariant}>
-      {actionButtonValue}
-    </Button>
+    <form action={handleActionButtonClick}>
+      <input name='itemId' className='hidden' value={actionButtonValue} />
+      <Button className='w-full' variant={actionButtonVariant} type='submit'>
+        {actionButtonValue}
+      </Button>
+    </form>
   );
 }
 
