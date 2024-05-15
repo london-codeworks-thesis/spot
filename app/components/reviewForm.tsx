@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PiggyBank, Flame, Cookie } from 'lucide-react';
-import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
@@ -41,13 +40,14 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         },
       );
       await res.json();
-      // TODO: handle Success
       if (!res.ok) {
         throw new Error(`Failed to post review: ${res.status}`);
       }
     } catch (error) {
       console.error('Error sending reviews', error);
       throw error;
+    } finally {
+      router.push('/dashboard/user');
     }
   }
 
@@ -94,11 +94,9 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         >
           Cancel
         </Button>
-        <Link href='/dashboard/user' className='w-[50%]'>
-          <Button className='h-12 w-full' onClick={() => postReview()}>
-            Submit
-          </Button>
-        </Link>
+        <Button className='h-12 w-[50%]' onClick={() => postReview()}>
+          Submit
+        </Button>
       </div>
     </div>
   );
