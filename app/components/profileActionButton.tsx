@@ -1,5 +1,5 @@
 import React from 'react';
-import { getActionButtonForTarget } from '@lib/userService';
+import { getActionButtonForTarget, follow, unfollow } from '@lib/userService';
 import { Button } from '@/components/ui/button';
 import { getSession } from '@/hooks/getSession';
 
@@ -25,9 +25,9 @@ async function ProfileActionButton ({
     'use server';
 
     if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
-      console.log('Follow user');
+      await follow(currentUserId, profileUserId);
     } else if (actionButtonValue === 'Unfollow') {
-      console.log('Unfollow user');
+      await unfollow(currentUserId, profileUserId);
     } else {
       console.log('NOT IMPLEMENTED YET');
     }
