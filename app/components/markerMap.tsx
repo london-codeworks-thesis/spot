@@ -13,7 +13,7 @@ interface MarkerMapProps {
   hideSearch?: boolean;
 }
 
-function MarkerMap ({ data, hideSearch }: MarkerMapProps) {
+function MarkerMap ({ data, hideSearch = false }: MarkerMapProps) {
   const [map] = useState({
     latitude: 51.4949702,
     longitude: -0.1277006,
@@ -46,9 +46,5 @@ function MarkerMap ({ data, hideSearch }: MarkerMapProps) {
     </Map>
   );
 }
-
-MarkerMap.defaultProps = {
-  hideSearch: false,
-};
 
 export default MarkerMap;

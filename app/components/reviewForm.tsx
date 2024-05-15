@@ -94,7 +94,7 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         >
           Cancel
         </Button>
-        <Link href='/dashboard' className='w-[50%]'>
+        <Link href='/dashboard/user' className='w-[50%]'>
           <Button className='h-12 w-full' onClick={() => postReview()}>
             Submit
           </Button>
