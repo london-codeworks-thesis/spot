@@ -2,10 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import ProfileActionButton from '@components/profileActionButton';
-import {
-  getActionButtonForTarget,
-  handleActionButtonClick,
-} from '@lib/userService';
+import { handleActionButtonClick } from '@lib/userService';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/hooks/getSession';
 
@@ -33,11 +30,6 @@ async function ProfileHeader ({
   }
 
   const currentUserId = session.user.id;
-
-  const actionButtonValue = await getActionButtonForTarget(
-    currentUserId,
-    profileUserId,
-  );
   // To account for multiword names
   const getInitials = (name: string) => name
     .split(' ')
@@ -86,7 +78,6 @@ async function ProfileHeader ({
               handleActionButtonClick={handleActionButtonClick}
               profileUserId={profileUserId}
               currentUserId={currentUserId}
-              actionButtonValue={actionButtonValue}
             />
           </div>
         </div>

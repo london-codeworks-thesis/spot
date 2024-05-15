@@ -251,15 +251,12 @@ export async function handleActionButtonClick (
 ) {
   'use server';
 
-  console.log('SERVER SIDE ACTION BUTTON CLICK');
-
-  console.log('actionButtonValue:', actionButtonValue);
-
   if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
-    await follow(currentUserId as string, profileUserId as string);
-  } else if (actionButtonValue === 'Unfollow') {
-    await unfollow(currentUserId as string, profileUserId as string);
-  } else {
-    console.log('NOT IMPLEMENTED YET');
+    return follow(currentUserId as string, profileUserId as string);
   }
+  if (actionButtonValue === 'Unfollow') {
+    return unfollow(currentUserId as string, profileUserId as string);
+  }
+  console.log('NOT IMPLEMENTED YET');
+  return false;
 }
