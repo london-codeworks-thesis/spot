@@ -1,32 +1,37 @@
 import React from 'react';
 import ProfileHeader from '@components/profileHeader';
-import Settings from '@components/settings';
 import MarkerMap from '@components/markerMap';
+import RecentReviews from '@components/recentReviews';
+import ProfileActionButton from '@components/profileActionButton';
 import { getSession } from '@/hooks/getSession';
 import { getUserById } from '@/lib/userService';
-import RecentReviews from '@/components/recentReviews';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
 
-export default async function Page () {
+interface UserPageProps {
+  params: {
+    id: string;
+  };
+}
+
+async function UserPage ({ params }: UserPageProps) {
+  const profileId = params.id;
+
   const session = await getSession();
 
   if (!session?.user?.id) {
     return <div>Loading...</div>;
   }
 
-  const user = await getUserById(session.user.id);
-  const restaurants = await getRestaurantsReviewedByUser(session.user.id);
+  const user = await getUserById(profileId);
+  const restaurants = await getRestaurantsReviewedByUser(profileId);
 
   if (!user) {
     return <div>User not found</div>;
   }
 
   return (
-    <div className='mx-5 my-5 flex flex-col gap-4'>
+    <div className='mx-5 mb-5 mt-8 flex flex-col gap-4'>
       <div className='flex flex-col'>
-        <div className='flex justify-end'>
-          <Settings />
-        </div>
         <ProfileHeader
           first_name={user.first_name || 'First Name'}
           last_name={user.last_name || 'Last Name'}
@@ -35,6 +40,11 @@ export default async function Page () {
           following={user._count.following ?? 0}
           reviews={user._count.reviews ?? 0}
         />
+      </div>
+      <div className='flex flex-row'>
+        <div className='ml-[116px] w-[207px]'>
+          <ProfileActionButton profileUserId={profileId} />
+        </div>
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
@@ -49,3 +59,5 @@ export default async function Page () {
     </div>
   );
 }
+
+export default UserPage;

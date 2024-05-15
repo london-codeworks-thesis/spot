@@ -8,9 +8,16 @@ async function main () {
   console.log('seed start');
 
   // empty database
+  // Delete linking tables first
   await Promise.all([
+    prisma.account.deleteMany(),
+    prisma.session.deleteMany(),
     prisma.review.deleteMany(),
-    prisma.follow.deleteMany(),
+    prisma.userRelationship.deleteMany(),
+  ]);
+  // Then delete the main tables
+  await Promise.all([
+    prisma.verificationToken.deleteMany(),
     prisma.user.deleteMany(),
     prisma.restaurant.deleteMany(),
   ]);
@@ -21,119 +28,66 @@ async function main () {
   // seed restaurants
   const restaurantPromises = restaurants.map((restaurant) => prisma.restaurant.create({ data: restaurant }));
 
-  await Promise.all([...userPromises, ...restaurantPromises]);
+  const createdUsers = await Promise.all(userPromises);
+  const createdRestaurants = await Promise.all(restaurantPromises);
 
+  const userIds = createdUsers.map((user) => user.id);
+
+  // seed user ratings
   await Promise.all(
-    users.map(async (user) => {
-      const selectedUser = await prisma.user.findUnique({
-        where: {
-          username: user.username,
-        },
-      });
-
-      // seed ratings
+    createdUsers.map(async (selectedUser) => {
       await Promise.all(
-        restaurants.map(async (restaurant) => {
-          const selectedRestaurant = await prisma.restaurant.findUnique({
-            where: {
-              google_id: restaurant.google_id,
-            },
-          });
-          await prisma.review.create({
-            data: {
-              user_id: selectedUser?.id!,
-              restaurant_id: selectedRestaurant?.id!,
-              rating_food: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-              rating_value: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-              rating_atmosphere: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-              created_at: new Date(Date.now()),
-            },
-          });
+        createdRestaurants.map(async (restaurant) => {
+          // Generate a random number between 0 and 1
+          const chance = Math.random();
+
+          // If the number is less than 0.5, create a review
+          if (chance < 0.5) {
+            const selectedRestaurant = await prisma.restaurant.findUnique({
+              where: {
+                google_id: restaurant.google_id,
+              },
+            });
+            await prisma.review.create({
+              data: {
+                user_id: selectedUser?.id!,
+                restaurant_id: selectedRestaurant?.id!,
+                rating_food: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+                rating_value: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+                rating_atmosphere: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+                created_at: new Date(Date.now()),
+              },
+            });
+          }
         }),
       );
     }),
   );
 
-  // seed followers // TBU
-  const firstUser = await prisma.user.findFirst();
-  const secondUser = await prisma.user.findFirst({ skip: 1 });
-  const thirdUser = await prisma.user.findFirst({ skip: 2 });
-  const fourthUser = await prisma.user.findFirst({ skip: 3 });
+  // Seed user relationships with 70% chance
+  await Promise.all(
+    userIds.map(async (follower_user_id) => {
+      await Promise.all(
+        userIds.map(async (followed_user_id) => {
+          // Avoid self-relationship
+          if (follower_user_id !== followed_user_id) {
+            // Generate a random number between 0 and 1
+            const chance = Math.random();
 
-  await prisma.follow.createMany({
-    data: [
-      {
-        follower_user_id: secondUser?.id!,
-        following_user_id: firstUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: firstUser?.id!,
-        following_user_id: secondUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: secondUser?.id!,
-        following_user_id: thirdUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: thirdUser?.id!,
-        following_user_id: firstUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: fourthUser?.id!,
-        following_user_id: firstUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: fourthUser?.id!,
-        following_user_id: secondUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: fourthUser?.id!,
-        following_user_id: thirdUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: firstUser?.id!,
-        following_user_id: fourthUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: secondUser?.id!,
-        following_user_id: fourthUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-      {
-        follower_user_id: thirdUser?.id!,
-        following_user_id: fourthUser?.id!,
-        is_accepted: true,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
-      },
-    ],
-  });
+            // If the number is less than 0.7, create a user relationship
+            if (chance < 0.7) {
+              await prisma.userRelationship.create({
+                data: {
+                  follower_user_id,
+                  followed_user_id,
+                },
+              });
+            }
+          }
+        }),
+      );
+    }),
+  );
 
   console.log('seed end');
 }
