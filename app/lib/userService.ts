@@ -1,3 +1,5 @@
+import type { User } from '@prisma/client';
+import { getSession } from '@/hooks/getSession';
 import prisma from './prisma';
 
 export async function getUserById (userId: string) {
@@ -146,4 +148,67 @@ export async function getActionButtonForTarget (
     return 'followBack';
   }
   return 'follow';
+}
+
+export async function getUserSuggestions (): Promise<User[]> {
+  const session = await getSession();
+  const currentUser = session?.user;
+
+  if (!currentUser) {
+    throw new Error('User not found in session');
+  }
+
+  // Fetch users the current user is following
+  const following = await prisma.userRelationship.findMany({
+    where: {
+      follower_user_id: currentUser.id,
+    },
+    select: {
+      followed_user: true,
+    },
+  });
+
+  // Fetch users following the current user
+  const followers = await prisma.userRelationship.findMany({
+    where: {
+      followed_user_id: currentUser.id,
+    },
+    select: {
+      follower_user: true,
+    },
+  });
+
+  // Get the user IDs
+  const followingUserIds = following.map((rel) => rel.followed_user.id);
+  const followerUserIds = followers.map((rel) => rel.follower_user.id);
+
+  // Combine and deduplicate user IDs
+  const suggestedUserIds = Array.from(
+    new Set([...followingUserIds, ...followerUserIds]),
+  );
+
+  // Fetch user details for the suggested user IDs
+  let suggestedUsers = await prisma.user.findMany({
+    where: {
+      id: {
+        in: suggestedUserIds,
+      },
+    },
+    take: 50,
+  });
+
+  // If we have less than 50 suggestions, fill up with additional users
+  if (suggestedUsers.length < 50) {
+    const additionalUsers = await prisma.user.findMany({
+      where: {
+        id: {
+          notIn: [currentUser.id, ...suggestedUserIds],
+        },
+      },
+      take: 50 - suggestedUsers.length,
+    });
+    suggestedUsers = suggestedUsers.concat(additionalUsers);
+  }
+
+  return suggestedUsers;
 }
