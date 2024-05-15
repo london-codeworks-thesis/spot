@@ -1,23 +1,9 @@
-import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 import React from 'react';
-
-async function getData () {
-  const res = await fetch('http://localhost:3000/api/db/reviews', {
-    cache: 'no-store',
-  });
-  return res.json();
-}
-
-async function getImages () {
-  const res = await fetch('http://localhost:3000/api/db/images', {
-    cache: 'no-store',
-  });
-  return res.json();
-}
+import { ParallaxScroll } from '@/components/ui/parallax-scroll';
+import { getReviewsFromFollowedUsers } from '@/lib/reviewService';
 
 async function Page () {
-  const data = await getData();
-  const images: string[] = await getImages();
+  const data: any[] = await getReviewsFromFollowedUsers();
 
   return (
     <div className='flex w-full justify-center pt-[10%]'>
@@ -26,7 +12,7 @@ async function Page () {
           <h1>For You</h1>
         </div>
         <div className=''>
-          <ParallaxScroll images={images} data={data} />
+          <ParallaxScroll data={data} />
         </div>
       </div>
     </div>
