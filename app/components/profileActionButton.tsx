@@ -1,5 +1,6 @@
 import React from 'react';
 import { getActionButtonForTarget, follow, unfollow } from '@lib/userService';
+import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { getSession } from '@/hooks/getSession';
 
@@ -26,8 +27,10 @@ async function ProfileActionButton ({
 
     if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
       await follow(currentUserId, profileUserId);
+      redirect(`${profileUserId}`);
     } else if (actionButtonValue === 'Unfollow') {
       await unfollow(currentUserId, profileUserId);
+      redirect(`${profileUserId}`);
     } else {
       console.log('NOT IMPLEMENTED YET');
     }
