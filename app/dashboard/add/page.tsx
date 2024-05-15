@@ -1,5 +1,6 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
+import { Card } from '@components/ui/card';
 import { getSession } from '@/hooks/getSession';
 import { User } from '@/types/user';
 import ReviewForm from '@/components/reviewForm';
@@ -22,12 +23,13 @@ export default async function Page ({ searchParams }: PageProps) {
   const restaurant = JSON.parse(searchParams.restaurant);
   const img = JSON.parse(searchParams.imgSource);
 
+  console.log('🚀 ~ Page ~ restaurant:', restaurant);
   return (
     <div className='flex h-full w-full justify-center'>
       <div className='flex h-full w-[90%] flex-col justify-around'>
         <h1 className='pl-6 pt-7 text-3xl font-extrabold'>Add a review</h1>
         <div className='flex w-full justify-center'>
-          <div
+          <Card
             className='h-56 w-full bg-cover bg-center bg-no-repeat'
             style={{ backgroundImage: `url(${img})` }}
           />

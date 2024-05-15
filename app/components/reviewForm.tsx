@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PiggyBank, Flame, Cookie } from 'lucide-react';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import RatingCard from '@/components/starNumberCard';
@@ -29,13 +30,16 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         rating_atmosphere: vibe,
         userId: user.id,
       };
-      const res = await fetch(`/api/restaurant/${restaurant.id}/review`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `/api/restaurant/${restaurant.google_id}/review`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       await res.json();
       // TODO: handle Success
       if (!res.ok) {
@@ -90,9 +94,11 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
         >
           Cancel
         </Button>
-        <Button className='h-12 w-[50%]' onClick={() => postReview()}>
-          Submit
-        </Button>
+        <Link href='/dashboard' className='w-[50%]'>
+          <Button className='h-12 w-full' onClick={() => postReview()}>
+            Submit
+          </Button>
+        </Link>
       </div>
     </div>
   );

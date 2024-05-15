@@ -10,6 +10,8 @@ export async function GET () {
 export async function POST (req: NextRequest) {
   const data = await req.json();
 
+  console.log('🚀 ~ file: route.ts ~ line 13 ~ POST ~ data', data);
+
   const existingRestaurant = await prisma.restaurant.findUnique({
     where: {
       google_id: data.google_id,
