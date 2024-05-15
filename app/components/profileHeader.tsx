@@ -2,8 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 
 import ProfileActionButton from '@components/profileActionButton';
+import { handleActionButtonClick } from '@lib/userService';
+import { redirect } from 'next/navigation';
+import { getSession } from '@/hooks/getSession';
 
-function ProfileHeader ({
+async function ProfileHeader ({
   first_name,
   last_name,
   image,
@@ -20,6 +23,13 @@ function ProfileHeader ({
   reviews: number;
   profileUserId: string;
 }) {
+  const session = await getSession();
+
+  if (!session) {
+    redirect('/login');
+  }
+
+  const currentUserId = session.user.id;
   // To account for multiword names
   const getInitials = (name: string) => name
     .split(' ')
@@ -64,7 +74,11 @@ function ProfileHeader ({
             </div>
           </div>
           <div className='mx-auto w-[210px]'>
-            <ProfileActionButton profileUserId={profileUserId} />
+            <ProfileActionButton
+              handleActionButtonClick={handleActionButtonClick}
+              profileUserId={profileUserId}
+              currentUserId={currentUserId}
+            />
           </div>
         </div>
       </div>

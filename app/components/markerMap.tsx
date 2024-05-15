@@ -15,9 +15,9 @@ interface MarkerMapProps {
 
 function MarkerMap ({ data, hideSearch = false }: MarkerMapProps) {
   const [map] = useState({
-    latitude: 51.4949702,
-    longitude: -0.1277006,
-    zoom: 10,
+    latitude: 51.515582,
+    longitude: -0.113091,
+    zoom: 11,
   });
   // TODO add setmap when needed
   return (
