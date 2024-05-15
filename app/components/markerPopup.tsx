@@ -117,8 +117,13 @@ export default function MarkerPopup ({ locationMarker }: MarkerPopupProps) {
       (review: any) => review[name],
     );
 
+    if (ratingTypeArray.length === 0) {
+      return '0.0';
+    }
+
     const result = Math.round(
-      (ratingTypeArray.reduce((a, b) => a + b) / ratingTypeArray.length) * 10,
+      (ratingTypeArray.reduce((a, b) => a + b, 0) / ratingTypeArray.length)
+          * 10,
     ) / 10;
 
     return Number.isInteger(result) ? `${result}.0` : `${result}`;
