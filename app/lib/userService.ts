@@ -243,3 +243,23 @@ export async function unfollow (currentUserId: string, targetUserId: string) {
     return false;
   }
 }
+
+export async function handleActionButtonClick (
+  currentUserId: string,
+  profileUserId: string,
+  actionButtonValue: string,
+) {
+  'use server';
+
+  console.log('SERVER SIDE ACTION BUTTON CLICK');
+
+  console.log('actionButtonValue:', actionButtonValue);
+
+  if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
+    await follow(currentUserId as string, profileUserId as string);
+  } else if (actionButtonValue === 'Unfollow') {
+    await unfollow(currentUserId as string, profileUserId as string);
+  } else {
+    console.log('NOT IMPLEMENTED YET');
+  }
+}
