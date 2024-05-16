@@ -94,7 +94,14 @@ async function main () {
     prisma.review.deleteMany({
       where: {
         user: {
-          email: 'tobydixonsmith@gmail.com',
+          OR: [
+            {
+              email: 'tobydixonsmith@gmail.com',
+            },
+            {
+              email: 'sunny.anter4@gmail.com',
+            },
+          ],
         },
       },
     }),
@@ -106,6 +113,15 @@ async function main () {
         },
       },
     }),
+
+    prisma.review.deleteMany({
+      where: {
+        restaurant: {
+          name: 'Gold',
+        },
+      },
+    }),
+
   ]);
 
   console.log('seed end');
