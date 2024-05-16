@@ -243,20 +243,3 @@ export async function unfollow (currentUserId: string, targetUserId: string) {
     return false;
   }
 }
-
-export async function handleActionButtonClick (
-  currentUserId: string,
-  profileUserId: string,
-  actionButtonValue: string,
-) {
-  'use server';
-
-  if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
-    return follow(currentUserId as string, profileUserId as string);
-  }
-  if (actionButtonValue === 'Unfollow') {
-    return unfollow(currentUserId as string, profileUserId as string);
-  }
-  console.log('NOT IMPLEMENTED YET');
-  return false;
-}
