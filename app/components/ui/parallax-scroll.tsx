@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import cn from '@/lib/utils';
 import { Rate } from 'antd';
+import MarkerPopupContents from '@components/markerPopupContents';
+import { DrawerTrigger, Drawer } from './drawer';
 
 export const ParallaxScroll = ({
   data,
@@ -37,8 +39,9 @@ export const ParallaxScroll = ({
       <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 items-start max-w-5xl mx-auto gap-3 px-0'>
         <div className='grid gap-1'>
           {firstData.map((el, idx) => (
-            <motion.div style={{ y: translateFirst }} key={'grid-1' + idx}>
-              <div onClick={handleClick}>
+            <Drawer>
+              <DrawerTrigger asChild>
+                 <motion.div style={{ y: translateFirst }} key={'grid-1' + idx}>
                 <Image
                   src={el.restaurant.image_url}
                   className='h-60 w-full object-contain object-left-top rounded-lg gap-3 !m-0 !p-0'
@@ -46,30 +49,34 @@ export const ParallaxScroll = ({
                   height={0}
                   style={{ height: 'auto' }}
                   alt='thumbnail'
-                />
+                  />
                 <div className='flex flex-row m-1 items-center p-1'>
                   <div className='mr-1'>
                     {firstData[idx]?.user?.image && (
                       <Image
-                        src={firstData[idx].user.image}
-                        className='rounded-full aspect-square'
-                        height={35}
-                        width={35}
-                        alt='profilePic'
+                      src={firstData[idx].user.image}
+                      className='rounded-full aspect-square'
+                      height={35}
+                      width={35}
+                      alt='profilePic'
                       />
-                    )}
+                      )}
                   </div>
                   <div className='flex flex-col flex-1 w-20 ml-0.5'>
                     <h1 className='text-nowrap truncate -mb-1'>{firstData[idx]?.restaurant?.name}</h1>
                     <Rate count={5} defaultValue={firstData[idx]?.rating_food || 0} disabled style={{ padding: '2px', color: 'black', fontSize: 12 }} />
                   </div>
                 </div>
-              </div>
             </motion.div>
+                      </DrawerTrigger>
+              <MarkerPopupContents locationMarker={el.restaurant} />
+              </Drawer>
           ))}
         </div>
         <div className='grid gap-3'>
           {secondData.map((el, idx) => (
+            <Drawer>
+              <DrawerTrigger asChild>
             <motion.div style={{ y: translateSecond }} key={'grid-2' + idx}>
               <Image
                 src={el.restaurant.image_url}
@@ -78,18 +85,18 @@ export const ParallaxScroll = ({
                 height={0}
                 style={{ height: 'auto' }}
                 alt='thumbnail'
-              />
+                />
               <div className='flex flex-row m-1 items-center p-1'>
                 <div className='mr-1'>
                   {secondData[idx]?.user?.image && (
                     <Image
-                      src={secondData[idx].user.image}
-                      className='rounded-full aspect-square'
-                      height={35}
-                      width={35}
-                      alt='profilePic'
+                    src={secondData[idx].user.image}
+                    className='rounded-full aspect-square'
+                    height={35}
+                    width={35}
+                    alt='profilePic'
                     />
-                  )}
+                    )}
                 </div>
                 <div className='flex flex-col flex-1 w-20 ml-0.5'>
                   <h1 className='text-nowrap truncate -mb-1'>{secondData[idx]?.restaurant?.name}</h1>
@@ -97,9 +104,13 @@ export const ParallaxScroll = ({
                 </div>
               </div>
             </motion.div>
+              </DrawerTrigger>
+              <MarkerPopupContents locationMarker={el.restaurant}/>
+          </Drawer>
           ))}
         </div>
       </div>
-    </div>
-  );
-};
+      </div>
+      );
+    };
+    

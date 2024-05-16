@@ -10,7 +10,7 @@ export default function SingleReview ({ review }: { review: ReviewWithUser }) {
     return Number.isInteger(num) ? `${num}.0` : `${num}`;
   }
   return (
-    <Link href='https://google.com' className='h-full w-full'>
+    <Link href={`/dashboard/user/${review.user.id}`} className='h-full w-full'>
       <Card className='h-[90%] w-full shrink-0'>
         <CardContent className='flex h-full w-full items-center justify-between p-0 pl-3 pr-6'>
           {review.user.image ? (
