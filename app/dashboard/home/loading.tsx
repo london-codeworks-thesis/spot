@@ -14,8 +14,10 @@ async function Page () {
             <CustomSkeletonComponent />
             <CustomSkeletonComponent />
             <CustomSkeletonComponent />
+            <CustomSkeletonComponent />
           </div>
           <div className='flex w-[50%] flex-col overflow-hidden'>
+            <CustomSkeletonComponent />
             <CustomSkeletonComponent />
             <CustomSkeletonComponent />
             <CustomSkeletonComponent />
