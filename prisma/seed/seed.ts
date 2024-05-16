@@ -89,6 +89,25 @@ async function main () {
     }),
   );
 
+  await Promise.all([
+
+    prisma.review.deleteMany({
+      where: {
+        user: {
+          email: 'tobydixonsmith@gmail.com',
+        },
+      },
+    }),
+
+    prisma.userRelationship.deleteMany({
+      where: {
+        followed_user: {
+          email: 'tobydixonsmith@gmail.com',
+        },
+      },
+    }),
+  ]);
+
   console.log('seed end');
 }
 
