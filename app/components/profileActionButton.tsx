@@ -15,7 +15,7 @@ function ProfileActionButton ({
   const actionButtonVariant: 'default' | 'secondary' = actionButtonValue === 'Unfollow' || actionButtonValue === 'Edit Profile'
     ? 'secondary'
     : 'default';
-  
+
   return actionButtonValue ? (
     <form onSubmit={handleSubmit}>
       <Button className='w-full' variant={actionButtonVariant} type='submit'>
