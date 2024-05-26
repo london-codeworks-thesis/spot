@@ -1,5 +1,3 @@
-// 'use client';
-
 import React, { MouseEventHandler } from 'react';
 import Image from 'next/image';
 import appleIcon from '~/apple.svg';
@@ -23,7 +21,7 @@ function AuthButton ({ icon, onClick }: Prop) {
 
   return (
     <Button variant='outline' className='flex-1 py-6' onClick={onClick}>
-      <Image src={svg} alt={icon} priority />
+      <Image src={svg} alt={icon} width={20} height={20} priority />
     </Button>
   );
 }

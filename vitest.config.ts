@@ -7,8 +7,19 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    globals: true,
+    setupFiles: ['/app/__tests__/setup.ts'],
     coverage: {
       include: ['app/**'],
+      exclude: [
+        '**/ui/*',
+        '**/__tests__/*',
+        '**/setup.ts',
+        '**/types/*',
+        '!**/ui/authButton.tsx',
+        '!**/ui/separatorText.tsx',
+        '!**/ui/parallax-scroll.tsx',
+      ],
     },
   },
   resolve: {
