@@ -6,9 +6,9 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { CardContent, Card } from './ui/card';
-import { Label } from './ui/label';
+} from '@/ui/accordion';
+import { CardContent, Card } from '@/ui/card';
+import { Label } from '@/ui/label';
 
 type DetailCardProps = {
   phone: string;

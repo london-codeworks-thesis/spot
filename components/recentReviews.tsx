@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import RecentReviewCard from './recentReviewCard';
+import { ScrollArea, ScrollBar } from '@/ui/scroll-area';
+import RecentReviewCard from '@/components/recentReviewCard';
 
 function RecentReviews ({ reviews }: { reviews: any }) {
   return (

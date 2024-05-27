@@ -1,6 +1,6 @@
 import React from 'react';
-import { getSession } from '@/hooks/getSession';
 import { redirect } from 'next/navigation';
+import { getSession } from '@/hooks/getSession';
 
 export default async function Layout ({
   children,

@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import ProfileActionButton from '@components/profileActionButton';
-import { handleActionButtonClick } from '@lib/actionService';
 import { useSession } from 'next-auth/react';
+import { handleActionButtonClick } from '@/lib/actionService';
+import ProfileActionButton from '@/components/profileActionButton';
 
 interface ProfileHeaderProps {
   first_name: string;

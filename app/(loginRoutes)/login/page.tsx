@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { SeparatorText } from '@/components/ui/separatorText';
+import { SeparatorText } from '@/ui/separatorText';
 import AuthButtons from '@/components/authButtons';
 import LoginForm from '@/components/loginForm';
 

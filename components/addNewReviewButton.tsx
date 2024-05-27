@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import { Plus, Search } from 'lucide-react';
 import Image from 'next/image';
+import { Restaurant } from 'types/restaurant';
 import { POST } from '@/api/googleapi/route';
-import Logo from '~/Logo.svg';
 import {
   Drawer,
   DrawerContent,
   DrawerTrigger,
   DrawerHeader,
-} from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
-import { Restaurant } from '@/types/restaurant';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Separator } from './ui/separator';
-import RestaurantSearchResultCard from './searchResultCard';
+} from '@/ui/drawer';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
+import { Separator } from '@/ui/separator';
+import RestaurantSearchResultCard from '@/components/searchResultCard';
+import Logo from '~/Logo.svg';
 
 export default function AddReviewButton () {
   const [input, setInput] = useState('');

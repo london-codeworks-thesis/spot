@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReviewWithUser } from '@/types/ReviewWithUser';
-import { Card, CardContent } from './ui/card';
-import MarkerPopupIcons from './markerPopupRatingIcons';
+import { ReviewWithUser } from 'types/ReviewWithUser';
+import { Card, CardContent } from '@/ui/card';
+import MarkerPopupIcons from '@/components/markerPopupRatingIcons';
 
 export default function SingleReview ({ review }: { review: ReviewWithUser }) {
   function valueChecker (num: number): string {

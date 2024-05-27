@@ -1,10 +1,10 @@
 import React from 'react';
-import ProfileHeader from '@components/profileHeader';
-import MarkerMap from '@components/markerMap';
-import RecentReviews from '@components/recentReviews';
-import { getSession } from '@/hooks/getSession';
+import ProfileHeader from '@/components/profileHeader';
+import MarkerMap from '@/components/markerMap';
+import RecentReviews from '@/components/recentReviews';
 import { getUserById } from '@/lib/userService';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
+import { getSession } from '@/hooks/getSession';
 
 interface UserPageProps {
   params: {

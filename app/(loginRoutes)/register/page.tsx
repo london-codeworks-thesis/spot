@@ -1,10 +1,10 @@
 import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
+import { Button } from '@/ui/button';
+import { Separator } from '@/ui/separator';
 
 export default function Register () {
   return (

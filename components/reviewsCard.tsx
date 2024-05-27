@@ -1,13 +1,9 @@
 import React from 'react';
 import { Card } from 'antd';
 import Autoplay from 'embla-carousel-autoplay';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel';
-import { ReviewWithUser } from '@/types/ReviewWithUser';
-import SingleReview from './singleReviewCard';
+import { ReviewWithUser } from 'types/ReviewWithUser';
+import { Carousel, CarouselContent, CarouselItem } from '@/ui/carousel';
+import SingleReview from '@/components/singleReviewCard';
 
 export default function ReviewsCard ({
   reviews,

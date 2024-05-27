@@ -2,7 +2,7 @@
 
 import React, { forwardRef, useRef } from 'react';
 import { Marker } from 'react-map-gl';
-import { Drawer, DrawerTrigger } from '@/components/ui/drawer';
+import { Drawer, DrawerTrigger } from '@/ui/drawer';
 import MarkerPopupContents from './markerPopupContents';
 
 type MarkerPopupProps = {

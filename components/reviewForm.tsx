@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PiggyBank, Flame, Cookie } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import RatingCard from '@/components/starNumberCard';
+import { User } from 'types/user';
+import { Card, CardContent } from '@/ui/card';
+import { Button } from '@/ui/button';
 import StarRatingSystem from '@/components/ratingStars';
-import { User } from '@/types/user';
+import RatingCard from '@/components/starNumberCard';
 
 interface ReviewFormProps {
   restaurant: any;

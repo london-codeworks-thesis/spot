@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "baseUrl": ".",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -19,13 +20,15 @@
       }
     ],
     "paths": {
-      "@components/*": ["./app/components/*"],
-      "@ui/*": ["./app/components/ui/*"],
-      "@api/*": ["./app/api/*"],
-      "@lib/*": ["./app/lib/*"],
-      "@types/*": ["./app/types/*"],
-      "@tests/*": ["./app/__tests__/*"],
+      "@/components/*": ["./components/*"],
+      "@/ui/*": ["./components/ui/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/prisma/*": ["./prisma/*"],
+      "@/store/*": ["./store/*"],
+      "@/tests/*": ["./__tests__/*"],
       "@/*": ["./app/*"],
+      "types/*": ["./types/*"],
       "~/*": ["./public/*"],
       // Types error: https://stackoverflow.com/a/73019448
       "react": ["./node_modules/@types/react"]

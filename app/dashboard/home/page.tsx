@@ -1,6 +1,6 @@
 import React from 'react';
-import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 import { getReviewsFromFollowedUsers } from '@/lib/reviewService';
+import { ParallaxScroll } from '@/components/ui/parallax-scroll';
 
 async function Page () {
   const data: any[] = await getReviewsFromFollowedUsers();

@@ -1,6 +1,6 @@
 import React from 'react';
-import MarkerMap from '@/components/markerMap';
 import { getRestaurantsReviewedByFollowedUsers } from '@/lib/restaurantService';
+import MarkerMap from '@/components/markerMap';
 
 export default async function Page () {
   // Fetch restaurants reviewed by followed users

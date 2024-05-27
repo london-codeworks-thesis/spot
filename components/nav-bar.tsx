@@ -2,8 +2,8 @@ import {
   User, Search, Home, MapPinned,
 } from 'lucide-react';
 import React from 'react';
-import AddReviewButton from './addNewReviewButton';
-import NavBarButton from './navbarButtons';
+import AddReviewButton from '@/components/addNewReviewButton';
+import NavBarButton from '@/components/navbarButtons';
 
 export default function NavBar () {
   return (

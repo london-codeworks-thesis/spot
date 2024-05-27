@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import cn from '@/lib/utils';
 import { Rate } from 'antd';
-import MarkerPopupContents from '@components/markerPopupContents';
+import MarkerPopupContents from '@/components/markerPopupContents';
 import { DrawerTrigger, Drawer } from './drawer';
 
 export const ParallaxScroll = ({

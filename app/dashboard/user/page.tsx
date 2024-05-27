@@ -1,11 +1,11 @@
 import React from 'react';
-import ProfileHeader from '@components/profileHeader';
-import Settings from '@components/settings';
-import MarkerMap from '@components/markerMap';
-import { getSession } from '@/hooks/getSession';
+import ProfileHeader from '@/components/profileHeader';
+import Settings from '@/components/settings';
+import MarkerMap from '@/components/markerMap';
 import { getUserById } from '@/lib/userService';
-import RecentReviews from '@/components/recentReviews';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
+import { getSession } from '@/hooks/getSession';
+import RecentReviews from '@/components/recentReviews';
 
 export default async function Page () {
   const session = await getSession();

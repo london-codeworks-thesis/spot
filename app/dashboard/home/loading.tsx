@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomSkeletonComponent from '@components/customSkeletonComponent';
+import CustomSkeletonComponent from '@/components/customSkeletonComponent';
 
 async function Page () {
   return (

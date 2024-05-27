@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { signIn } from 'next-auth/react';
-import AuthButton from '@/components/ui/authButton';
+import AuthButton from '@/ui/authButton';
 
 export default function AuthButtons () {
   function handleClick (provider: string) {

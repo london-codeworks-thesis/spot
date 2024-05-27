@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserById } from '@lib/userService';
+import { getUserById } from '@/lib/userService';
 
 export async function GET (
   req: Request,

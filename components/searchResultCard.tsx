@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MapPin } from 'lucide-react';
+import { Restaurant } from 'types/restaurant';
 import { GET } from '@/api/googleapi/route';
-import { Restaurant } from '@/types/restaurant';
-import { Card, CardContent, CardTitle } from './ui/card';
-import { DrawerClose } from './ui/drawer';
+import { Card, CardContent, CardTitle } from '@/ui/card';
+import { DrawerClose } from '@/ui/drawer';
 
 type RestaurantSearchResultCardProps = {
   restaurant: Restaurant;

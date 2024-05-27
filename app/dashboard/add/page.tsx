@@ -1,8 +1,8 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { Card } from '@components/ui/card';
+import { User } from 'types/user';
 import { getSession } from '@/hooks/getSession';
-import { User } from '@/types/user';
+import { Card } from '@/ui/card';
 import ReviewForm from '@/components/reviewForm';
 
 interface PageProps {
