@@ -1,6 +1,6 @@
 'use server';
 
-import prisma from './prisma';
+import prisma from '@/lib/prisma';
 
 export async function follow (currentUserId: string, targetUserId: string) {
   try {

@@ -1,8 +1,8 @@
-import { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-import type { Adapter, AdapterUser } from 'next-auth/adapters';
+import type { AdapterUser } from 'next-auth/adapters';
 import prisma from '@/lib/prisma';
 
 type ExtendedAdapterUser = AdapterUser & {
@@ -10,15 +10,16 @@ type ExtendedAdapterUser = AdapterUser & {
   last_name?: string;
 };
 
-export const authConfig: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as Adapter,
+const BASE_PATH = '/api/auth';
+
+const authOptions: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma),
+  basePath: BASE_PATH,
   pages: {
     signIn: '/login',
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID ?? '',
-      clientSecret: process.env.AUTH_GOOGLE_SECRET ?? '',
       allowDangerousEmailAccountLinking: true,
       profile (profile) {
         return {
@@ -32,11 +33,7 @@ export const authConfig: NextAuthOptions = {
       },
     }),
     FacebookProvider({
-      clientId: process.env.AUTH_FACEBOOK_ID ?? '',
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET ?? '',
       allowDangerousEmailAccountLinking: true,
-      profileUrl:
-        'https://graph.facebook.com/me?fields=id,name,email,picture.width(400).height(400),first_name,last_name',
       profile (profile) {
         return {
           id: profile.id,
@@ -53,17 +50,15 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session ({
-      session,
-      user,
-    }: {
-      session: any;
-      user: AdapterUser & { first_name?: string; last_name?: string };
-    }) {
+    async session ({ session, token }) {
       if (session?.user) {
-        session.user.id = user.id!;
-        session.user.first_name = user.first_name ?? session.user.name.split(' ')[0];
-        session.user.last_name = user.last_name ?? session.user.name.split(' ').slice(1).join(' ');
+        session.user.id = token.id!.toString();
+        session.user.first_name = token.first_name?.toString()
+          ?? session.user.name?.split(' ')[0]
+          ?? '';
+        session.user.last_name = token.last_name?.toString()
+          ?? session.user.name?.split(' ').slice(1).join(' ')
+          ?? '';
       }
       return session;
     },
@@ -77,3 +72,5 @@ export const authConfig: NextAuthOptions = {
     },
   },
 };
+
+export const { handlers, auth } = NextAuth(authOptions);

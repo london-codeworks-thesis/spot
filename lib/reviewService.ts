@@ -1,7 +1,7 @@
 import type { Review } from '@prisma/client';
-import { getSession } from '@/hooks/getSession';
-import prisma from './prisma';
-import { getUserFollowing } from './userService';
+import { auth } from '@/auth';
+import prisma from '@/lib/prisma';
+import { getUserFollowing } from '@/lib/userService';
 
 /**
  * Retrieves all reviews for a given restaurant.
@@ -35,7 +35,7 @@ export async function getReviewsByRestaurantId (
 }
 
 export async function getReviewsFromFollowedUsers (): Promise<Review[]> {
-  const session = await getSession();
+  const session = await auth();
   const user = session?.user;
 
   if (!user) {

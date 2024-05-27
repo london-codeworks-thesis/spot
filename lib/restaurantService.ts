@@ -1,7 +1,7 @@
 import type { Restaurant } from '@prisma/client';
-import { getSession } from '@/hooks/getSession';
-import prisma from './prisma';
-import { getUserFollowing } from './userService';
+import { auth } from '@/auth';
+import prisma from '@/lib/prisma';
+import { getUserFollowing } from '@/lib/userService';
 
 export async function getRestaurant (
   restaurantId: string,
@@ -13,7 +13,7 @@ export async function getRestaurant (
 }
 
 export async function getRestaurantsReviewedByFollowedUsers () {
-  const session = await getSession();
+  const session = await auth();
   const user = session?.user;
 
   if (!user) {

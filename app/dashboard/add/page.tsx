@@ -1,7 +1,7 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { User } from 'types/user';
-import { getSession } from '@/hooks/getSession';
+import { auth } from '@/auth';
 import { Card } from '@/ui/card';
 import ReviewForm from '@/components/reviewForm';
 
@@ -13,7 +13,7 @@ interface PageProps {
 }
 
 export default async function Page ({ searchParams }: PageProps) {
-  const session = await getSession();
+  const session = await auth();
   const user = session?.user as User | null;
 
   if (!user) {

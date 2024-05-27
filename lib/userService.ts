@@ -1,6 +1,6 @@
 import type { User } from '@prisma/client';
-import { getSession } from '@/hooks/getSession';
-import prisma from './prisma';
+import prisma from '@/lib/prisma';
+import { auth } from '@/auth';
 
 export async function getUserById (userId: string) {
   if (!userId) {
@@ -152,7 +152,7 @@ export async function getActionButtonForTarget (
 }
 
 export async function getUserSuggestions (): Promise<User[]> {
-  const session = await getSession();
+  const session = await auth();
   const currentUser = session?.user;
 
   if (!currentUser) {

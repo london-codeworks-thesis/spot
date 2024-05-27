@@ -4,11 +4,11 @@ import Settings from '@/components/settings';
 import MarkerMap from '@/components/markerMap';
 import { getUserById } from '@/lib/userService';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
-import { getSession } from '@/hooks/getSession';
 import RecentReviews from '@/components/recentReviews';
+import { auth } from '@/auth';
 
 export default async function Page () {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session?.user?.id) {
     return <div>Loading...</div>;

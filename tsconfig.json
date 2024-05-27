@@ -20,6 +20,8 @@
       }
     ],
     "paths": {
+      "@/auth": ["./auth/index.ts"],
+      "@/auth/*": ["./auth/*"],
       "@/components/*": ["./components/*"],
       "@/ui/*": ["./components/ui/*"],
       "@/hooks/*": ["./hooks/*"],
