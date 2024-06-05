@@ -4,7 +4,7 @@ import MarkerMap from '@/components/markerMap';
 import RecentReviews from '@/components/recentReviews';
 import { getUserById } from '@/lib/userService';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
-import { getSession } from '@/hooks/getSession';
+import { auth } from '@/auth';
 
 interface UserPageProps {
   params: {
@@ -15,7 +15,7 @@ interface UserPageProps {
 async function UserPage ({ params }: UserPageProps) {
   const profileId = params.id;
 
-  const session = await getSession();
+  const session = await auth();
 
   if (!session?.user?.id) {
     return <div>Loading...</div>;

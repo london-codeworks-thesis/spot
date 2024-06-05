@@ -15,9 +15,11 @@ export async function getRestaurant (
 export async function getRestaurantsReviewedByFollowedUsers () {
   const session = await auth();
   const user = session?.user;
-
+  if (!session) {
+    throw new Error('Session not found');
+  }
   if (!user) {
-    throw new Error('User not found in session');
+    throw new Error(`User not found in session ${session}`);
   }
 
   // Get the list of users that the session user is following

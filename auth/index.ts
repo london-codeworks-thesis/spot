@@ -2,18 +2,19 @@ import NextAuth, { NextAuthConfig } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-import type { AdapterUser } from 'next-auth/adapters';
+import type { Adapter, AdapterUser } from 'next-auth/adapters';
 import prisma from '@/lib/prisma';
 
 type ExtendedAdapterUser = AdapterUser & {
   first_name?: string;
   last_name?: string;
+  email?: string;
 };
 
 const BASE_PATH = '/api/auth';
 
 const authOptions: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   basePath: BASE_PATH,
   pages: {
     signIn: '/login',
@@ -50,27 +51,26 @@ const authOptions: NextAuthConfig = {
     }),
   ],
   callbacks: {
-    async session ({ session, token }) {
-      if (session?.user) {
-        session.user.id = token.id!.toString();
-        session.user.first_name = token.first_name?.toString()
-          ?? session.user.name?.split(' ')[0]
-          ?? '';
-        session.user.last_name = token.last_name?.toString()
-          ?? session.user.name?.split(' ').slice(1).join(' ')
-          ?? '';
-      }
+    session ({ session, user }) {
+      session.user.id = user.id!.toString();
+      session.user.first_name = (user as ExtendedAdapterUser).first_name?.toString()
+        ?? session.user.name?.split(' ')[0]
+        ?? '';
+      session.user.last_name = (user as ExtendedAdapterUser).last_name?.toString()
+        ?? session.user.name?.split(' ').slice(1).join(' ')
+        ?? '';
       return session;
     },
-    async jwt ({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.first_name = (user as ExtendedAdapterUser).first_name;
-        token.last_name = (user as ExtendedAdapterUser).last_name;
-      }
-      return token;
-    },
   },
+  // async jwt ({ token, user }) {
+  //   if (user) {
+  //     token.id = user.id;
+  //     token.first_name = (user as ExtendedAdapterUser).first_name;
+  //     token.last_name = (user as ExtendedAdapterUser).last_name;
+  //   }
+  //   return token;
+  // },
+  // },
 };
 
 export const { handlers, auth } = NextAuth(authOptions);
