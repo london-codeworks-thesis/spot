@@ -27,6 +27,7 @@
       "@/hooks/*": ["./hooks/*"],
       "@/lib/*": ["./lib/*"],
       "@/prisma/*": ["./prisma/*"],
+      "@/router/*": ["./router/*"],
       "@/store/*": ["./store/*"],
       "@/tests/*": ["./__tests__/*"],
       "@/*": ["./app/*"],

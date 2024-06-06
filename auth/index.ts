@@ -62,15 +62,6 @@ const authOptions: NextAuthConfig = {
       return session;
     },
   },
-  // async jwt ({ token, user }) {
-  //   if (user) {
-  //     token.id = user.id;
-  //     token.first_name = (user as ExtendedAdapterUser).first_name;
-  //     token.last_name = (user as ExtendedAdapterUser).last_name;
-  //   }
-  //   return token;
-  // },
-  // },
 };
 
 export const { handlers, auth } = NextAuth(authOptions);
