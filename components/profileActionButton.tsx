@@ -23,7 +23,9 @@ function ProfileActionButton ({
       </Button>
     </form>
   ) : (
-    <div className='text-center'>Loading...</div>
+    <Button className='w-full' variant='secondary'>
+      Loading...
+    </Button>
   );
 }
 
