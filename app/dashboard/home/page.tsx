@@ -1,9 +1,9 @@
 import React from 'react';
 import { getReviewsFromFollowedUsers } from '@/lib/reviewService';
-import { ParallaxScroll } from '@/components/ui/parallax-scroll';
+import { ParallaxScroll } from '@/components/parallax-scroll';
 
 async function Page () {
-  const data: any[] = await getReviewsFromFollowedUsers();
+  const data = await getReviewsFromFollowedUsers();
 
   return (
     <div className='flex h-full w-full flex-col justify-center pt-8'>
