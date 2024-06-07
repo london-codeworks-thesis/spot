@@ -70,7 +70,7 @@ function ProfileHeader ({
     router.push('/login');
   }
 
-  const currentUserId = session.data!.user.id;
+  const currentUserId = session?.data?.user?.id ?? '';
 
   // To account for multiword names
   const getInitials = (name: string) => name
@@ -83,8 +83,13 @@ function ProfileHeader ({
 
   useEffect(() => {
     async function getActionButtonValue () {
-      const value = await fetchActionButtonValue(currentUserId, profileUserId);
-      setActionButtonValue(value);
+      if (currentUserId !== '') {
+        const value = await fetchActionButtonValue(
+          currentUserId,
+          profileUserId,
+        );
+        setActionButtonValue(value);
+      }
     }
     getActionButtonValue();
   }, [currentUserId, profileUserId]);

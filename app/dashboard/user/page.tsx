@@ -10,8 +10,8 @@ import { auth } from '@/auth';
 export default async function Page () {
   const session = await auth();
 
-  if (!session?.user?.id) {
-    return <div>Loading...</div>;
+  if (!session) {
+    return <div>Not authenticated</div>;
   }
 
   const user = await getUserById(session.user.id);
