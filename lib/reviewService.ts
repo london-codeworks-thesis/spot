@@ -1,4 +1,5 @@
 import type { Review } from '@prisma/client';
+import { ReviewWithUser } from 'types/ReviewWithUser';
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { getUserFollowing } from '@/lib/userService';
@@ -34,7 +35,7 @@ export async function getReviewsByRestaurantId (
   }
 }
 
-export async function getReviewsFromFollowedUsers (): Promise<Review[]> {
+export async function getReviewsFromFollowedUsers (): Promise<ReviewWithUser[]> {
   const session = await auth();
   const user = session?.user;
 
