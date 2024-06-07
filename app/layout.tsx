@@ -19,7 +19,7 @@ export default async function RootLayout ({
   return (
     <html lang='en'>
       <Providers>
-        <body className={`${inter.className} min-h-[100vh]`}>{children}</body>
+        <body className={`${inter.className} inset-0`}>{children}</body>
       </Providers>
     </html>
   );
