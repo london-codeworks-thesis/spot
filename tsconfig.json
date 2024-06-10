@@ -20,18 +20,17 @@
       }
     ],
     "paths": {
-      "@/auth": ["./auth/index.ts"],
-      "@/auth/*": ["./auth/*"],
-      "@/components/*": ["./components/*"],
-      "@/ui/*": ["./components/ui/*"],
+      "@/auth": ["src/auth/index.ts"],
+      "@/auth/*": ["src/auth/*"],
+      "@/components/*": ["src/components/*"],
+      "@/ui/*": ["src/components/ui/*"],
       "@/hooks/*": ["./hooks/*"],
-      "@/lib/*": ["./lib/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/prisma/*": ["./prisma/*"],
-      "@/router/*": ["./router/*"],
-      "@/store/*": ["./store/*"],
-      "@/tests/*": ["./__tests__/*"],
-      "@/*": ["./app/*"],
-      "types/*": ["./types/*"],
+      "@/router/*": ["src/router/*"],
+      "@/tests/*": ["src/__tests__/*"],
+      "@/*": ["src/app/*"],
+      "types/*": ["src/types/*"],
       "~/*": ["./public/*"],
       // Types error: https://stackoverflow.com/a/73019448
       "react": ["./node_modules/@types/react"]
@@ -39,7 +38,7 @@
   },
   "typeRoots": ["./node_modules/@types", "./types"],
   "include": [
-    "next-env.d.ts",
+    "src/next-env.d.ts",
     "**/types/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
