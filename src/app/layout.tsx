@@ -18,7 +18,8 @@ export default async function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} inset-0`}>
+      {/* suppressHydrationWarning: Fix hydration warning caused by some chrome extensions, only affects body, not children */}
+      <body className={`${inter.className} inset-0`} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
