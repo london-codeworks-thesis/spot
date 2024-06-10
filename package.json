@@ -24,12 +24,11 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@auth/core": "^0.32.0",
     "@auth/prisma-adapter": "^2.2.0",
     "@hookform/resolvers": "^3.3.4",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
-    "@neondatabase/serverless": "^0.9.3",
     "@next/env": "^14.2.3",
-    "@prisma/adapter-neon": "^5.15.0",
     "@prisma/client": "^5.15.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -69,8 +68,7 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.0",
     "vitest": "^1.6.0",
-    "zod": "^3.23.8",
-    "zustand": "^4.5.2"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
