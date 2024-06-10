@@ -18,9 +18,9 @@ export default async function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <Providers>
-        <body className={`${inter.className} inset-0`}>{children}</body>
-      </Providers>
+      <body className={`${inter.className} inset-0`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
