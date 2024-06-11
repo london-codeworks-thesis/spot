@@ -18,7 +18,7 @@ function Settings () {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant='ghost'>
-          <SettingsIcon size={18} strokeWidth={2.5} />
+          <SettingsIcon size={20} strokeWidth={2.5} />
         </Button>
       </SheetTrigger>
       <SheetContent className='flex w-full flex-col justify-between'>
