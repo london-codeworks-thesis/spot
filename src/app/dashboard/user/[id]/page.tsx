@@ -21,8 +21,10 @@ async function UserPage ({ params }: UserPageProps) {
     return <div>Loading...</div>;
   }
 
-  const user = await getUserById(profileId);
-  const restaurants = await getRestaurantsReviewedByUser(profileId);
+  const [user, restaurants] = await Promise.all([
+    getUserById(profileId),
+    getRestaurantsReviewedByUser(profileId),
+  ]);
 
   if (!user) {
     return <div>User not found</div>;
