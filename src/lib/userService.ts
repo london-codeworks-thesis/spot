@@ -1,6 +1,7 @@
 import type { User } from '@prisma/client';
 import prisma from 'src/lib/prisma';
 import { auth } from 'src/auth';
+import { revalidateTag } from 'next/cache';
 
 export async function getUserById (userId: string) {
   if (!userId) {
@@ -47,6 +48,7 @@ export async function getUserById (userId: string) {
       },
     },
   });
+  revalidateTag('user');
   return user;
 }
 
@@ -125,21 +127,24 @@ export async function getActionButtonsBasedOnTargetUserFollowList (
 
 /**
  * Retrieves the value of an action button for the given target user.
- * @param currentUserId - The ID of the current user.
  * @param targetUserId - The ID of the target user.
  * @returns A string representing the action to be taken for the target user.
  */
-export async function getActionButtonForTarget (
-  currentUserId: string,
-  targetUserId: string,
-) {
-  if (currentUserId === targetUserId) {
+export async function getActionButtonForTarget (targetUserId: string) {
+  const session = await auth();
+
+  if (!session) {
+    throw new Error('User not found in session');
+  }
+  const currentUser = session.user;
+
+  if (currentUser.id === targetUserId) {
     return 'Edit Profile';
   }
 
   const [userFollowers, userFollowing] = await Promise.all([
-    getUserFollowers(currentUserId),
-    getUserFollowing(currentUserId),
+    getUserFollowers(currentUser.id),
+    getUserFollowing(currentUser.id),
   ]);
 
   if (userFollowing.some((user) => user.id === targetUserId)) {

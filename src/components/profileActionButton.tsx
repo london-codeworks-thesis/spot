@@ -2,22 +2,28 @@
 
 import React from 'react';
 import { Button } from 'src/components/ui/button';
+import { handleActionButtonClick } from '@/lib/actionService';
 
 interface ProfileActionButtonProps {
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  actionButtonValue: string | null;
+  actionButtonValue: string;
+  profileId: string;
 }
 
 function ProfileActionButton ({
-  handleSubmit,
   actionButtonValue,
+  profileId,
 }: ProfileActionButtonProps) {
   const actionButtonVariant: 'default' | 'secondary' = actionButtonValue === 'Unfollow' || actionButtonValue === 'Edit Profile'
     ? 'secondary'
     : 'default';
 
+  const onClick = handleActionButtonClick.bind(
+    null,
+    actionButtonValue,
+    profileId,
+  );
   return actionButtonValue ? (
-    <form onSubmit={handleSubmit}>
+    <form action={onClick}>
       <Button className='w-full' variant={actionButtonVariant} type='submit'>
         {actionButtonValue}
       </Button>

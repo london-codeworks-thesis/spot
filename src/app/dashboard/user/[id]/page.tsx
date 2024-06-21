@@ -2,7 +2,6 @@ import React from 'react';
 import { auth } from 'src/auth';
 import ProfileHeader from '@/components/profileHeader';
 import MarkerMap from '@/components/markerMap';
-import RecentReviews from '@/components/recentReviews';
 import { getUserById } from '@/lib/userService';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
 import Settings from '@/components/settings';
@@ -29,27 +28,17 @@ async function UserPage ({ params }: UserPageProps) {
   }
 
   const isCurrentUser = session.user.id === profileId;
-  console.log(isCurrentUser);
+  const topMargin = isCurrentUser ? 'mt-4' : 'mt-8';
 
   return (
-    <div
-      className={`mx-5 mb-5 mt-${isCurrentUser ? 4 : 8} flex flex-col gap-4`}
-    >
+    <div className={`mx-5 mb-5 ${topMargin} flex flex-col gap-4`}>
       <div className='flex w-full flex-col gap-1'>
         {isCurrentUser && (
           <div className='flex justify-end '>
             <Settings />
           </div>
         )}
-        <ProfileHeader
-          first_name={user.first_name || 'First Name'}
-          last_name={user.last_name || 'Last Name'}
-          image={user.image || ''}
-          followers={user._count.followers ?? 0}
-          following={user._count.following ?? 0}
-          reviews={user._count.reviews ?? 0}
-          profileUserId={profileId}
-        />
+        <ProfileHeader profileId={profileId} />
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
@@ -59,7 +48,7 @@ async function UserPage ({ params }: UserPageProps) {
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Recent Reviews</h2>
-        <RecentReviews reviews={user.reviews} />
+        {/* <RecentReviews reviews={session.user} /> */}
       </div>
     </div>
   );
