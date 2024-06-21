@@ -8,6 +8,7 @@ function RecentReviewCard ({ review }: any) {
     <div className='flex w-[180px] flex-col'>
       <div className='relative h-[140px] w-[180px]'>
         <Image
+          sizes='50vw'
           className='rounded-md object-cover'
           src={review.restaurant.image_url}
           fill

@@ -1,7 +1,6 @@
 import type { User } from '@prisma/client';
 import prisma from 'src/lib/prisma';
 import { auth } from 'src/auth';
-import { revalidateTag } from 'next/cache';
 
 export async function getUserById (userId: string) {
   if (!userId) {
@@ -48,7 +47,6 @@ export async function getUserById (userId: string) {
       },
     },
   });
-  revalidateTag('user');
   return user;
 }
 

@@ -19,8 +19,7 @@ export async function follow (targetUserId: string) {
   } catch (error) {
     throw new Error(`Error following user: ${error}`);
   }
-  revalidateTag('user');
-  // revalidatePath(`/dashboard/user/${targetUserId}`);
+  revalidateTag(`user_${targetUserId}`);
 }
 
 export async function unfollow (targetUserId: string) {
@@ -38,8 +37,7 @@ export async function unfollow (targetUserId: string) {
   } catch (error) {
     throw new Error(`Error Unfollowing user: ${error}`);
   }
-  revalidateTag('user');
-  // revalidatePath('/dashboard/', 'page');
+  revalidateTag(`user_${targetUserId}`);
 }
 
 export async function handleActionButtonClick (

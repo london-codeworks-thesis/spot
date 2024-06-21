@@ -5,6 +5,7 @@ import MarkerMap from '@/components/markerMap';
 import { getUserById } from '@/lib/userService';
 import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
 import Settings from '@/components/settings';
+import RecentReviews from '@/components/recentReviews';
 
 interface UserPageProps {
   params: {
@@ -48,7 +49,7 @@ async function UserPage ({ params }: UserPageProps) {
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Recent Reviews</h2>
-        {/* <RecentReviews reviews={session.user} /> */}
+        <RecentReviews profileId={profileId} />
       </div>
     </div>
   );
