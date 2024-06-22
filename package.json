@@ -21,7 +21,7 @@
     "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
     "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
     "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "if [ \"$NODE_ENV\" != \"development\" ]; then prisma generate --no-engine; else prisma generate; fi"
   },
   "dependencies": {
     "@auth/core": "^0.32.0",
