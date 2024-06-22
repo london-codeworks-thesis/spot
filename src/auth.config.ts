@@ -14,6 +14,7 @@ export default {
   providers: [
     GoogleProvider({
       allowDangerousEmailAccountLinking: true,
+      checks: ['none'],
       profile (profile) {
         return {
           id: profile.sub,
