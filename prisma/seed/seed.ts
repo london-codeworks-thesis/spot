@@ -90,7 +90,6 @@ async function main () {
   );
 
   await Promise.all([
-
     prisma.review.deleteMany({
       where: {
         user: {
@@ -121,7 +120,6 @@ async function main () {
         },
       },
     }),
-
   ]);
 
   console.log('seed end');

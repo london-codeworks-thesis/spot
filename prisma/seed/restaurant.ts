@@ -16,8 +16,10 @@ const restaurants = [
       'Saturday: 12:00 PM – 1:00 AM',
       'Sunday: 12:00 PM – 12:00 AM',
     ],
-    summary: 'Seasonal, thoughtfully sourced plates are served in this cool eatery that has a bar & a terrace.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqH4LgKmr-RR0c3C-Zv22sEQE08HTG-ou-XAaz61fPKohvUtjavehl0oWRBf9l0EKSmSrwBnnXhLkuvs9iCl1or2S5KUJ0TelDM=s4800-w240-h360',
+    summary:
+      'Seasonal, thoughtfully sourced plates are served in this cool eatery that has a bar & a terrace.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqH4LgKmr-RR0c3C-Zv22sEQE08HTG-ou-XAaz61fPKohvUtjavehl0oWRBf9l0EKSmSrwBnnXhLkuvs9iCl1or2S5KUJ0TelDM=s4800-w240-h360',
     latitude: 51.5129763,
     longitude: -0.2026369,
   },
@@ -38,8 +40,10 @@ const restaurants = [
       'Saturday: 12:00 – 10:00 PM',
       'Sunday: Closed',
     ],
-    summary: 'Ethiopian menu and coffee ceremony in restaurant filled with carved-wood furniture and decorations.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqHbS2LVZ2WHZ_3jAIQKKk-3VNX8qQ4aZVKn8E2q4fd7Vwj2CPv03wxuT5bVuq9khlC0Ga3dSwwZtprKIjVpYssMiO8LL_Iqb-c=s4800-w480-h523',
+    summary:
+      'Ethiopian menu and coffee ceremony in restaurant filled with carved-wood furniture and decorations.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqHbS2LVZ2WHZ_3jAIQKKk-3VNX8qQ4aZVKn8E2q4fd7Vwj2CPv03wxuT5bVuq9khlC0Ga3dSwwZtprKIjVpYssMiO8LL_Iqb-c=s4800-w480-h523',
     latitude: 51.5522629,
     longitude: -0.1408331,
   },
@@ -60,8 +64,10 @@ const restaurants = [
       'Saturday: Open 24 hours',
       'Sunday: Open 24 hours',
     ],
-    summary: 'British & European cuisine 24/7 in a modern 40th-floor space that has floor-to-ceiling windows.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqELgV6SaZOBou9rzl2Ovv8O2g52rZyyeJ1fsdMy90ohnstu7K5GRxtrd7_KDWeQ_Ks10kYvrz8H2sJNfAqi9y8zQcWY6AjjHNI=s4800-w480-h720',
+    summary:
+      'British & European cuisine 24/7 in a modern 40th-floor space that has floor-to-ceiling windows.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqELgV6SaZOBou9rzl2Ovv8O2g52rZyyeJ1fsdMy90ohnstu7K5GRxtrd7_KDWeQ_Ks10kYvrz8H2sJNfAqi9y8zQcWY6AjjHNI=s4800-w480-h720',
     latitude: 51.5162529,
     longitude: -0.0811942,
   },
@@ -82,8 +88,10 @@ const restaurants = [
       'Saturday: 12:00 – 2:00 PM, 6:00 – 9:00 PM',
       'Sunday: Closed',
     ],
-    summary: 'Elevated West African dishes are paired with international wines at this warm, upmarket restaurant.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqFn0aVbH6vezVRG-nimIDQZqvMYXvuSfDYkbSLz2E-hCEXXEDg7mWx_jc4_cSWcofyHLZuzlrssZ6JMKjvfRIM1zZ1uXaJ_yok=s4800-w480-h720',
+    summary:
+      'Elevated West African dishes are paired with international wines at this warm, upmarket restaurant.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqFn0aVbH6vezVRG-nimIDQZqvMYXvuSfDYkbSLz2E-hCEXXEDg7mWx_jc4_cSWcofyHLZuzlrssZ6JMKjvfRIM1zZ1uXaJ_yok=s4800-w480-h720',
     latitude: 51.5177129,
     longitude: -0.1368354,
   },
@@ -105,7 +113,8 @@ const restaurants = [
       'Sunday: Closed',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqHnpG7mQV1tfSc8PNODj15TNp3585TCqIjGtR5nnjxWxd6jhQeEsMif6H8svXaJPTIMc0kwLBlX3FbzYYKk1BflLqlI-P9Mgis=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqHnpG7mQV1tfSc8PNODj15TNp3585TCqIjGtR5nnjxWxd6jhQeEsMif6H8svXaJPTIMc0kwLBlX3FbzYYKk1BflLqlI-P9Mgis=s4800-w480-h720',
     latitude: 51.5200328,
     longitude: -0.1038862,
   },
@@ -126,8 +135,10 @@ const restaurants = [
       'Saturday: 7:00 AM – 12:00 AM',
       'Sunday: 7:00 AM – 12:00 AM',
     ],
-    summary: 'Classic American dishes & cocktails set in a polished room with live music in The Ned Hotel.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqHyjdxfnVLW1evIetRVnGEg_AEK4yYlMApiNBShfOUTcem8wtxq7P44VF0sDLgoJ0FEFTsh6-Js7vC7eHz0BiLGaSqvzY9u85Y=s4800-w480-h720',
+    summary:
+      'Classic American dishes & cocktails set in a polished room with live music in The Ned Hotel.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqHyjdxfnVLW1evIetRVnGEg_AEK4yYlMApiNBShfOUTcem8wtxq7P44VF0sDLgoJ0FEFTsh6-Js7vC7eHz0BiLGaSqvzY9u85Y=s4800-w480-h720',
     latitude: 51.5137088,
     longitude: -0.09007799999999999,
   },
@@ -148,8 +159,10 @@ const restaurants = [
       'Saturday: 11:30 AM – 11:00 PM',
       'Sunday: 11:30 AM – 10:00 PM',
     ],
-    summary: 'Grand French art deco restaurant with classic brasserie dishes and choucroutes in 1930s building.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqGbjP1lQpbcJVcFQqwPJi-qG2C0Gom_O4yTRJjWxtNCaPYBgc2dUOpbSaylo2fVcX2gw4E3JN-7tVM00ToeIfZ9eziw4rduUYs=s4800-w480-h608',
+    summary:
+      'Grand French art deco restaurant with classic brasserie dishes and choucroutes in 1930s building.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqGbjP1lQpbcJVcFQqwPJi-qG2C0Gom_O4yTRJjWxtNCaPYBgc2dUOpbSaylo2fVcX2gw4E3JN-7tVM00ToeIfZ9eziw4rduUYs=s4800-w480-h608',
     latitude: 51.5105561,
     longitude: -0.1355974,
   },
@@ -170,8 +183,10 @@ const restaurants = [
       'Saturday: 11:00 AM – 10:30 PM',
       'Sunday: 11:00 AM – 10:00 PM',
     ],
-    summary: 'Glam, atmospheric eatery, opulently decorated with  20,000 bottles, serving trattoria fare & drinks.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqEeDK5secRlzsdh8GDUy59pUuT19ZXCFGQrqEZDGXBYeIK337IedZGGkyItt0-dGVKgvfcNh_6PjG58R3ThdgumNDie1WxqTaY=s4800-w480-h720',
+    summary:
+      'Glam, atmospheric eatery, opulently decorated with  20,000 bottles, serving trattoria fare & drinks.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqEeDK5secRlzsdh8GDUy59pUuT19ZXCFGQrqEZDGXBYeIK337IedZGGkyItt0-dGVKgvfcNh_6PjG58R3ThdgumNDie1WxqTaY=s4800-w480-h720',
     latitude: 51.5171866,
     longitude: -0.1338873,
   },
@@ -192,8 +207,10 @@ const restaurants = [
       'Saturday: 11:30 AM – 3:45 PM, 4:45 – 10:45 PM',
       'Sunday: 11:30 AM – 3:45 PM, 4:45 – 10:15 PM',
     ],
-    summary: 'Cool Italian restaurant whipping up meat dishes, pizza, pasta & desserts, plus weekend brunch.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqF4cF-9oukfwVVhmoFakpZChFPYM-3_73dLn7PcE5du-kfwYLTip20Unlx-nncASbyVj23T_G3eC2J0Ap8Xy7VFfTne-Mw64UM=s4800-w480-h720',
+    summary:
+      'Cool Italian restaurant whipping up meat dishes, pizza, pasta & desserts, plus weekend brunch.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqF4cF-9oukfwVVhmoFakpZChFPYM-3_73dLn7PcE5du-kfwYLTip20Unlx-nncASbyVj23T_G3eC2J0Ap8Xy7VFfTne-Mw64UM=s4800-w480-h720',
     latitude: 51.5108639,
     longitude: -0.123973,
   },
@@ -214,8 +231,10 @@ const restaurants = [
       'Saturday: 11:00 AM – 4:15 PM, 5:15 – 11:00 PM',
       'Sunday: 11:00 AM – 4:15 PM, 5:15 – 10:30 PM',
     ],
-    summary: 'Italian fare in an elevated dining room with a marble bar, mirrored ceiling, & rich, eclectic decor.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqHEjRycTdtcZTrwnRdFu5lXx13D_yOjniKbBayarLFI9SJWP29lZpZ90QFV-fFHx8y7-WFjNec1CDcLJlva0HUd-qgNTvqGf-g=s4800-w480-h718',
+    summary:
+      'Italian fare in an elevated dining room with a marble bar, mirrored ceiling, & rich, eclectic decor.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqHEjRycTdtcZTrwnRdFu5lXx13D_yOjniKbBayarLFI9SJWP29lZpZ90QFV-fFHx8y7-WFjNec1CDcLJlva0HUd-qgNTvqGf-g=s4800-w480-h718',
     latitude: 51.5251266,
     longitude: -0.0813541,
   },
@@ -236,8 +255,10 @@ const restaurants = [
       'Saturday: 8:00 AM – 2:00 AM',
       'Sunday: 8:00 AM – 12:00 AM',
     ],
-    summary: 'Quirky, 18th-century townhouse tea room that transforms into a cocktail lounge every evening.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqGpPO2EORtQBg0Bpn_lnSW1Q6Lv3k3r4iYGYEelR6l13NkSjos6VEy8wqdlBnmBin4sVbRvo0Nf6KF1APmXhJH2KuXu2WVDkNs=s4800-w480-h720',
+    summary:
+      'Quirky, 18th-century townhouse tea room that transforms into a cocktail lounge every evening.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqGpPO2EORtQBg0Bpn_lnSW1Q6Lv3k3r4iYGYEelR6l13NkSjos6VEy8wqdlBnmBin4sVbRvo0Nf6KF1APmXhJH2KuXu2WVDkNs=s4800-w480-h720',
     latitude: 51.512693,
     longitude: -0.141529,
   },
@@ -259,7 +280,8 @@ const restaurants = [
       'Sunday: Closed',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqGtgZBw3ls_H9p4ZwvkYpb4KkcaML922Fy5P4BmkWEwmIU98cMghOOgjlnG4zunOkVtcUGqSLTFndIW-Dof2sGwtdMGxyXctA=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqGtgZBw3ls_H9p4ZwvkYpb4KkcaML922Fy5P4BmkWEwmIU98cMghOOgjlnG4zunOkVtcUGqSLTFndIW-Dof2sGwtdMGxyXctA=s4800-w480-h720',
     latitude: 51.4349682,
     longitude: -0.1982802,
   },
@@ -281,7 +303,8 @@ const restaurants = [
       'Sunday: Closed',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqEc-GUNJiFjCc8XmUC48eZGe9B07ZK8SqaVUTmHFKrBfW8Gfub7qJfgTNEJjIHxNsAAsUEoCUjjlUR9eWxBulJ7xrGG0bj4Qak=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqEc-GUNJiFjCc8XmUC48eZGe9B07ZK8SqaVUTmHFKrBfW8Gfub7qJfgTNEJjIHxNsAAsUEoCUjjlUR9eWxBulJ7xrGG0bj4Qak=s4800-w480-h720',
     latitude: 51.4608989,
     longitude: -0.1666914,
   },
@@ -303,10 +326,10 @@ const restaurants = [
       'Sunday: 12:30 – 9:00 PM',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqEPDAMvcjLgYTFF65KfX5XzV0nrXaKQurAzeWUDjDxBfzShbDLUgqsvPcnAurWrzRaNy1nuCNXayEDBQRoIoDJ4lavSKuySB8c=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqEPDAMvcjLgYTFF65KfX5XzV0nrXaKQurAzeWUDjDxBfzShbDLUgqsvPcnAurWrzRaNy1nuCNXayEDBQRoIoDJ4lavSKuySB8c=s4800-w480-h720',
     latitude: 51.4617645,
     longitude: -0.07043579999999999,
-
   },
   {
     google_id: 'ChIJWTIkDggDdkgRwo3fbxXdVkc',
@@ -325,8 +348,10 @@ const restaurants = [
       'Saturday: 11:00 AM – 2:30 PM, 6:00 – 10:00 PM',
       'Sunday: 11:00 AM – 2:30 PM, 6:00 – 10:00 PM',
     ],
-    summary: 'South African chef-owner adds creative twists to the Modern Euro menu at this relaxed, earthy venue.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqEkQgBKWghmJUoMTM-l19vyvZR7Kqj33nE1EYcqvkS0Pc0lCbTKR_gVXsov6DD_3EIT3QSrVV8QlXFnC4S6qDjDmXDgSpma1uk=s4800-w480-h720',
+    summary:
+      'South African chef-owner adds creative twists to the Modern Euro menu at this relaxed, earthy venue.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqEkQgBKWghmJUoMTM-l19vyvZR7Kqj33nE1EYcqvkS0Pc0lCbTKR_gVXsov6DD_3EIT3QSrVV8QlXFnC4S6qDjDmXDgSpma1uk=s4800-w480-h720',
     latitude: 51.47388970000001,
     longitude: -0.0593165,
   },
@@ -348,7 +373,8 @@ const restaurants = [
       'Sunday: 12:00 – 9:00 PM',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqHnDupvDexbz-qWWF1598FcdtsHZTIR2__d9bGz1YDlf4RyniUKLywo_NCdTFg-scin2E82Adhl1-m-cAkLcNqV8hUWcOGMg-c=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqHnDupvDexbz-qWWF1598FcdtsHZTIR2__d9bGz1YDlf4RyniUKLywo_NCdTFg-scin2E82Adhl1-m-cAkLcNqV8hUWcOGMg-c=s4800-w480-h720',
     latitude: 51.50556090000001,
     longitude: -0.0915199,
   },
@@ -370,7 +396,8 @@ const restaurants = [
       'Sunday: 12:30 – 3:00 PM, 6:00 – 10:00 PM',
     ],
     summary: '',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqFKpEZvQwk8B_JWSIS0Vu0ZwuCxrXT3m8oOvWvXBp-QGG_PAueDdFlPys-4mXCbS02o7M_P05kzWyFwznX_qHlXfw84X6JlV0o=s4800-w480-h720',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqFKpEZvQwk8B_JWSIS0Vu0ZwuCxrXT3m8oOvWvXBp-QGG_PAueDdFlPys-4mXCbS02o7M_P05kzWyFwznX_qHlXfw84X6JlV0o=s4800-w480-h720',
     latitude: 51.5160942,
     longitude: -0.1576468,
   },
@@ -391,8 +418,10 @@ const restaurants = [
       'Saturday: 7:30 AM – 9:00 PM',
       'Sunday: 7:30 AM – 9:00 PM',
     ],
-    summary: 'High-end British–French dining in baroque-style  gilded salon with ceiling frescoes and chandeliers.',
-    image_url: 'https://lh3.googleusercontent.com/places/ANXAkqFo3qJvKooeI8dp2F8YSvyFrOljwRlAKTScWOzMMo6r9erX82V8iDbIocunKEA-CeGkyvkadZ8P_w8KiMJq-7Wn43Nqu7bEGME=s4800-w480-h720',
+    summary:
+      'High-end British–French dining in baroque-style  gilded salon with ceiling frescoes and chandeliers.',
+    image_url:
+      'https://lh3.googleusercontent.com/places/ANXAkqFo3qJvKooeI8dp2F8YSvyFrOljwRlAKTScWOzMMo6r9erX82V8iDbIocunKEA-CeGkyvkadZ8P_w8KiMJq-7Wn43Nqu7bEGME=s4800-w480-h720',
     latitude: 51.50692129999999,
     longitude: -0.1419737,
   },
