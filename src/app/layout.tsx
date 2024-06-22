@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { VercelToolbar } from '@vercel/toolbar/next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import React from 'react';
@@ -16,11 +17,13 @@ export default async function RootLayout ({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === 'development';
   return (
     <html lang='en'>
       {/* suppressHydrationWarning: Fix hydration warning caused by some chrome extensions, only affects body, not children */}
       <body className={`${inter.className} inset-0`} suppressHydrationWarning>
         <Providers>{children}</Providers>
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   );

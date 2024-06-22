@@ -47,7 +47,8 @@ export default {
       const { pathname, search } = nextUrl;
       const isLoggedIn = !!auth?.user;
       const isOnAuthRoute = authRoutes.some((page) => pathname.startsWith(page));
-      const isUnprotectedPage = pathname === '/' || unprotectedRoutes.some((page) => pathname.startsWith(page));
+      const isUnprotectedPage = pathname === '/'
+        || unprotectedRoutes.some((page) => pathname.startsWith(page));
       const isProtectedPage = !isUnprotectedPage;
 
       if (isOnAuthRoute) {
