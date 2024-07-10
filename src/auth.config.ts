@@ -65,5 +65,11 @@ export default {
       // Don't redirect if on an unprotected page, or if logged in and is on a protected page
       return true;
     },
+    async redirect ({ url, baseUrl }) {
+      if (process.env.AUTH_REDIRECT_PROXY_URL) {
+        return `${process.env.AUTH_REDIRECT_PROXY_URL}${url}`;
+      }
+      return baseUrl;
+    },
   },
 } satisfies NextAuthConfig;
