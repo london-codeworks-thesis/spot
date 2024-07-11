@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { VercelToolbar } from '@vercel/toolbar/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import React from 'react';
@@ -24,6 +25,7 @@ export default async function RootLayout ({
       <body className={`${inter.className} inset-0`} suppressHydrationWarning>
         <Providers>{children}</Providers>
         {shouldInjectToolbar && <VercelToolbar />}
+        <SpeedInsights />
       </body>
     </html>
   );
