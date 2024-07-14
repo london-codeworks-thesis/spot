@@ -7,7 +7,7 @@ import Logo from '~/Logo_Dark.svg';
 
 export default function LandingPage () {
   return (
-    <main className='flex min-h-screen flex-col items-center bg-black'>
+    <main className='flex min-h-dvh flex-col items-center bg-black'>
       <Image
         src={Logo}
         width='0'

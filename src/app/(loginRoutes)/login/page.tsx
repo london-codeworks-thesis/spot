@@ -6,7 +6,7 @@ import LoginForm from 'src/components/loginForm';
 
 export default function Login () {
   return (
-    <main className='mx-5 flex min-h-[100vh] flex-col items-center'>
+    <main className='mx-5 flex min-h-dvh flex-col items-center'>
       <div className='mt-[9vh] flex w-full grow flex-col'>
         <div className='mb-5 flex w-full flex-col gap-9'>
           <h1 className='text-3xl font-extrabold'>Log In</h1>
