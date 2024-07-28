@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: npm install
+          command: npm install --legacy-peer-deps
       - run:
           name: Run tests
           command: npm run test
