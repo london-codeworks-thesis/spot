@@ -21,7 +21,6 @@
     ],
     "paths": {
       "@/auth": ["src/auth.ts"],
-      "@/auth/*": ["src/auth/*"],
       "@/components/*": ["src/components/*"],
       "@/ui/*": ["src/components/ui/*"],
       "@/hooks/*": ["./hooks/*"],
