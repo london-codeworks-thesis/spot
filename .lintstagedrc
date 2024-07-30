@@ -1,0 +1,9 @@
+{
+  "app/**/*.{js,jsx}": ["prettier-eslint --write ", "eslint"],
+  "app/**/*.{ts,tsx}": [
+    "prettier-eslint --write ",
+    "eslint",
+    "bash -c tsc --noEmit"
+  ],
+  "*.{json,md,mdx,yml}": ["prettier --write"]
+}

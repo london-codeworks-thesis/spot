@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
+}
+
+model User {
+  id               String             @id @default(cuid())
+  email            String             @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  password         String?
+  username         String?            @unique
+  first_name       String?
+  last_name        String?
+  followers        UserRelationship[] @relation("Followers")
+  following        UserRelationship[] @relation("Following")
+  UserRelationship UserRelationship[]
+  reviews          Review[]           @relation("UserReviews")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model UserRelationship {
+  followed_user    User    @relation("Followers", fields: [followed_user_id], references: [id], onDelete: Cascade)
+  followed_user_id String
+  follower_user    User    @relation("Following", fields: [follower_user_id], references: [id], onDelete: Cascade)
+  follower_user_id String
+  User             User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([followed_user_id, follower_user_id])
+}
+
+model Restaurant {
+  id              String   @id @default(uuid())
+  google_id       String   @unique
+  name            String
+  address         String
+  phone           String?
+  google_maps_uri String?
+  price_level     String?
+  type            String?
+  opening_hours   String[]
+  summary         String?
+  image_url       String?
+  latitude        Float
+  longitude       Float
+  reviews         Review[] @relation("RestaurantReviews")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Review {
+  id                String     @id @default(uuid())
+  user              User       @relation("UserReviews", fields: [user_id], references: [id], onDelete: Cascade)
+  user_id           String
+  restaurant        Restaurant @relation("RestaurantReviews", fields: [restaurant_id], references: [id], onDelete: Cascade)
+  restaurant_id     String
+  rating_food       Float
+  rating_value      Float
+  rating_atmosphere Float
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+enum Price {
+  EXPENSIVE
+  FREE
+  INEXPENSIVE
+  MODERATE
+  UNKNOWN
+}
