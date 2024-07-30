@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "baseUrl": ".",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -19,13 +20,16 @@
       }
     ],
     "paths": {
-      "@components/*": ["./app/components/*"],
-      "@ui/*": ["./app/components/ui/*"],
-      "@api/*": ["./app/api/*"],
-      "@lib/*": ["./app/lib/*"],
-      "@types/*": ["./app/types/*"],
-      "@tests/*": ["./app/__tests__/*"],
-      "@/*": ["./app/*"],
+      "@/auth": ["src/auth.ts"],
+      "@/components/*": ["src/components/*"],
+      "@/ui/*": ["src/components/ui/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/prisma/*": ["./prisma/*"],
+      "@/router/*": ["src/router/*"],
+      "@/tests/*": ["src/__tests__/*"],
+      "@/*": ["src/app/*"],
+      "types/*": ["src/types/*"],
       "~/*": ["./public/*"],
       // Types error: https://stackoverflow.com/a/73019448
       "react": ["./node_modules/@types/react"]
@@ -33,7 +37,7 @@
   },
   "typeRoots": ["./node_modules/@types", "./types"],
   "include": [
-    "next-env.d.ts",
+    "src/next-env.d.ts",
     "**/types/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
