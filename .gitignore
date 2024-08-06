@@ -118,3 +118,6 @@ dist
 !.env.project
 !.env.vault
 .env*.local
+
+# Sentry Config File
+.env.sentry-build-plugin
