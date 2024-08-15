@@ -12,7 +12,9 @@ export async function getRestaurant (
   return restaurant;
 }
 
-export async function getRestaurantsReviewedByFollowedUsers () {
+export async function getRestaurantsReviewedByFollowedUsers (): Promise<
+Restaurant[]
+> {
   const session = await auth();
   const user = session?.user;
   if (!session) {
@@ -39,15 +41,12 @@ export async function getRestaurantsReviewedByFollowedUsers () {
   });
 
   // Extract unique restaurants from the reviews
-  const uniqueRestaurants = reviews.reduce(
-    (acc, review) => {
-      if (!acc.some((restaurant) => restaurant.id === review.restaurant.id)) {
-        acc.push(review.restaurant);
-      }
-      return acc;
-    },
-    [] as Array<(typeof reviews)[0]['restaurant']>,
-  );
+  const uniqueRestaurants = reviews.reduce((acc, review) => {
+    if (!acc.some((restaurant) => restaurant.id === review.restaurant.id)) {
+      acc.push(review.restaurant);
+    }
+    return acc;
+  }, [] as Array<Restaurant>);
 
   return uniqueRestaurants;
 }
