@@ -1,29 +1,38 @@
 'use client';
 
 import React, { useState } from 'react';
-import Map from 'react-map-gl';
+import Map, { ViewState } from 'react-map-gl';
 import MarkerPopup from 'src/components/markerPopup';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import type { Restaurant } from '@prisma/client';
 import GeocoderControl from './geocoder-control';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 interface MarkerMapProps {
-  data: any[];
+  data: Restaurant[];
   hideSearch?: boolean;
 }
 
 function MarkerMap ({ data, hideSearch = false }: MarkerMapProps) {
-  const [map] = useState({
+  const [viewState, setViewState] = useState<ViewState>({
     latitude: 51.515582,
     longitude: -0.113091,
     zoom: 11,
+    bearing: 0,
+    pitch: 0,
+    padding: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
   });
-  // TODO add setmap when needed
   return (
     <Map
       reuseMaps
-      initialViewState={map}
+      {...viewState}
+      onMove={(evt) => setViewState(evt.viewState)}
       mapStyle='mapbox://styles/sampolge/clvwm3wpt01sx01o0e8hcesym'
       mapboxAccessToken={MAPBOX_TOKEN}
     >
