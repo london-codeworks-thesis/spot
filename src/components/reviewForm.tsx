@@ -47,7 +47,7 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
       console.error('Error sending reviews', error);
       throw error;
     } finally {
-      router.push('/dashboard/user');
+      router.push(`/dashboard/user/${user.id}`);
     }
   }
 
