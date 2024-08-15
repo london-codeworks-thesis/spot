@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Map, { ViewState } from 'react-map-gl';
 import MarkerPopup from 'src/components/markerPopup';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -28,27 +28,6 @@ function MarkerMap ({ data, hideSearch = false }: MarkerMapProps) {
       right: 0,
     },
   });
-  useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setViewState({
-            ...viewState,
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            zoom: 12,
-          });
-        },
-        (error) => {
-          console.error('Error getting user location:', error);
-        },
-      );
-    } else {
-      console.log('Geolocation is not available in this browser.');
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Map
       reuseMaps
