@@ -1,13 +1,17 @@
 import type { User } from '@prisma/client';
-import prisma from 'src/lib/prisma';
-import { auth } from 'src/auth';
+import { revalidateTag, unstable_cache } from 'next/cache';
+import prisma from '@/lib/prisma';
+import { auth } from '@/auth';
+
+const SECONDS_IN_HOUR = 60 * 60;
 
 export async function getUserById (userId: string) {
   if (!userId) {
     throw new Error('User ID is required');
   }
 
-  const user = await prisma.user.findUnique({
+  // Create the function to fetch data
+  const fetchUserData = async () => prisma.user.findUnique({
     where: {
       id: userId,
     },
@@ -47,11 +51,22 @@ export async function getUserById (userId: string) {
       },
     },
   });
-  return user;
+
+  // Immediately invoke the function returned by unstable_cache
+  const cachedUser = await unstable_cache(fetchUserData, [userId], {
+    revalidate: 60, // Cache duration in seconds
+    tags: [`user_${userId}`], // Tag the cache with `user_${userId}`
+  })();
+
+  return cachedUser;
 }
 
 export async function getUserFollowers (userId: string) {
-  try {
+  if (!userId) {
+    throw new Error('User ID is required');
+  }
+
+  const fetchFollowers = async () => {
     const followers = await prisma.userRelationship.findMany({
       where: {
         followed_user_id: userId,
@@ -62,14 +77,22 @@ export async function getUserFollowers (userId: string) {
     });
 
     return followers.map((relationship) => relationship.follower_user);
-  } catch (error) {
-    console.error('Error fetching followers:', error);
-    throw new Error('Could not fetch followers');
-  }
+  };
+
+  const cachedFollowers = await unstable_cache(fetchFollowers, [userId], {
+    revalidate: SECONDS_IN_HOUR,
+    tags: [`user_${userId}_followers`],
+  })();
+
+  return cachedFollowers;
 }
 
 export async function getUserFollowing (userId: string) {
-  try {
+  if (!userId) {
+    throw new Error('User ID is required');
+  }
+
+  const fetchFollowing = async () => {
     const following = await prisma.userRelationship.findMany({
       where: {
         follower_user_id: userId,
@@ -80,10 +103,14 @@ export async function getUserFollowing (userId: string) {
     });
 
     return following.map((relationship) => relationship.followed_user);
-  } catch (error) {
-    console.error('Error fetching following:', error);
-    throw new Error('Could not fetch following users');
-  }
+  };
+
+  const cachedFollowing = await unstable_cache(fetchFollowing, [userId], {
+    revalidate: 60, // Cache duration in seconds
+    tags: [`user_${userId}_following`], // Tag cache with user-specific following tag
+  })();
+
+  return cachedFollowing;
 }
 
 /**
@@ -140,18 +167,33 @@ export async function getActionButtonForTarget (targetUserId: string) {
     return 'Edit Profile';
   }
 
-  const [userFollowers, userFollowing] = await Promise.all([
-    getUserFollowers(currentUser.id),
-    getUserFollowing(currentUser.id),
-  ]);
+  // Define a cacheable function
+  const fetchActionButtonValue = async () => {
+    const [userFollowers, userFollowing] = await Promise.all([
+      getUserFollowers(currentUser.id),
+      getUserFollowing(currentUser.id),
+    ]);
 
-  if (userFollowing.some((user) => user.id === targetUserId)) {
-    return 'Unfollow';
-  }
-  if (userFollowers.some((user) => user.id === targetUserId)) {
-    return 'Follow Back';
-  }
-  return 'Follow';
+    if (userFollowing.some((user) => user.id === targetUserId)) {
+      return 'Unfollow';
+    }
+    if (userFollowers.some((user) => user.id === targetUserId)) {
+      return 'Follow Back';
+    }
+    return 'Follow';
+  };
+
+  // Use unstable_cache to cache the result based on currentUser.id and targetUserId
+  const cachedActionButtonValue = await unstable_cache(
+    fetchActionButtonValue,
+    [currentUser.id, targetUserId],
+    {
+      revalidate: 60, // Cache duration in seconds
+      tags: [`user_${currentUser.id}`, `user_${targetUserId}`], // Tag cache with specific ids
+    },
+  )();
+
+  return cachedActionButtonValue;
 }
 
 export async function getUserSuggestions (): Promise<User[]> {
@@ -225,6 +267,11 @@ export async function follow (currentUserId: string, targetUserId: string) {
         followed_user_id: targetUserId,
       },
     });
+
+    // Invalidate caches for currentUser's following and targetUser's followers
+    revalidateTag(`user_${currentUserId}_following`);
+    revalidateTag(`user_${targetUserId}_followers`);
+
     return true;
   } catch (error) {
     console.error('Error following user:', error);
@@ -240,6 +287,11 @@ export async function unfollow (currentUserId: string, targetUserId: string) {
         followed_user_id: targetUserId,
       },
     });
+
+    // Invalidate caches for currentUser's following and targetUser's followers
+    revalidateTag(`user_${currentUserId}_following`);
+    revalidateTag(`user_${targetUserId}_followers`);
+
     return true;
   } catch (error) {
     console.error('Error unfollowing user:', error);

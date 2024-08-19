@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Button } from 'src/components/ui/button';
 import { handleActionButtonClick } from '@/lib/actionService';
@@ -22,6 +20,7 @@ function ProfileActionButton ({
     actionButtonValue,
     profileId,
   );
+
   return actionButtonValue ? (
     <form action={onClick}>
       <Button className='w-full' variant={actionButtonVariant} type='submit'>
