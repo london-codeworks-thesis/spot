@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
-import AuthButton from '@/components/ui/authButton';
+import AuthButton from 'src/components/ui/authButton';
 import googleIcon from '~/google.svg';
 import facebookIcon from '~/facebook.svg';
 import appleIcon from '~/apple.svg';
@@ -36,4 +36,16 @@ describe('AuthButton Component', () => {
     fireEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
+
+  it('has the correct button variant and class', () => {
+    render(<AuthButton icon="google" onClick={handleClick} />);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('flex-1 py-6');
+  });
+
+  // it('has the priority attribute on the Image component', () => {
+  //   render(<AuthButton icon="google" onClick={handleClick} />);
+  //   const googleImage = screen.getByAltText('google');
+  //   expect(googleImage).toHaveAttribute('priority');
+  // });
 });
