@@ -1,6 +1,6 @@
 import MarkerMap from '@components/MarkerMap';
 import ProfileHeader from '@components/profile/ProfileHeader';
-import RecentReviews from '@components/RecentReviews/RecentReviews';
+import RecentReviews from '@components/RecentReviews';
 import Settings from '@components/Settings';
 import { getRestaurantsReviewedByUser } from '@lib/restaurantService';
 import { getUserById } from '@lib/userService';

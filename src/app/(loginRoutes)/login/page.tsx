@@ -12,7 +12,7 @@ export default function Login () {
           <h1 className='text-3xl font-extrabold'>Log In</h1>
           <LoginForm />
         </div>
-        <div className='flex w-full items-center justify-center gap-3'>
+        <div className='my-6 flex w-full items-center justify-center gap-3'>
           <SeparatorText text='Or Login with' />
         </div>
         <AuthButtons />

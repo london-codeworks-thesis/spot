@@ -14,7 +14,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from 'src/components/ui/form';
+} from '@ui/form';
+import { signIn } from 'next-auth/react';
 
 const LoginSchema = z.object({
   email: z
@@ -33,10 +34,22 @@ export default function LoginForm () {
     },
   });
 
-  function onSubmit (data: z.infer<typeof LoginSchema>) {
-    // TODO: Handle login
-    console.log(data);
+  async function onSubmit (data: z.infer<typeof LoginSchema>) {
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (result?.error) {
+      console.error('Login error:', result.error);
+      // Optionally, you can set an error message in the form state here
+    } else {
+      console.log('Login successful:', result);
+      // Optionally, you can redirect the user to another page here
+    }
   }
+
   return (
     <Form {...form}>
       <form
