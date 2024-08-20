@@ -1,5 +1,5 @@
 import AuthButtons from '@components/AuthButtons';
-import LoginForm from '@components/LoginForm';
+import LoginForm from '@components/forms/LoginForm';
 import { SeparatorText } from '@ui/separatorText';
 import Link from 'next/link';
 import React from 'react';

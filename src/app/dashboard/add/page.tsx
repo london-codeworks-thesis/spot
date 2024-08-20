@@ -1,5 +1,5 @@
 import { auth } from '@auth';
-import ReviewForm from '@components/ReviewForm';
+import ReviewForm from '@components/forms/ReviewForm';
 import { Card } from '@ui/card';
 import { redirect } from 'next/navigation';
 import React from 'react';

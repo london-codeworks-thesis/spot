@@ -10,7 +10,7 @@ import { DrawerClose, DrawerContent } from '@ui/drawer';
 import { Label } from '@ui/label';
 import { Separator } from '@ui/separator';
 import RestaurantDrawerButton from '@components/RestaurantDrawerButtons';
-import MarkerPopupIcons from '@components/MarkerPopupRatingIcons';
+import MarkerPopupIcons from '@components/MarkerPopup/MarkerPopupRatingIcons';
 import DetailCard from '@components/DetailsCard';
 import ReviewsCard from '@components/ReviewsCard';
 

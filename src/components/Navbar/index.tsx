@@ -3,7 +3,7 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import AddReviewButton from '@components/AddNewReviewButton';
-import NavbarButton from '@components/NavbarButtons';
+import NavbarButton from '@components/Navbar/NavbarButtons';
 import { auth } from '@auth';
 
 export default async function NavBar () {

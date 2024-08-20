@@ -1,8 +1,8 @@
 import React from 'react';
-import ProfileActionButton from '@components/ProfileActionButton';
+import ProfileActionButton from '@components/profile/ProfileActionButton';
 import { getUserById, getActionButtonForTarget } from '@lib/userService';
-import ProfileStats from '@components/ProfileStats';
-import ProfileImage from '@components/ProfileImage';
+import ProfileStats from '@components/profile/ProfileStats';
+import ProfileImage from '@components/profile/ProfileImage';
 
 async function ProfileHeader ({ profileId }: { profileId: string }) {
   const actionButtonValue = await getActionButtonForTarget(profileId);
