@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from 'src/components/ui/skeleton';
+import { Skeleton } from '@ui/skeleton';
 
 export default function CustomSkeletonComponent () {
   return (

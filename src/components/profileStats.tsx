@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUserById } from '@/lib/userService';
+import { getUserById } from '@lib/userService';
 
 export default async function ProfileStats ({
   profileId,

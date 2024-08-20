@@ -1,5 +1,5 @@
+import { getReviewsByRestaurantId } from '@lib/reviewService';
 import { NextResponse } from 'next/server';
-import { getReviewsByRestaurantId } from 'src/lib/reviewService';
 
 export async function GET (
   req: Request,

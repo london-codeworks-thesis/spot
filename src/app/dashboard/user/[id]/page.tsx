@@ -1,11 +1,11 @@
+import MarkerMap from '@components/MarkerMap';
+import ProfileHeader from '@components/ProfileHeader';
+import RecentReviews from '@components/RecentReviews';
+import Settings from '@components/Settings';
+import { getRestaurantsReviewedByUser } from '@lib/restaurantService';
+import { getUserById } from '@lib/userService';
 import React from 'react';
 import { auth } from 'src/auth';
-import ProfileHeader from '@/components/profileHeader';
-import MarkerMap from '@/components/markerMap';
-import { getUserById } from '@/lib/userService';
-import { getRestaurantsReviewedByUser } from '@/lib/restaurantService';
-import Settings from '@/components/settings';
-import RecentReviews from '@/components/recentReviews';
 
 interface UserPageProps {
   params: {

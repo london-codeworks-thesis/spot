@@ -4,15 +4,15 @@ import { Rate } from 'antd';
 import {
   MapPin, Plus, Milestone, Clock, Globe, Phone,
 } from 'lucide-react';
-import { ReviewWithUser } from 'src/types/ReviewWithUser';
-import { Button } from 'src/components/ui/button';
-import { DrawerClose, DrawerContent } from 'src/components/ui/drawer';
-import { Label } from 'src/components/ui/label';
-import { Separator } from 'src/components/ui/separator';
-import RestaurantDrawerButton from 'src/components/restaurantDrawerButtons';
-import MarkerPopupIcons from 'src/components/markerPopupRatingIcons';
-import DetailCard from 'src/components/detailsCard';
-import ReviewsCard from 'src/components/reviewsCard';
+import { ReviewWithUser } from 'types/ReviewWithUser';
+import { Button } from '@ui/button';
+import { DrawerClose, DrawerContent } from '@ui/drawer';
+import { Label } from '@ui/label';
+import { Separator } from '@ui/separator';
+import RestaurantDrawerButton from '@components/RestaurantDrawerButtons';
+import MarkerPopupIcons from '@components/MarkerPopupRatingIcons';
+import DetailCard from '@components/DetailsCard';
+import ReviewsCard from '@components/ReviewsCard';
 
 export default function MarkerPopupContents ({
   locationMarker,

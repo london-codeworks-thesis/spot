@@ -1,7 +1,7 @@
+import { auth } from '@auth';
+import prisma from '@lib/prisma';
+import { getUserFollowing } from '@lib/userService';
 import type { Restaurant } from '@prisma/client';
-import prisma from 'src/lib/prisma';
-import { getUserFollowing } from 'src/lib/userService';
-import { auth } from 'src/auth';
 
 export async function getRestaurant (
   restaurantId: string,

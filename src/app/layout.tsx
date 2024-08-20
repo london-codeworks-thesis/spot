@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import { VercelToolbar } from '@vercel/toolbar/next';
+import '@/globals.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { VercelToolbar } from '@vercel/toolbar/next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 import React from 'react';
-import Providers from './providers';
+import Providers from '@/providers';
 
 const inter = Inter({ subsets: ['latin'] });
 

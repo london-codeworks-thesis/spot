@@ -1,7 +1,8 @@
+import { authRoutes, unprotectedRoutes } from '@router/routes';
 import type { NextAuthConfig } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import Credentials from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
-import { authRoutes, unprotectedRoutes } from 'src/router/routes';
+import GoogleProvider from 'next-auth/providers/google';
 import { NextResponse } from 'next/server';
 
 const BASE_PATH = '/api/auth';
@@ -40,6 +41,12 @@ export default {
             'width=400&height=400',
           ),
         };
+      },
+    }),
+    Credentials({
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
     }),
   ],

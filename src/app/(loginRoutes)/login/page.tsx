@@ -1,8 +1,8 @@
-import React from 'react';
+import AuthButtons from '@components/AuthButtons';
+import LoginForm from '@components/LoginForm';
+import { SeparatorText } from '@ui/separatorText';
 import Link from 'next/link';
-import { SeparatorText } from 'src/components/ui/separatorText';
-import AuthButtons from 'src/components/authButtons';
-import LoginForm from 'src/components/loginForm';
+import React from 'react';
 
 export default function Login () {
   return (

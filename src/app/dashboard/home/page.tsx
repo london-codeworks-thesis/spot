@@ -1,6 +1,6 @@
+import ScrollContainer from '@components/ScrollContainer';
+import { getReviewsFromFollowedUsers } from '@lib/reviewService';
 import React from 'react';
-import ScrollContainer from '@/components/ScrollContainer';
-import { getReviewsFromFollowedUsers } from '@/lib/reviewService';
 
 async function Page () {
   const data = await getReviewsFromFollowedUsers();

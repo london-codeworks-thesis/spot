@@ -1,6 +1,6 @@
+import UserSearch from '@components/UserSearch';
+import { getUserSuggestions } from '@lib/userService';
 import React from 'react';
-import UserSearch from 'src/components/UserSearch';
-import { getUserSuggestions } from 'src/lib/userService';
 
 export default async function Page () {
   const users = await getUserSuggestions();

@@ -1,10 +1,9 @@
 import React from 'react';
-import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { Button } from '@ui/button';
+import { Input } from '@ui/input';
+import { Label } from '@ui/label';
 import Link from 'next/link';
 import { Input } from 'src/components/ui/input';
-import { Label } from 'src/components/ui/label';
-import { Button } from 'src/components/ui/button';
-import { Separator } from 'src/components/ui/separator';
 
 export default function Register () {
   return (
@@ -35,20 +34,8 @@ export default function Register () {
       <Button className='mt-4 w-full py-6'> Register</Button>
       <div className='flex w-full items-center justify-center gap-4'>
         <Separator className='w-3/12' />
-        <p className='text-xs'>Or Register with</p>
-        <Separator className='w-3/12' />
       </div>
       <div className='flex flex-row justify-center gap-4'>
-        <Button variant='outline' className='flex-1 py-6'>
-          <FaGoogle />
-        </Button>
-        <Button variant='outline' className='flex-1 py-6'>
-          <FaFacebook />
-        </Button>
-        <Button variant='outline' className='flex-1 py-6'>
-          <FaApple />
-        </Button>
-      </div>
       <p className='text-center text-xs'>
         Already have an account?
         <Link href='/login'>

@@ -4,7 +4,7 @@ import { Rate } from 'antd';
 import {
   Cookie, PiggyBank, Flame, LucideProps,
 } from 'lucide-react';
-import { Label } from 'src/components/ui/label';
+import { Label } from '@ui/label';
 
 type MarkerPopupIconProps = {
   value: string;

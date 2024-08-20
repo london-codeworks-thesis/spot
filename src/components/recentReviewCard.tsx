@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-
-import MarkerPopupIcons from 'src/components/markerPopupRatingIcons';
+import MarkerPopupIcons from '@components/MarkerPopupRatingIcons';
 
 function RecentReviewCard ({ review }: any) {
   return (
