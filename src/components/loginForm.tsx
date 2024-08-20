@@ -17,8 +17,11 @@ import {
 } from 'src/components/ui/form';
 
 const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z
+    .string({ required_error: 'Email is required' })
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 export default function LoginForm () {
