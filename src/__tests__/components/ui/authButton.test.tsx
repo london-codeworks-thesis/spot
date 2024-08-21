@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
-import AuthButton from 'src/components/ui/authButton';
+import AuthButton from '@ui/authButton';
 import googleIcon from '~/google.svg';
 import facebookIcon from '~/facebook.svg';
 import appleIcon from '~/apple.svg';
