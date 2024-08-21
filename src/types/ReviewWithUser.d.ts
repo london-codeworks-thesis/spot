@@ -1,4 +1,4 @@
-import type { Review, Restaurant } from '@prisma/client';
+import type { Restaurant, Review } from '@prisma/client';
 
 interface ReviewWithUser extends Review {
   user: { id: string; image: string | null };

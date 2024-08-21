@@ -1,8 +1,8 @@
+import { auth } from '@auth';
+import prisma from '@lib/prisma';
+import { getUserFollowing } from '@lib/userService';
 import type { Review } from '@prisma/client';
-import { ReviewWithUser } from 'src/types/ReviewWithUser';
-import prisma from 'src/lib/prisma';
-import { getUserFollowing } from 'src/lib/userService';
-import { auth } from 'src/auth';
+import { ReviewWithUser } from 'types/ReviewWithUser';
 
 /**
  * Retrieves all reviews for a given restaurant.

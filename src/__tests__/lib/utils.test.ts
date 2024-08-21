@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'; // Assuming you are using Vitest for testing
-import cn from '@/lib/utils';
+import cn from '@lib/utils';
 
 describe('cn utility function', () => {
   it('should return an empty string when no arguments are provided', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollArea, ScrollBar } from 'src/components/ui/scroll-area';
-import RecentReviewCard from 'src/components/recentReviewCard';
-import { getUserById } from '@/lib/userService';
+import { ScrollArea, ScrollBar } from '@ui/scroll-area';
+import RecentReviewCard from '@components/RecentReviews/RecentReviewCard';
+import { getUserById } from '@lib/userService';
 
 async function RecentReviews ({ profileId }: { profileId: string }) {
   const user = await getUserById(profileId);

@@ -1,8 +1,8 @@
-import React from 'react';
+import AuthButtons from '@components/authButtons';
+import LoginForm from '@components/forms/LoginForm';
+import { SeparatorText } from '@ui/separatorText';
 import Link from 'next/link';
-import { SeparatorText } from 'src/components/ui/separatorText';
-import AuthButtons from 'src/components/authButtons';
-import LoginForm from 'src/components/loginForm';
+import React from 'react';
 
 export default function Login () {
   return (
@@ -12,7 +12,7 @@ export default function Login () {
           <h1 className='text-3xl font-extrabold'>Log In</h1>
           <LoginForm />
         </div>
-        <div className='flex w-full items-center justify-center gap-3'>
+        <div className='my-6 flex w-full items-center justify-center gap-3'>
           <SeparatorText text='Or Login with' />
         </div>
         <AuthButtons />

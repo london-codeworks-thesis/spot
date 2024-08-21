@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'src/components/ui/button';
+import { Button } from '@ui/button';
 
 type RestaurantDrawerButtonProps = {
   Icon: React.ElementType;

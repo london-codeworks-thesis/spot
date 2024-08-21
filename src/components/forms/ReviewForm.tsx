@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PiggyBank, Flame, Cookie } from 'lucide-react';
 import { User } from 'src/types/user';
-import { Card, CardContent } from 'src/components/ui/card';
-import { Button } from 'src/components/ui/button';
-import StarRatingSystem from 'src/components/ratingStars';
-import RatingCard from 'src/components/starNumberCard';
+import { Card, CardContent } from '@ui/card';
+import { Button } from '@ui/button';
+import StarRatingSystem from '@components/StarRatingSystem';
+import RatingCard from '@components/RatingCard';
 
 interface ReviewFormProps {
   restaurant: any;

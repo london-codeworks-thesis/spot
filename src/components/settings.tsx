@@ -10,8 +10,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from 'src/components/ui/sheet';
-import { Button } from 'src/components/ui/button';
+} from '@components/ui/sheet';
+import { Button } from '@components/ui/button';
 
 function Settings () {
   return (
