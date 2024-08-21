@@ -15,6 +15,7 @@ import {
 } from '@ui/form';
 import { Button } from '@components/ui/button';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const RegisterSchema = z
   .object({
@@ -70,6 +71,8 @@ export default function RegisterForm () {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit (data: z.infer<typeof RegisterSchema>) {
     try {
       const response = await fetch('/api/auth/signup', {
@@ -90,11 +93,13 @@ export default function RegisterForm () {
         if (signInResponse && signInResponse.error) {
           console.error('Sign in error:', signInResponse.error);
         } else {
-          console.log('Sign in successful:', signInResponse);
+          router.push('/dashboard');
         }
       } else {
-        const { error } = await response.json();
-        console.error('Failed to register: ', error);
+        form.setError('email', {
+          type: 'manual',
+          message: 'Email is already in use',
+        });
       }
     } catch (error) {
       console.error('An error occurred during registration:', error);

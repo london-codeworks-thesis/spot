@@ -45,14 +45,12 @@ export default function LoginForm () {
     });
 
     if (result?.error) {
-      console.error('Login error:', result.error);
       form.setError('password', {
         type: 'manual',
         message: 'Incorrect username or password',
       });
       form.setValue('password', ''); // Manually clear the password field
     } else {
-      console.log('Login successful:', result);
       router.push('/dashboard');
     }
   }
