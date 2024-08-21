@@ -1,20 +1,16 @@
 import React from 'react';
-import { ParallaxScroll } from 'src/components/parallax-scroll';
-import { getReviewsFromFollowedUsers } from 'src/lib/reviewService';
+import ScrollContainer from '@/components/ScrollContainer';
+import { getReviewsFromFollowedUsers } from '@/lib/reviewService';
 
 async function Page () {
   const data = await getReviewsFromFollowedUsers();
 
   return (
-    <div className='flex h-full w-full flex-col justify-center pt-8'>
-      <div className='mx-auto flex h-full w-[90%] flex-col'>
-        <div className='mb-4 text-2xl font-extrabold'>
-          <h1>For You</h1>
-        </div>
-        <div className='relative flex-1 overflow-clip'>
-          <ParallaxScroll data={data} />
-        </div>
+    <div className='mx-auto flex h-full w-[85%] flex-col justify-center'>
+      <div className='mb-4 mt-8 text-3xl font-extrabold'>
+        <h1>For You</h1>
       </div>
+      <ScrollContainer data={data} />
     </div>
   );
 }

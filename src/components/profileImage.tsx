@@ -16,8 +16,9 @@ export default async function ProfileImage ({
 }) {
   const user = await getUserById(profileId);
 
-  // TODO: HANDLE ERROR
-  if (!user) return null;
+  if (!user) {
+    throw new Error('User not found');
+  }
 
   // TODO: HANDLE CASE WHERE USER HAS NO NAME
   const initials = `${getInitials(user.first_name!)}${getInitials(user.last_name!)}`;
