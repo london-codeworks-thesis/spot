@@ -1,5 +1,5 @@
 import { authRoutes, unprotectedRoutes } from '@router/routes';
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
@@ -8,6 +8,9 @@ import bcrypt from 'bcryptjs';
 import prisma from '@lib/prisma';
 
 const BASE_PATH = '/api/auth';
+
+// Function to check if the current environment is edge
+const isEdgeEnvironment = () => process.env.NEXT_RUNTIME === 'edge';
 
 export default {
   basePath: BASE_PATH,
@@ -63,13 +66,47 @@ export default {
             user.password as string,
           )
         ) {
-          return user;
+          // Explicitly type the user object to match the User type
+          const typedUser: User = {
+            id: user.id,
+            email: user.email,
+            image: user.image,
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
+          };
+          return typedUser;
         }
         return null;
       },
     }),
   ],
   callbacks: {
+    async jwt ({ token, user }) {
+      // When the user is first created or updated, include the username in the token
+      if (user) {
+        token.username = user.username;
+      } else {
+        // Fetch the username from the database if it's not already in the token and not in an edge environment
+        // eslint-disable-next-line no-lonely-if
+        if (!token.username && !isEdgeEnvironment()) {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: token.sub },
+          });
+          if (dbUser) {
+            token.username = dbUser.username;
+          }
+        }
+      }
+      return token;
+    },
+    async session ({ session, token }) {
+      // Include the username in the session object
+      if (token?.username) {
+        session.user.username = token.username.toString();
+      }
+      return session;
+    },
     authorized ({ auth, request: { nextUrl } }) {
       const { pathname, search } = nextUrl;
       const isLoggedIn = !!auth?.user;
@@ -77,15 +114,26 @@ export default {
       const isUnprotectedPage = pathname === '/'
         || unprotectedRoutes.some((page) => pathname.startsWith(page));
       const isProtectedPage = !isUnprotectedPage;
+      const hasUsername = auth?.user?.username;
 
-      if (isOnAuthRoute) {
+      console.log('User in auth middleware:', auth);
+
+      if (isOnAuthRoute && isLoggedIn) {
         // Redirect to dashboard, if logged in and is on an auth page
-        if (isLoggedIn) return NextResponse.redirect(new URL('/dashboard', nextUrl));
-      } else if (isProtectedPage) {
+        return NextResponse.redirect(new URL('/dashboard', nextUrl));
+      }
+      if (isProtectedPage) {
         // Redirect to /login, if not logged in but is on a protected page
         if (!isLoggedIn) {
           const from = encodeURIComponent(pathname + search); // The /login page shall then use this `from` param as a `callbackUrl` upon successful sign in
-          return NextResponse.redirect(new URL(`/login?from=${from}`, nextUrl));
+          if (!nextUrl.searchParams.has('from')) {
+            return NextResponse.redirect(
+              new URL(`/login?from=${from}`, nextUrl),
+            );
+          }
+        }
+        if (isLoggedIn && !hasUsername && pathname !== '/onboarding') {
+          return NextResponse.redirect(new URL('/onboarding', nextUrl));
         }
       }
       // Don't redirect if on an unprotected page, or if logged in and is on a protected page
