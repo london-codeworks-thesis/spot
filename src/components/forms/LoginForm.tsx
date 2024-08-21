@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@ui/form';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const LoginSchema = z.object({
   email: z
@@ -34,6 +35,8 @@ export default function LoginForm () {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit (data: z.infer<typeof LoginSchema>) {
     const result = await signIn('credentials', {
       redirect: false,
@@ -43,10 +46,14 @@ export default function LoginForm () {
 
     if (result?.error) {
       console.error('Login error:', result.error);
-      // Optionally, you can set an error message in the form state here
+      form.setError('password', {
+        type: 'manual',
+        message: 'Incorrect username or password',
+      });
+      form.setValue('password', ''); // Manually clear the password field
     } else {
       console.log('Login successful:', result);
-      // Optionally, you can redirect the user to another page here
+      router.push('/dashboard');
     }
   }
 
@@ -90,7 +97,9 @@ export default function LoginForm () {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage>
+                {form.formState.errors.password?.message}
+              </FormMessage>
             </FormItem>
           )}
         />
