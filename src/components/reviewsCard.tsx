@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import Autoplay from 'embla-carousel-autoplay';
 import { ReviewWithUser } from 'types/ReviewWithUser';
 import { Carousel, CarouselContent, CarouselItem } from '@ui/carousel';
-import SingleReview from '@components/SingleReviewCard';
+import SingleReview from '@components/SingleReview';
 
 export default function ReviewsCard ({
   reviews,

@@ -1,4 +1,4 @@
-import MarkerMap from '@components/MarkerMap';
+import MarkerMap from '@components/markerMap';
 import { getRestaurantsReviewedByFollowedUsers } from '@lib/restaurantService';
 import React from 'react';
 

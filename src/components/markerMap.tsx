@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Map, { ViewState } from 'react-map-gl';
 import MarkerPopup from '@components/MarkerPopup';
 import 'mapbox-gl/dist/mapbox-gl.css';

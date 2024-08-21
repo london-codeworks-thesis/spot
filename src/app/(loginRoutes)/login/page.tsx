@@ -1,4 +1,4 @@
-import AuthButtons from '@components/AuthButtons';
+import AuthButtons from '@components/authButtons';
 import LoginForm from '@components/forms/LoginForm';
 import { SeparatorText } from '@ui/separatorText';
 import Link from 'next/link';

@@ -11,7 +11,7 @@ import { Button } from '@ui/button';
 import { Input } from '@ui/input';
 import { Label } from '@ui/label';
 import { Separator } from '@ui/separator';
-import RestaurantSearchResultCard from '@components/SearchResultCard';
+import RestaurantSearchResultCard from '@components/RestaurantSearchResultCard';
 import { POST } from '@/api/googleapi/route';
 import Logo from '~/Logo.svg';
 

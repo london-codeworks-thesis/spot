@@ -9,10 +9,10 @@ import { Button } from '@ui/button';
 import { DrawerClose, DrawerContent } from '@ui/drawer';
 import { Label } from '@ui/label';
 import { Separator } from '@ui/separator';
-import RestaurantDrawerButton from '@components/RestaurantDrawerButtons';
+import RestaurantDrawerButton from '@components/RestaurantDrawerButton';
 import MarkerPopupIcons from '@components/MarkerPopup/MarkerPopupRatingIcons';
-import DetailCard from '@components/DetailsCard';
-import ReviewsCard from '@components/ReviewsCard';
+import DetailCard from '@components/detailsCard';
+import ReviewsCard from '@components/reviewsCard';
 
 export default function MarkerPopupContents ({
   locationMarker,

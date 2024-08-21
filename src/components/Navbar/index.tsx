@@ -2,7 +2,7 @@ import {
   User, Search, Home, MapPinned,
 } from 'lucide-react';
 import React from 'react';
-import AddReviewButton from '@components/AddNewReviewButton';
+import AddReviewButton from '@components/addNewReviewButton';
 import NavbarButton from '@components/Navbar/NavbarButtons';
 import { auth } from '@auth';
 
