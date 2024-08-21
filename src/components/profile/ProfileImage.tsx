@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { getUserById } from '@/lib/userService';
+import { getUserById } from '@lib/userService';
 
 // To account for multiword names
 const getInitials = (name: string) => name

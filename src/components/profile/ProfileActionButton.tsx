@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'src/components/ui/button';
-import { handleActionButtonClick } from '@/lib/actionService';
+import { Button } from '@ui/button';
+import { handleActionButtonClick } from '@lib/actionService';
 
 interface ProfileActionButtonProps {
   actionButtonValue: string;

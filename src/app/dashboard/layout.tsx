@@ -1,5 +1,5 @@
+import NavBar from '@components/Navbar';
 import React from 'react';
-import NavBar from 'src/components/navBar';
 
 export default async function Layout ({
   children,

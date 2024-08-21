@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Input } from 'src/components/ui/input';
-import { Button } from 'src/components/ui/button';
+import { Input } from '@ui/input';
+import { Button } from '@ui/button';
 import {
   Form,
   FormControl,
@@ -14,11 +14,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from 'src/components/ui/form';
+} from '@ui/form';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z
+    .string({ required_error: 'Email is required' })
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 export default function LoginForm () {
@@ -30,10 +35,26 @@ export default function LoginForm () {
     },
   });
 
-  function onSubmit (data: z.infer<typeof LoginSchema>) {
-    // TODO: Handle login
-    console.log(data);
+  const router = useRouter();
+
+  async function onSubmit (data: z.infer<typeof LoginSchema>) {
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (result?.error) {
+      form.setError('password', {
+        type: 'manual',
+        message: 'Incorrect username or password',
+      });
+      form.setValue('password', ''); // Manually clear the password field
+    } else {
+      router.push('/dashboard');
+    }
   }
+
   return (
     <Form {...form}>
       <form
@@ -74,7 +95,9 @@ export default function LoginForm () {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage>
+                {form.formState.errors.password?.message}
+              </FormMessage>
             </FormItem>
           )}
         />

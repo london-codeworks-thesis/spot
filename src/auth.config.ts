@@ -1,8 +1,11 @@
+import { authRoutes, unprotectedRoutes } from '@router/routes';
 import type { NextAuthConfig } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import Credentials from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
-import { authRoutes, unprotectedRoutes } from 'src/router/routes';
+import GoogleProvider from 'next-auth/providers/google';
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
+import prisma from '@lib/prisma';
 
 const BASE_PATH = '/api/auth';
 
@@ -42,6 +45,29 @@ export default {
         };
       },
     }),
+    Credentials({
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize (credentials) {
+        console.log('Authorize method called with credentials:', credentials);
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email as string },
+        });
+
+        if (
+          user
+          && bcrypt.compareSync(
+            credentials.password as string,
+            user.password as string,
+          )
+        ) {
+          return user;
+        }
+        return null;
+      },
+    }),
   ],
   callbacks: {
     authorized ({ auth, request: { nextUrl } }) {
@@ -54,7 +80,7 @@ export default {
 
       if (isOnAuthRoute) {
         // Redirect to dashboard, if logged in and is on an auth page
-        if (isLoggedIn) if (isLoggedIn) return NextResponse.redirect(new URL('/dashboard', nextUrl));
+        if (isLoggedIn) return NextResponse.redirect(new URL('/dashboard', nextUrl));
       } else if (isProtectedPage) {
         // Redirect to /login, if not logged in but is on a protected page
         if (!isLoggedIn) {

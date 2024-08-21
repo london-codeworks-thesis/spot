@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rate } from 'antd';
-import { Label } from 'src/components/ui/label';
+import { Label } from '@ui/label';
 
 type StarRatingSystemProps = {
   Icon: React.ElementType;

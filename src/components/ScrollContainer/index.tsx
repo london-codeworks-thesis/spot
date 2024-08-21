@@ -2,9 +2,9 @@
 
 import React from 'react';
 import type { ReviewWithUser } from 'types/ReviewWithUser';
-import ScrollContainerCard from './ScrollContainerCard';
-import { Drawer, DrawerTrigger } from './ui/drawer';
-import MarkerPopupContents from './markerPopupContents';
+import { Drawer, DrawerTrigger } from '@ui/drawer';
+import ScrollContainerCard from '@components/ScrollContainer/ScrollContainerCard';
+import MarkerPopupContents from '@components/MarkerPopup/MarkerPopupContents';
 
 interface IScrollContainerProps {
   data: ReviewWithUser[];

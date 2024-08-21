@@ -1,7 +1,7 @@
+import { auth } from '@auth';
+import prisma from '@lib/prisma';
 import type { User } from '@prisma/client';
 import { revalidateTag, unstable_cache } from 'next/cache';
-import prisma from '@/lib/prisma';
-import { auth } from '@/auth';
 
 const SECONDS_IN_HOUR = 60 * 60;
 

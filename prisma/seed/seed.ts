@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 import users from './users';
 import restaurants from './restaurant';
 
@@ -23,7 +24,16 @@ async function main () {
   ]);
 
   // seed users
-  const userPromises = users.map((user) => prisma.user.create({ data: user }));
+  const userPromises = users.map((user) => prisma.user.create({
+    data: {
+      username: user.username,
+      password: bcrypt.hashSync(user.password, 10),
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      image: user.image,
+    },
+  }));
 
   // seed restaurants
   const restaurantPromises = restaurants.map((restaurant) => prisma.restaurant.create({ data: restaurant }));

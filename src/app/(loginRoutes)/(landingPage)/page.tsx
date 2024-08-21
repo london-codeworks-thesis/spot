@@ -1,8 +1,8 @@
+import { Button } from '@ui/button';
+import { Separator } from '@ui/separator';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Button } from 'src/components/ui/button';
-import { Separator } from 'src/components/ui/separator';
 import Logo from '~/Logo_Dark.svg';
 
 export default function LandingPage () {

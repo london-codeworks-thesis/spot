@@ -17,7 +17,7 @@ const SeparatorText = React.forwardRef<
     { className, text ,decorative = true, ...props },
     ref
   ) => (
-    <div className="flex my-6 items-center w-full gap-2">
+    <div className="flex items-center w-full gap-2">
       <SeparatorPrimitive.Root
         ref={ref}
         decorative={decorative}

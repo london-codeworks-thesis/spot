@@ -1,9 +1,9 @@
-import React from 'react';
+import { auth } from '@auth';
+import ReviewForm from '@components/forms/ReviewForm';
+import { Card } from '@ui/card';
 import { redirect } from 'next/navigation';
-import { User } from 'src/types/user';
-import { Card } from 'src/components/ui/card';
-import ReviewForm from 'src/components/reviewForm';
-import { auth } from 'src/auth';
+import React from 'react';
+import { User } from 'types/user';
 
 interface PageProps {
   searchParams: {

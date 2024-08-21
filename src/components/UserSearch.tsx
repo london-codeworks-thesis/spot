@@ -10,7 +10,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from 'src/components/ui/command';
+} from '@ui/command';
 
 type UserSuggestionsProps = {
   users: User[];
