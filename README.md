@@ -36,6 +36,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#designed-with">Designed With</a></li>
       </ul>
     </li>
     <li>
@@ -65,6 +66,10 @@ Spot is a social media application which allows users to discover and share thei
 ### Built With
 
 [![TypeScript][TypeScript]][TypeScript-url] [![Next.js][Next.js]][Next-url] [![React][React.js]][React-url] [![Mapbox][Mapbox]][Mapbox-url] [![PostgreSQL][PostgreSQL]][PostgreSQL-url] [![Git][Git]][Git-url] [![GitHub][GitHub]][GitHub-url] [![Shadcn][Shadcn]][Shadcn-url] [![CircleCi][CircleCi]][CircleCi-url] [![ESLint][ESLint]][ESLint-url] [![Prettier][Prettier]][Prettier-url]
+
+### Designed With
+
+**Figma:** Feel free to view the figma files for this project [here](https://www.figma.com/design/m8pTG5nYDp0V9nJmY8AjkU/Spot-Wireframe?node-id=1-71&t=TTQYTVPIq7a0L4eM-10)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
