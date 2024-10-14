@@ -10,8 +10,8 @@ datasource db {
 model User {
   id               String             @id @default(cuid())
   clerk_id         String?            @unique
-  username         String?            @unique
-  image            String?
+  username         String             @unique
+  image            String
   first_name       String?
   last_name        String?
   followers        UserRelationship[] @relation("Followers")
