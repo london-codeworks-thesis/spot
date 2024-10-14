@@ -5,15 +5,15 @@ import { revalidateTag, unstable_cache } from 'next/cache';
 
 const SECONDS_IN_HOUR = 60 * 60;
 
-export async function getUserById (userId: string) {
-  if (!userId) {
+export async function getUserByUsername (username: string) {
+  if (!username) {
     throw new Error('User ID is required');
   }
 
   // Create the function to fetch data
   const fetchUserData = async () => prisma.user.findUnique({
     where: {
-      id: userId,
+      username: username,
     },
     select: {
       id: true,
@@ -53,15 +53,23 @@ export async function getUserById (userId: string) {
   });
 
   // Immediately invoke the function returned by unstable_cache
-  const cachedUser = await unstable_cache(fetchUserData, [userId], {
+  const cachedUser = await unstable_cache(fetchUserData, [username], {
     revalidate: 60, // Cache duration in seconds
-    tags: [`user_${userId}`], // Tag the cache with `user_${userId}`
+    tags: [`user_${username}`], // Tag the cache with `user_${username}`
   })();
 
   return cachedUser;
 }
 
-export async function getUserFollowers (userId: string) {
+export async function getUserFollowers (username: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  const userId = user?.id;
+
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -87,7 +95,14 @@ export async function getUserFollowers (userId: string) {
   return cachedFollowers;
 }
 
-export async function getUserFollowing (userId: string) {
+export async function getUserFollowing (username: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  const userId = user?.id;
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -115,14 +130,34 @@ export async function getUserFollowing (userId: string) {
 
 /**
  * Retrieves the value of an action button from the perspective of the given user.
- * @param currentUserId - The ID of the current user.
- * @param targetUserId - The ID of the target user.
+ * @param currentUsername - The username of the current user.
+ * @param targetUsername - The username of the target user.
  * @returns An array of objects representing the possible actions between the given user and other users.
  */
 export async function getActionButtonsBasedOnTargetUserFollowList (
-  currentUserId: string,
-  targetUserId: string,
+  currentUsername: string,
+  targetUsername: string,
 ) {
+  const [current_user, targetUser] = await Promise.all([
+    prisma.user.findUnique({
+      where: {
+        username: currentUsername,
+      },
+    }),
+    prisma.user.findUnique({
+      where: {
+        username: targetUsername,
+      },
+    }),
+  ]);
+
+  if (!current_user || !targetUser) {
+    throw new Error('User not found');
+  }
+
+  const currentUserId = current_user.id;
+  const targetUserId = targetUser.id;
+
   const [userFollowers, userFollowing, targetFollowers, targetFollowing] = await Promise.all([
     getUserFollowers(currentUserId),
     getUserFollowing(currentUserId),
@@ -152,43 +187,61 @@ export async function getActionButtonsBasedOnTargetUserFollowList (
 
 /**
  * Retrieves the value of an action button for the given target user.
- * @param targetUserId - The ID of the target user.
+ * @param targetUsername - The name of the target user.
  * @returns A string representing the action to be taken for the target user.
  */
-export async function getActionButtonForTarget (targetUserId: string) {
-  const user = await currentUser();
+export async function getActionButtonForTarget (targetUsername: string) {
+  const current_user = await currentUser();
+  if (!current_user) {
+    throw new Error('User not found');
+  }
+  const currentUsername = current_user.username;
 
-  if (!user) {
+  if (!currentUsername) {
     throw new Error('User not found');
   }
 
-  if (user.id === targetUserId) {
+  if (currentUsername === targetUsername) {
     return 'Edit Profile';
   }
 
   // Define a cacheable function
   const fetchActionButtonValue = async () => {
     const [userFollowers, userFollowing] = await Promise.all([
-      getUserFollowers(user.id),
-      getUserFollowing(user.id),
+      getUserFollowers(currentUsername),
+      getUserFollowing(currentUsername),
     ]);
 
-    if (userFollowing.some((followed) => followed.id === targetUserId)) {
+    if (
+      userFollowing.some((followed) => followed.username === targetUsername)
+    ) {
       return 'Unfollow';
     }
-    if (userFollowers.some((follower) => follower.id === targetUserId)) {
+    if (
+      userFollowers.some((follower) => follower.username === targetUsername)
+    ) {
       return 'Follow Back';
     }
     return 'Follow';
   };
 
+  const targetUser = await prisma.user.findUnique({
+    where: {
+      username: targetUsername,
+    },
+  });
+
+  if (!targetUser) {
+    throw new Error('Target user not found');
+  }
+
   // Use unstable_cache to cache the result based on user.id and targetUserId
   const cachedActionButtonValue = await unstable_cache(
     fetchActionButtonValue,
-    [user.id, targetUserId],
+    [current_user.username, targetUsername],
     {
       revalidate: 60, // Cache duration in seconds
-      tags: [`user_${user.id}`, `user_${targetUserId}`], // Tag cache with specific ids
+      tags: [`user_${current_user.username}`, `user_${targetUsername}`], // Tag cache with specific ids
     },
   )();
 
@@ -257,8 +310,28 @@ export async function getUserSuggestions (): Promise<User[]> {
   return suggestedUsers;
 }
 
-export async function follow (currentUserId: string, targetUserId: string) {
+export async function follow (currentUsername: string, targetUsername: string) {
   try {
+    const [current_user, targetUser] = await Promise.all([
+      prisma.user.findUnique({
+        where: {
+          username: currentUsername,
+        },
+      }),
+      prisma.user.findUnique({
+        where: {
+          username: targetUsername,
+        },
+      }),
+    ]);
+
+    if (!current_user || !targetUser) {
+      throw new Error('User not found');
+    }
+
+    const targetUserId = targetUser?.id;
+    const currentUserId = current_user?.id;
+
     await prisma.userRelationship.create({
       data: {
         follower_user_id: currentUserId,
@@ -277,8 +350,31 @@ export async function follow (currentUserId: string, targetUserId: string) {
   }
 }
 
-export async function unfollow (currentUserId: string, targetUserId: string) {
+export async function unfollow (
+  currentUsername: string,
+  targetUsername: string,
+) {
   try {
+    const [current_user, targetUser] = await Promise.all([
+      prisma.user.findUnique({
+        where: {
+          username: currentUsername,
+        },
+      }),
+      prisma.user.findUnique({
+        where: {
+          username: targetUsername,
+        },
+      }),
+    ]);
+
+    if (!current_user || !targetUser) {
+      throw new Error('User not found');
+    }
+
+    const targetUserId = targetUser?.id;
+    const currentUserId = current_user?.id;
+
     await prisma.userRelationship.deleteMany({
       where: {
         follower_user_id: currentUserId,

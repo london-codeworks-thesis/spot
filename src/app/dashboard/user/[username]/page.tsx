@@ -3,27 +3,34 @@ import ProfileHeader from '@components/profile/ProfileHeader';
 import RecentReviews from '@components/RecentReviews';
 import Settings from '@components/settings';
 import { getRestaurantsReviewedByUser } from '@lib/restaurantService';
-import { getUserById } from '@lib/userService';
+import { getUserByUsername } from '@lib/userService';
 import React from 'react';
 import { auth } from '@clerk/nextjs/server';
 
 interface UserPageProps {
   params: {
-    id: string;
+    username: string;
   };
 }
 
 async function UserPage ({ params }: UserPageProps) {
-  const profileId = params.id;
+  const { username } = params;
+  const profile = await getUserByUsername(username);
   const session = await auth();
+
+  if (!profile) {
+    return <div>User not found</div>;
+  }
+
+  const profileId = profile.id;
 
   if (!session) {
     return <div>Loading...</div>;
   }
 
   const [user, restaurants] = await Promise.all([
-    getUserById(profileId),
-    getRestaurantsReviewedByUser(profileId),
+    getUserByUsername(username),
+    getRestaurantsReviewedByUser(username),
   ]);
 
   if (!user) {
@@ -41,7 +48,7 @@ async function UserPage ({ params }: UserPageProps) {
             <Settings />
           </div>
         )}
-        <ProfileHeader profileId={profileId} />
+        <ProfileHeader username={username} />
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Review Map</h2>
@@ -51,7 +58,7 @@ async function UserPage ({ params }: UserPageProps) {
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='text-2xl font-semibold'>Recent Reviews</h2>
-        <RecentReviews profileId={profileId} />
+        <RecentReviews username={username} />
       </div>
     </div>
   );

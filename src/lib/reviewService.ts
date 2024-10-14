@@ -21,6 +21,7 @@ export async function getReviewsByRestaurantId (
         user: {
           select: {
             id: true,
+            username: true,
             image: true, // Include user's image
           },
         },
@@ -37,12 +38,12 @@ export async function getReviewsByRestaurantId (
 
 export async function getReviewsFromFollowedUsers (): Promise<ReviewWithUser[]> {
   const user = await currentUser();
-  if (!user) {
+  if (!user || !user.username) {
     throw new Error('User not found');
   }
 
   // Get the list of users that the session user is following
-  const followingUsers = await getUserFollowing(user.id);
+  const followingUsers = await getUserFollowing(user.username);
   const followingUserIds = followingUsers.map(
     (followingUser) => followingUser.id,
   );

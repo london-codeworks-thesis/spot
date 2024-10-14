@@ -1,24 +1,24 @@
 import React from 'react';
 import ProfileActionButton from '@components/profile/ProfileActionButton';
-import { getUserById, getActionButtonForTarget } from '@lib/userService';
+import { getUserByUsername, getActionButtonForTarget } from '@lib/userService';
 import ProfileStats from '@components/profile/ProfileStats';
 import ProfileImage from '@components/profile/ProfileImage';
 
-async function ProfileHeader ({ profileId }: { profileId: string }) {
-  const actionButtonValue = await getActionButtonForTarget(profileId);
+async function ProfileHeader ({ username }: { username: string }) {
+  const actionButtonValue = await getActionButtonForTarget(username);
 
-  const user = await getUserById(profileId);
+  const user = await getUserByUsername(username);
 
   return (
     <div className='flex flex-col gap-3'>
       <div className='flex w-full flex-grow items-center'>
-        <ProfileImage profileId={profileId} />
+        <ProfileImage username={username} />
         <div className='flex h-[100px] flex-grow flex-col justify-evenly gap-4'>
-          <ProfileStats profileId={profileId} />
+          <ProfileStats username={username} />
           <div className='mx-auto w-[210px]'>
             <ProfileActionButton
               actionButtonValue={actionButtonValue}
-              profileId={profileId}
+              username={username}
             />
           </div>
         </div>

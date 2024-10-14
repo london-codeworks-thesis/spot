@@ -4,12 +4,12 @@ import { handleActionButtonClick } from '@lib/actionService';
 
 interface ProfileActionButtonProps {
   actionButtonValue: string;
-  profileId: string;
+  username: string;
 }
 
 function ProfileActionButton ({
   actionButtonValue,
-  profileId,
+  username,
 }: ProfileActionButtonProps) {
   const actionButtonVariant: 'default' | 'secondary' = actionButtonValue === 'Unfollow' || actionButtonValue === 'Edit Profile'
     ? 'secondary'
@@ -18,7 +18,7 @@ function ProfileActionButton ({
   const onClick = handleActionButtonClick.bind(
     null,
     actionButtonValue,
-    profileId,
+    username,
   );
 
   return actionButtonValue ? (

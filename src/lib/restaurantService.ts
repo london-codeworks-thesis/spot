@@ -16,12 +16,12 @@ export async function getRestaurantsReviewedByFollowedUsers (): Promise<
 Restaurant[]
 > {
   const user = await currentUser();
-  if (!user) {
+  if (!user || !user.username) {
     throw new Error('User not found');
   }
 
   // Get the list of users that the session user is following
-  const followingUsers = await getUserFollowing(user.id);
+  const followingUsers = await getUserFollowing(user.username);
   const followingUserIds = followingUsers.map(
     (followingUser) => followingUser.id,
   );
@@ -49,14 +49,22 @@ Restaurant[]
 
 /**
  * Retrieves all restaurants reviewed by a specific user.
- * @param userId - The ID of the user.
+ * @param username - The username of the user.
  * @returns An array of restaurants reviewed by the user.
  */
-export async function getRestaurantsReviewedByUser (userId: string) {
+export async function getRestaurantsReviewedByUser (username: string) {
   // Get the reviews of the restaurants by the specified user
+  const user = await prisma.user.findUnique({
+    where: { username: username },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
   const reviews = await prisma.review.findMany({
     where: {
-      user_id: userId,
+      user_id: user.id,
     },
     include: {
       restaurant: true, // Include the restaurant details in the review

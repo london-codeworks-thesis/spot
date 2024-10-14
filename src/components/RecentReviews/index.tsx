@@ -1,10 +1,10 @@
 import React from 'react';
 import { ScrollArea, ScrollBar } from '@ui/scroll-area';
 import RecentReviewCard from '@components/RecentReviews/RecentReviewCard';
-import { getUserById } from '@lib/userService';
+import { getUserByUsername } from '@lib/userService';
 
-async function RecentReviews ({ profileId }: { profileId: string }) {
-  const user = await getUserById(profileId);
+async function RecentReviews ({ username }: { username: string }) {
+  const user = await getUserByUsername(username);
   if (!user) {
     return <div>User not found</div>;
   }
