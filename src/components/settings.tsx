@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { signOut } from 'next-auth/react';
+import { SignOutButton } from '@clerk/nextjs';
 import { Settings as SettingsIcon } from 'lucide-react';
 import {
   Sheet,
@@ -26,9 +26,9 @@ function Settings () {
           <SheetTitle className='text-3xl font-extrabold'>Settings</SheetTitle>
         </SheetHeader>
         <SheetFooter>
-          <Button onClick={() => signOut({ callbackUrl: '/' })} className='p-6'>
-            Logout
-          </Button>
+          <SignOutButton>
+            <Button className='p-6'>Logout</Button>
+          </SignOutButton>
         </SheetFooter>
       </SheetContent>
     </Sheet>

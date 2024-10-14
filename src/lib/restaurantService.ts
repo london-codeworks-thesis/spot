@@ -1,4 +1,4 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import { getUserFollowing } from '@lib/userService';
 import type { Restaurant } from '@prisma/client';
@@ -15,13 +15,9 @@ export async function getRestaurant (
 export async function getRestaurantsReviewedByFollowedUsers (): Promise<
 Restaurant[]
 > {
-  const session = await auth();
-  const user = session?.user;
-  if (!session) {
-    throw new Error('Session not found');
-  }
+  const user = await currentUser();
   if (!user) {
-    throw new Error(`User not found in session ${session}`);
+    throw new Error('User not found');
   }
 
   // Get the list of users that the session user is following

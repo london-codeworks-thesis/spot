@@ -1,4 +1,4 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import type { User } from '@prisma/client';
 import { revalidateTag, unstable_cache } from 'next/cache';
@@ -156,40 +156,39 @@ export async function getActionButtonsBasedOnTargetUserFollowList (
  * @returns A string representing the action to be taken for the target user.
  */
 export async function getActionButtonForTarget (targetUserId: string) {
-  const session = await auth();
+  const user = await currentUser();
 
-  if (!session) {
-    throw new Error('User not found in session');
+  if (!user) {
+    throw new Error('User not found');
   }
-  const currentUser = session.user;
 
-  if (currentUser.id === targetUserId) {
+  if (user.id === targetUserId) {
     return 'Edit Profile';
   }
 
   // Define a cacheable function
   const fetchActionButtonValue = async () => {
     const [userFollowers, userFollowing] = await Promise.all([
-      getUserFollowers(currentUser.id),
-      getUserFollowing(currentUser.id),
+      getUserFollowers(user.id),
+      getUserFollowing(user.id),
     ]);
 
-    if (userFollowing.some((user) => user.id === targetUserId)) {
+    if (userFollowing.some((followed) => followed.id === targetUserId)) {
       return 'Unfollow';
     }
-    if (userFollowers.some((user) => user.id === targetUserId)) {
+    if (userFollowers.some((follower) => follower.id === targetUserId)) {
       return 'Follow Back';
     }
     return 'Follow';
   };
 
-  // Use unstable_cache to cache the result based on currentUser.id and targetUserId
+  // Use unstable_cache to cache the result based on user.id and targetUserId
   const cachedActionButtonValue = await unstable_cache(
     fetchActionButtonValue,
-    [currentUser.id, targetUserId],
+    [user.id, targetUserId],
     {
       revalidate: 60, // Cache duration in seconds
-      tags: [`user_${currentUser.id}`, `user_${targetUserId}`], // Tag cache with specific ids
+      tags: [`user_${user.id}`, `user_${targetUserId}`], // Tag cache with specific ids
     },
   )();
 
@@ -197,17 +196,16 @@ export async function getActionButtonForTarget (targetUserId: string) {
 }
 
 export async function getUserSuggestions (): Promise<User[]> {
-  const session = await auth();
-  const currentUser = session?.user;
+  const user = await currentUser();
 
-  if (!currentUser) {
+  if (!user) {
     throw new Error('User not found in session');
   }
 
   // Fetch users the current user is following
   const following = await prisma.userRelationship.findMany({
     where: {
-      follower_user_id: currentUser.id,
+      follower_user_id: user.id,
     },
     select: {
       followed_user: true,
@@ -217,7 +215,7 @@ export async function getUserSuggestions (): Promise<User[]> {
   // Fetch users following the current user
   const followers = await prisma.userRelationship.findMany({
     where: {
-      followed_user_id: currentUser.id,
+      followed_user_id: user.id,
     },
     select: {
       follower_user: true,
@@ -248,7 +246,7 @@ export async function getUserSuggestions (): Promise<User[]> {
     const additionalUsers = await prisma.user.findMany({
       where: {
         id: {
-          notIn: [currentUser.id, ...suggestedUserIds],
+          notIn: [user.id, ...suggestedUserIds],
         },
       },
       take: 50 - suggestedUsers.length,

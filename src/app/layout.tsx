@@ -4,7 +4,7 @@ import { VercelToolbar } from '@vercel/toolbar/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
-import Providers from '@/providers';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,11 +22,16 @@ export default async function RootLayout ({
   return (
     <html lang='en'>
       {/* suppressHydrationWarning: Fix hydration warning caused by some chrome extensions, only affects body, not children */}
-      <body className={`${inter.className} inset-0`} suppressHydrationWarning>
-        <Providers>{children}</Providers>
-        {shouldInjectToolbar && <VercelToolbar />}
-        <SpeedInsights />
-      </body>
+      <ClerkProvider>
+        <body
+          className={`${inter.className} inset-0`}
+          suppressHydrationWarning
+        >
+          {children}
+          {shouldInjectToolbar && <VercelToolbar />}
+          <SpeedInsights />
+        </body>
+      </ClerkProvider>
     </html>
   );
 }

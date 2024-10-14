@@ -1,18 +1,18 @@
 'use server';
 
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import { revalidateTag } from 'next/cache';
 
 export async function follow (targetUserId: string) {
-  const session = await auth();
-  if (!session) {
+  const user = await currentUser();
+  if (!user) {
     throw new Error('User is not authenticated.');
   }
   try {
     await prisma.userRelationship.create({
       data: {
-        follower_user_id: session.user.id,
+        follower_user_id: user.id,
         followed_user_id: targetUserId,
       },
     });
@@ -20,18 +20,18 @@ export async function follow (targetUserId: string) {
     throw new Error(`Error following user: ${error}`);
   }
   revalidateTag(`user_${targetUserId}`);
-  revalidateTag(`user_${session.user.id}`);
+  revalidateTag(`user_${user.id}`);
 }
 
 export async function unfollow (targetUserId: string) {
-  const session = await auth();
-  if (!session) {
+  const user = await currentUser();
+  if (!user) {
     throw new Error('User is not authenticated.');
   }
   try {
     await prisma.userRelationship.deleteMany({
       where: {
-        follower_user_id: session.user.id,
+        follower_user_id: user.id,
         followed_user_id: targetUserId,
       },
     });
@@ -39,7 +39,7 @@ export async function unfollow (targetUserId: string) {
     throw new Error(`Error Unfollowing user: ${error}`);
   }
   revalidateTag(`user_${targetUserId}`);
-  revalidateTag(`user_${session.user.id}`);
+  revalidateTag(`user_${user.id}`);
 }
 
 export async function handleActionButtonClick (

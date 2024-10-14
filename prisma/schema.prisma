@@ -9,13 +9,9 @@ datasource db {
 
 model User {
   id               String             @id @default(cuid())
-  email            String             @unique
-  emailVerified    DateTime?
-  image            String?
-  accounts         Account[]
-  sessions         Session[]
-  password         String?
+  clerk_id         String?            @unique
   username         String?            @unique
+  image            String?
   first_name       String?
   last_name        String?
   followers        UserRelationship[] @relation("Followers")
@@ -27,52 +23,13 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([provider, providerAccountId])
-}
-
-model Session {
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@id([identifier, token])
-}
-
 model UserRelationship {
   followed_user    User    @relation("Followers", fields: [followed_user_id], references: [id], onDelete: Cascade)
   followed_user_id String
   follower_user    User    @relation("Following", fields: [follower_user_id], references: [id], onDelete: Cascade)
   follower_user_id String
-  User             User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId           String?
+  user             User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id          String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

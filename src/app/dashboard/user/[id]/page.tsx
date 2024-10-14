@@ -5,7 +5,7 @@ import Settings from '@components/settings';
 import { getRestaurantsReviewedByUser } from '@lib/restaurantService';
 import { getUserById } from '@lib/userService';
 import React from 'react';
-import { auth } from 'src/auth';
+import { auth } from '@clerk/nextjs/server';
 
 interface UserPageProps {
   params: {
@@ -30,7 +30,7 @@ async function UserPage ({ params }: UserPageProps) {
     return <div>User not found</div>;
   }
 
-  const isCurrentUser = session.user.id === profileId;
+  const isCurrentUser = session.userId === profileId;
   const topMargin = isCurrentUser ? 'mt-4' : 'mt-8';
 
   return (

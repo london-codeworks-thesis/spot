@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import AddReviewButton from '@components/addNewReviewButton';
 import NavbarButton from '@components/Navbar/NavbarButtons';
-import { auth } from '@auth';
+import { auth } from '@clerk/nextjs/server';
 
 export default async function NavBar () {
   const session = await auth();
@@ -18,7 +18,7 @@ export default async function NavBar () {
       <NavbarButton Icon={Search} Route='search' />
       <AddReviewButton />
       <NavbarButton Icon={MapPinned} Route='' />
-      <NavbarButton Icon={User} Route={`user/${session.user.id}`} />
+      <NavbarButton Icon={User} Route={`user/${session.userId}`} />
     </div>
   );
 }
