@@ -37,9 +37,7 @@ export default function UserSearch ({ users }: UserSuggestionsProps) {
               aria-hidden='true'
             >
               <CommandItem key={user.username}>
-                {user.first_name && user.last_name
-                  ? `${user.first_name} ${user.last_name}`
-                  : user.username}
+                {`${user.first_name} ${user.last_name}`}
               </CommandItem>
             </div>
           ))}

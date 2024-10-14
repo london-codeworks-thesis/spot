@@ -8,15 +8,15 @@ export async function syncUserWithDatabase (clerkUser: UserJSON) {
     where: { clerk_id: clerkUser.id },
     update: {
       image: clerkUser.image_url,
-      first_name: clerkUser.first_name,
-      last_name: clerkUser.last_name,
+      first_name: clerkUser.first_name!,
+      last_name: clerkUser.last_name!,
       username: clerkUser.username!,
     },
     create: {
       clerk_id: clerkUser.id,
       image: clerkUser.image_url,
-      first_name: clerkUser.first_name,
-      last_name: clerkUser.last_name,
+      first_name: clerkUser.first_name!,
+      last_name: clerkUser.last_name!,
       username: clerkUser.username!,
     },
   });

@@ -4,7 +4,6 @@ import { Card } from '@ui/card';
 import { redirect } from 'next/navigation';
 import prisma from '@lib/prisma';
 import React from 'react';
-import { User } from '@prisma/client';
 
 interface PageProps {
   searchParams: {
@@ -24,6 +23,10 @@ export default async function Page ({ searchParams }: PageProps) {
     where: { username: session.username },
   });
 
+  if (!user) {
+    redirect('/');
+  }
+
   const restaurant = JSON.parse(searchParams.restaurant);
   const img = JSON.parse(searchParams.imgSource);
 
@@ -41,7 +44,7 @@ export default async function Page ({ searchParams }: PageProps) {
           <h1 className='text-3xl font-extrabold'>{restaurant.name}</h1>
           <h4 className='text-sm'>{restaurant.address}</h4>
         </div>
-        <ReviewForm restaurant={restaurant} user={user as User} />
+        <ReviewForm restaurant={restaurant} user={user} />
       </div>
     </div>
   );

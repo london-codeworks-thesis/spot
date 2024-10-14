@@ -68,11 +68,11 @@ export async function getUserFollowers (username: string) {
     },
   });
 
-  const userId = user?.id;
-
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!user) {
+    throw new Error('User not found');
   }
+
+  const userId = user.id;
 
   const fetchFollowers = async () => {
     const followers = await prisma.userRelationship.findMany({
@@ -102,10 +102,11 @@ export async function getUserFollowing (username: string) {
     },
   });
 
-  const userId = user?.id;
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!user) {
+    throw new Error('User not found');
   }
+
+  const userId = user.id;
 
   const fetchFollowing = async () => {
     const following = await prisma.userRelationship.findMany({
@@ -152,7 +153,11 @@ export async function getActionButtonsBasedOnTargetUserFollowList (
   ]);
 
   if (!current_user || !targetUser) {
-    throw new Error('User not found');
+    if (!current_user) {
+      throw new Error('Current user not found');
+    } else {
+      throw new Error('Target user not found');
+    }
   }
 
   const currentUserId = current_user.id;
@@ -326,11 +331,14 @@ export async function follow (currentUsername: string, targetUsername: string) {
     ]);
 
     if (!current_user || !targetUser) {
-      throw new Error('User not found');
+      if (!current_user) {
+        throw new Error('Current user not found');
+      }
+      throw new Error('Target user not found');
     }
 
-    const targetUserId = targetUser?.id;
-    const currentUserId = current_user?.id;
+    const targetUserId = targetUser.id;
+    const currentUserId = current_user.id;
 
     await prisma.userRelationship.create({
       data: {
