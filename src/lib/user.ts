@@ -4,22 +4,20 @@ import { UserJSON } from '@clerk/nextjs/server';
 const prisma = new PrismaClient();
 
 export async function syncUserWithDatabase (clerkUser: UserJSON) {
-  const { username } = clerkUser;
-
   const user = await prisma.user.upsert({
     where: { clerk_id: clerkUser.id },
     update: {
-      image: clerkUser.image_url || null,
+      image: clerkUser.image_url,
       first_name: clerkUser.first_name,
       last_name: clerkUser.last_name,
-      username,
+      username: clerkUser.username!,
     },
     create: {
       clerk_id: clerkUser.id,
-      image: clerkUser.image_url || null,
+      image: clerkUser.image_url,
       first_name: clerkUser.first_name,
       last_name: clerkUser.last_name,
-      username,
+      username: clerkUser.username!,
     },
   });
 

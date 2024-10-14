@@ -17,10 +17,15 @@ export async function follow (targetUsername: string) {
   if (!user) {
     throw new Error('User is not authenticated.');
   }
+
+  const userRecord = await prisma.user.findUnique({
+    where: { clerk_id: user.id },
+  });
+
   try {
     await prisma.userRelationship.create({
       data: {
-        follower_user_id: user.id,
+        follower_user_id: userRecord!.id,
         followed_user_id: targetUser.id,
       },
     });
@@ -44,10 +49,15 @@ export async function unfollow (targetUsername: string) {
   if (!user) {
     throw new Error('User is not authenticated.');
   }
+
+  const userRecord = await prisma.user.findUnique({
+    where: { clerk_id: user.id },
+  });
+
   try {
     await prisma.userRelationship.deleteMany({
       where: {
-        follower_user_id: user.id,
+        follower_user_id: userRecord!.id,
         followed_user_id: targetUser.id,
       },
     });
@@ -55,7 +65,7 @@ export async function unfollow (targetUsername: string) {
     throw new Error(`Error Unfollowing user: ${error}`);
   }
   revalidateTag(`user_${targetUser.username}`);
-  revalidateTag(`user_${user.id}`);
+  revalidateTag(`user_${user.username}`);
 }
 
 export async function handleActionButtonClick (
