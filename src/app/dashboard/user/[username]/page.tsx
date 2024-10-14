@@ -5,7 +5,7 @@ import Settings from '@components/settings';
 import { getRestaurantsReviewedByUser } from '@lib/restaurantService';
 import { getUserByUsername } from '@lib/userService';
 import React from 'react';
-import { auth } from '@clerk/nextjs/server';
+import { currentUser } from '@clerk/nextjs/server';
 
 interface UserPageProps {
   params: {
@@ -15,14 +15,7 @@ interface UserPageProps {
 
 async function UserPage ({ params }: UserPageProps) {
   const { username } = params;
-  const profile = await getUserByUsername(username);
-  const session = await auth();
-
-  if (!profile) {
-    return <div>User not found</div>;
-  }
-
-  const profileId = profile.id;
+  const session = await currentUser();
 
   if (!session) {
     return <div>Loading...</div>;
@@ -37,7 +30,7 @@ async function UserPage ({ params }: UserPageProps) {
     return <div>User not found</div>;
   }
 
-  const isCurrentUser = session.userId === profileId;
+  const isCurrentUser = session.username === username;
   const topMargin = isCurrentUser ? 'mt-4' : 'mt-8';
 
   return (
