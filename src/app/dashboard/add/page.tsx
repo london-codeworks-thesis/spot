@@ -1,9 +1,10 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import ReviewForm from '@components/forms/ReviewForm';
 import { Card } from '@ui/card';
 import { redirect } from 'next/navigation';
+import prisma from '@lib/prisma';
 import React from 'react';
-import { User } from 'types/user';
+import { User } from '@prisma/client';
 
 interface PageProps {
   searchParams: {
@@ -13,12 +14,15 @@ interface PageProps {
 }
 
 export default async function Page ({ searchParams }: PageProps) {
-  const session = await auth();
-  const user = session?.user as User | null;
+  const session = await currentUser();
 
-  if (!user) {
+  if (!session || !session.username) {
     redirect('/');
   }
+
+  const user = await prisma.user.findUnique({
+    where: { username: session.username },
+  });
 
   const restaurant = JSON.parse(searchParams.restaurant);
   const img = JSON.parse(searchParams.imgSource);
@@ -37,7 +41,7 @@ export default async function Page ({ searchParams }: PageProps) {
           <h1 className='text-3xl font-extrabold'>{restaurant.name}</h1>
           <h4 className='text-sm'>{restaurant.address}</h4>
         </div>
-        <ReviewForm restaurant={restaurant} user={user} />
+        <ReviewForm restaurant={restaurant} user={user as User} />
       </div>
     </div>
   );
