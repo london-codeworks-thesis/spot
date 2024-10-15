@@ -3,6 +3,7 @@
 import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import { revalidateTag } from 'next/cache';
+import { getActionButtonForTarget } from '@lib/userService';
 
 export async function follow (targetUsername: string) {
   const targetUser = await prisma.user.findUnique({
@@ -69,16 +70,14 @@ export async function unfollow (targetUsername: string) {
 }
 
 export async function handleActionButtonClick (
-  actionButtonValue: string,
+  actionButtonValue: Exclude<
+  Awaited<ReturnType<typeof getActionButtonForTarget>>,
+  'Edit Profile'
+  >,
   username: string,
 ) {
   if (actionButtonValue === 'Follow' || actionButtonValue === 'Follow Back') {
     return follow(username);
   }
-  if (actionButtonValue === 'Unfollow') {
-    return unfollow(username);
-  }
-  // TODO: Implement edit profile functionality
-  console.log('NOT IMPLEMENTED YET');
-  return false;
+  return unfollow(username);
 }
