@@ -22,11 +22,12 @@
     "paths": {
       "@auth": ["src/auth.ts"],
       "@components/*": ["src/components/*"],
+      "@config/*": ["src/config/*"],
       "@ui/*": ["src/components/ui/*"],
       "@hooks/*": ["./hooks/*"],
       "@lib/*": ["src/lib/*"],
       "@prisma/*": ["./prisma/*"],
-      "@router/*": ["src/router/*"],
+      "@router/*": ["src/config/*"],
       "@tests/*": ["src/__tests__/*"],
       "@/*": ["src/app/*"],
       "types/*": ["src/types/*"],
@@ -38,6 +39,7 @@
   "typeRoots": ["./node_modules/@types", "./types"],
   "include": [
     "src/next-env.d.ts",
+    "scripts/**/*",
     "**/types/*.d.ts",
     "**/*.ts",
     "**/*.tsx",

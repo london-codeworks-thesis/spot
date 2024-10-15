@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
+import { clerkClient } from '@clerk/nextjs/server';
 import users from './users';
 import restaurants from './restaurant';
 
@@ -8,32 +8,35 @@ const prisma = new PrismaClient();
 async function main () {
   console.log('seed start');
 
+  // extract user ids
+  const userClerkIds = Object.values(users);
+
   // empty database
   // Delete linking tables first
   await Promise.all([
-    prisma.account.deleteMany(),
-    prisma.session.deleteMany(),
     prisma.review.deleteMany(),
     prisma.userRelationship.deleteMany(),
   ]);
   // Then delete the main tables
-  await Promise.all([
-    prisma.verificationToken.deleteMany(),
-    prisma.user.deleteMany(),
-    prisma.restaurant.deleteMany(),
-  ]);
+  await Promise.all([prisma.user.deleteMany(), prisma.restaurant.deleteMany()]);
 
   // seed users
-  const userPromises = users.map((user) => prisma.user.create({
-    data: {
-      username: user.username,
-      password: bcrypt.hashSync(user.password, 10),
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      image: user.image,
-    },
-  }));
+  const userPromises = userClerkIds.map(async (userId) => {
+    const user = await clerkClient.users.getUser(userId); // Fetch user details by ID
+    if (!user) {
+      throw new Error(`User not found: ${userId}`);
+    }
+
+    return prisma.user.create({
+      data: {
+        clerk_id: user.id,
+        image: user.imageUrl,
+        first_name: user.firstName!,
+        last_name: user.lastName!,
+        username: user.username!,
+      },
+    });
+  });
 
   // seed restaurants
   const restaurantPromises = restaurants.map((restaurant) => prisma.restaurant.create({ data: restaurant }));
@@ -105,10 +108,10 @@ async function main () {
         user: {
           OR: [
             {
-              email: 'tobydixonsmith@gmail.com',
+              clerk_id: users.Toby,
             },
             {
-              email: 'sunny.anter4@gmail.com',
+              clerk_id: users.Sunny,
             },
           ],
         },
@@ -118,7 +121,7 @@ async function main () {
     prisma.userRelationship.deleteMany({
       where: {
         followed_user: {
-          email: 'tobydixonsmith@gmail.com',
+          clerk_id: users.Toby,
         },
       },
     }),

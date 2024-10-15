@@ -65,4 +65,12 @@ module.exports = {
       },
     ],
   },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+      }
+    }
+  ]
 };

@@ -19,8 +19,8 @@ type UserSuggestionsProps = {
 export default function UserSearch ({ users }: UserSuggestionsProps) {
   const router = useRouter();
 
-  function handleClick (id: string) {
-    router.push(`/dashboard/user/${id}`);
+  function handleClick (username: string) {
+    router.push(`/dashboard/user/${username}`);
   }
 
   return (
@@ -32,14 +32,12 @@ export default function UserSearch ({ users }: UserSuggestionsProps) {
           {users.map((user) => (
             <div
               role='button'
-              key={user.id}
-              onClick={() => handleClick(user.id)}
+              key={user.username}
+              onClick={() => handleClick(user.username)}
               aria-hidden='true'
             >
-              <CommandItem key={user.id}>
-                {user.first_name}
-                {' '}
-                {user.last_name}
+              <CommandItem key={user.username}>
+                {`${user.first_name} ${user.last_name}`}
               </CommandItem>
             </div>
           ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { getUserById } from '@lib/userService';
+import { getUserByUsername } from '@lib/userService';
 
 // To account for multiword names
 const getInitials = (name: string) => name
@@ -9,12 +9,8 @@ const getInitials = (name: string) => name
   .join('')
   .toUpperCase();
 
-export default async function ProfileImage ({
-  profileId,
-}: {
-  profileId: string;
-}) {
-  const user = await getUserById(profileId);
+export default async function ProfileImage ({ username }: { username: string }) {
+  const user = await getUserByUsername(username);
 
   if (!user) {
     throw new Error('User not found');

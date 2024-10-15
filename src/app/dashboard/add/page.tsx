@@ -1,9 +1,9 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import ReviewForm from '@components/forms/ReviewForm';
 import { Card } from '@ui/card';
 import { redirect } from 'next/navigation';
+import prisma from '@lib/prisma';
 import React from 'react';
-import { User } from 'types/user';
 
 interface PageProps {
   searchParams: {
@@ -13,8 +13,15 @@ interface PageProps {
 }
 
 export default async function Page ({ searchParams }: PageProps) {
-  const session = await auth();
-  const user = session?.user as User | null;
+  const session = await currentUser();
+
+  if (!session || !session.username) {
+    redirect('/');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { username: session.username },
+  });
 
   if (!user) {
     redirect('/');

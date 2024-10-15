@@ -1,8 +1,24 @@
-import NextAuth from 'next-auth';
-import authConfig from 'src/auth.config';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-export const { auth: middleware } = NextAuth(authConfig);
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/login(.*)',
+  '/register(.*)',
+  '/api/webhooks/clerk',
+  '/(clerk)(.*)',
+]);
+
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect();
+  }
+});
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
 };
