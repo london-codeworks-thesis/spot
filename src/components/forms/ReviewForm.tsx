@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PiggyBank, Flame, Cookie } from 'lucide-react';
-import { User } from 'src/types/user';
+import { User } from '@prisma/client';
 import { Card, CardContent } from '@ui/card';
 import { Button } from '@ui/button';
 import StarRatingSystem from '@components/StarRatingSystem';
@@ -47,7 +47,7 @@ export default function ReviewForm ({ restaurant, user }: ReviewFormProps) {
       console.error('Error sending reviews', error);
       throw error;
     } finally {
-      router.push(`/dashboard/user/${user.id}`);
+      router.push(`/dashboard/user/${user.username}`);
     }
   }
 

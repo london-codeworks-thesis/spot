@@ -1,4 +1,4 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import { getUserFollowing } from '@lib/userService';
 import type { Restaurant } from '@prisma/client';
@@ -15,17 +15,13 @@ export async function getRestaurant (
 export async function getRestaurantsReviewedByFollowedUsers (): Promise<
 Restaurant[]
 > {
-  const session = await auth();
-  const user = session?.user;
-  if (!session) {
-    throw new Error('Session not found');
-  }
-  if (!user) {
-    throw new Error(`User not found in session ${session}`);
+  const user = await currentUser();
+  if (!user || !user.username) {
+    throw new Error('User not found');
   }
 
   // Get the list of users that the session user is following
-  const followingUsers = await getUserFollowing(user.id);
+  const followingUsers = await getUserFollowing(user.username);
   const followingUserIds = followingUsers.map(
     (followingUser) => followingUser.id,
   );
@@ -53,14 +49,22 @@ Restaurant[]
 
 /**
  * Retrieves all restaurants reviewed by a specific user.
- * @param userId - The ID of the user.
+ * @param username - The username of the user.
  * @returns An array of restaurants reviewed by the user.
  */
-export async function getRestaurantsReviewedByUser (userId: string) {
+export async function getRestaurantsReviewedByUser (username: string) {
   // Get the reviews of the restaurants by the specified user
+  const user = await prisma.user.findUnique({
+    where: { username: username },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
   const reviews = await prisma.review.findMany({
     where: {
-      user_id: userId,
+      user_id: user.id,
     },
     include: {
       restaurant: true, // Include the restaurant details in the review

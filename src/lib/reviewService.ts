@@ -1,4 +1,4 @@
-import { auth } from '@auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@lib/prisma';
 import { getUserFollowing } from '@lib/userService';
 import type { Review } from '@prisma/client';
@@ -21,6 +21,7 @@ export async function getReviewsByRestaurantId (
         user: {
           select: {
             id: true,
+            username: true,
             image: true, // Include user's image
           },
         },
@@ -36,15 +37,13 @@ export async function getReviewsByRestaurantId (
 }
 
 export async function getReviewsFromFollowedUsers (): Promise<ReviewWithUser[]> {
-  const session = await auth();
-  const user = session?.user;
-
-  if (!user) {
-    throw new Error('User not found in session');
+  const user = await currentUser();
+  if (!user || !user.username) {
+    throw new Error('User not found');
   }
 
   // Get the list of users that the session user is following
-  const followingUsers = await getUserFollowing(user.id);
+  const followingUsers = await getUserFollowing(user.username);
   const followingUserIds = followingUsers.map(
     (followingUser) => followingUser.id,
   );

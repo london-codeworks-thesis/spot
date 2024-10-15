@@ -1,12 +1,8 @@
 import React from 'react';
-import { getUserById } from '@lib/userService';
+import { getUserByUsername } from '@lib/userService';
 
-export default async function ProfileStats ({
-  profileId,
-}: {
-  profileId: string;
-}) {
-  const user = await getUserById(profileId);
+export default async function ProfileStats ({ username }: { username: string }) {
+  const user = await getUserByUsername(username);
   return (
     <div className='align-center flex flex-row justify-center gap-6 font-semibold text-neutral-700'>
       <div className='flex flex-col items-center'>
