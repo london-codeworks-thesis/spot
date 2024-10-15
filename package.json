@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "dev:webhook": "node scripts/dev-webhook.cjs",
     "ngrok": "ngrok http --url=tobyds.ngrok.app 3000",
     "build": "next build",
     "start": "next start",
@@ -19,8 +18,8 @@
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "commit": "cz",
-    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
-    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "prisma:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "prisma:migrate": "npx dotenv -e .env.local -- prisma migrate dev",
     "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
     "prisma:studio": "npx dotenv -e .env.local -- prisma studio"
   },
